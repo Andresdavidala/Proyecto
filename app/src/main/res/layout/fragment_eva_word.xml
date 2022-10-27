@@ -1,7 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EvaWord" />
+    tools:context=".EvaWord" >
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/evaWO"
+
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="290dp"
+        android:layout_height="56dp"
+        app:boxBackgroundColor="@color/textfieldMost"
+
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48000002">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/wordOrg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/viga_regular"
+
+            android:textSize="20dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/evaWT"
+        android:layout_width="290dp"
+        android:layout_height="56dp"
+        app:boxBackgroundColor="@color/textfieldMost"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/evaWO"
+        app:layout_constraintVertical_bias="0.060000002">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/wordTrad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/viga_regular"
+            android:hint="Ingresa la traducción"
+            android:textSize="20dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvTitleSaveW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/viga_regular"
+        android:text="Practica tus palabras"
+        android:textColor="@color/textfieldMost"
+        android:textColorHint="#FFEB3B"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/evaWO"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.659" />
+
+    <TextView
+        android:id="@+id/tvEvaDescription"
+        android:layout_width="369dp"
+        android:layout_height="38dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="!Evalúate! intenta repasar las palabras que has guardado para que no se te olviden."
+        android:textColor="@color/textfieldMost"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/evaWO"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleSaveW"
+        app:layout_constraintVertical_bias="0.277" />
+
+    <Button
+        android:id="@+id/btnEvaWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/viga_regular"
+        android:text="EVALUAR"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/evaWT"
+        app:layout_constraintVertical_bias="0.166" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,5 @@ class MainActivity : AppCompatActivity() {
 
         binding.vpSlide.adapter = AdapterVP2(this)
 
-
     }
 }
