@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto.R
 import com.example.proyecto.Recycler.DataWordsBase
-import com.example.proyecto.databinding.FragmentListWordsBinding
 import com.example.proyecto.databinding.WordslistrecyclerviewBinding
 
-class CustomerAdapter(val wordsDataList:List<DataWordsBase>):RecyclerView.Adapter<CustomerAdapter.vhDataList>() {
+class CustomerAdapter(
+    val wordsDataList:List<DataWordsBase>,
+    private val onClickListener: (DataWordsBase) -> Unit,
+    private val onClickDelete: (Int) -> Unit
+):RecyclerView.Adapter<CustomerAdapter.vhDataList>() {
 
 
 
@@ -22,7 +25,7 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>):RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: vhDataList, position: Int) {
         val dataListPosition = wordsDataList[position]
-        holder.renderData(dataListPosition)
+        holder.renderData(dataListPosition, onClickListener, onClickDelete)
     }
 
     override fun getItemCount(): Int {
@@ -31,9 +34,18 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>):RecyclerView.Adapte
 
     inner class vhDataList(view: View): RecyclerView.ViewHolder(view){
         val binding = WordslistrecyclerviewBinding.bind(view)
-        fun renderData(dataListW: DataWordsBase){
+        fun renderData(
+            dataListW: DataWordsBase,
+            onClickListener: (DataWordsBase) -> Unit,
+            onClickDelete: (Int) -> Unit
+        ){
             binding.tvWordOrg.text = dataListW.wordOrg
             binding.tvWordTrad.text = dataListW.wordTrad.replace(",", "")
+
+            itemView.setOnClickListener { onClickListener(dataListW) }
+            binding.btnDelete.setOnClickListener {
+                onClickDelete(adapterPosition)
+            }
         }
     }
 }

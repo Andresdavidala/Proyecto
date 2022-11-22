@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto.Recycler.Customer.CustomerAdapter
+import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentEvaWordBinding
 import com.example.proyecto.databinding.FragmentListWordsBinding
@@ -20,7 +22,7 @@ import java.io.*
 class listWords : Fragment() {
     private var _binding: FragmentListWordsBinding?=null
     private val binding get() = _binding!!
-
+    private lateinit var adapter: CustomerAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,10 +45,37 @@ class listWords : Fragment() {
 
     fun iniRecyclerView(){
 
+
+        adapter = CustomerAdapter(dataWordProvider.dataWords,{onItemSelected(it)},{position -> onDeleteWord(position)})
         val recyclerView= binding.rvDataList
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = CustomerAdapter(dataWordProvider.dataWords)
+        recyclerView.adapter = adapter
+    }
+
+    fun onItemSelected(dataWordProvider: DataWordsBase){
+        Toast.makeText(context, dataWordProvider.wordTrad, Toast.LENGTH_SHORT).show()
+    }
+
+    fun onDeleteWord(position: Int){
+        var txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_PRIVATE)
+        var outputWriter = OutputStreamWriter(txtFile)
+        dataWordProvider.dataWords.removeAt(position)
+
+        Log.d("datosRV", dataWordProvider.dataWords.toString())
+
+        try{
+            for( i in dataWordProvider.dataWords.indices){
+                outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}, ")
+                outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}, ")
+            }
+        }catch (_: java.lang.Exception){
+
+        }
+        outputWriter.flush()
+        outputWriter.close()
+        adapter.notifyItemRemoved(position)
+
     }
 
 }
