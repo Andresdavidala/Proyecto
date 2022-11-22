@@ -33,12 +33,18 @@ class EvaWord : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//se crea un List de todas las palabras insertadas
-        val openFile = activity?.openFileInput("words.txt")
-        val inputReader = InputStreamReader(openFile)
-        val data =inputReader.readText()
-        val datatoList = data.split(",")
+        //desactivar el campo de palabra Orig
 
+        //↑
+
+//se crea un List de todas las palabras insertadas
+        val openFile = activity?.openFileInput("myfile.txt")
+        val inputReader = InputStreamReader(openFile)
+        val data =inputReader.readText().trimEnd()
+        val datatoList = data.split(", ")
+
+
+        Log.d("datos", datatoList.toString())
         var mapWords: MutableMap<String, String> = mutableMapOf()
         var numWord = 0
         for(i in datatoList.indices){
@@ -53,12 +59,12 @@ class EvaWord : Fragment() {
 
         Log.d("mapword", mapWords.toString())
 
-        var wordTrad =mapWords[valorRandom(mapWords, binding.evaWO.editText!!)]
+        var wordTrad =mapWords[valorRandom(mapWords, binding.evaWO.editText)]
         Log.d("MAP",wordTrad.toString())
 
         binding.btnEvaWord.setOnClickListener {
-            if(wordTrad == binding.evaWT.editText?.text.toString()){
-                wordTrad = mapWords[valorRandom(mapWords, binding.evaWO.editText!!)]
+            if(wordTrad == binding.evaWT.editText?.text.toString().trim()+","){
+                wordTrad = mapWords[valorRandom(mapWords, binding.evaWO.editText)]
 
             }else{
 
@@ -67,9 +73,9 @@ class EvaWord : Fragment() {
         }
     }
 
-    private fun valorRandom(mapValor: Map<String, String>, editWO: EditText):String{
+    private fun valorRandom(mapValor: Map<String, String>, editWO: EditText?):String{
         var randomMap = mapValor.entries.elementAt(Random.nextInt(mapValor.size))
-        editWO.setText(randomMap.key)
+        editWO?.setText(randomMap.key)
         return randomMap.key
     }
 }

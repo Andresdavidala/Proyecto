@@ -11,4 +11,6 @@
     <color name="primarioNeg">#1D2021</color>
     <color name="secundarioCel">#00C4F5</color>
     <color name="textfieldMost">#FB8500</color>
+    <color name="textcol">#BFFFFFFF</color>
+    <color name="backColor">#00F0F8FF</color>
 </resources>

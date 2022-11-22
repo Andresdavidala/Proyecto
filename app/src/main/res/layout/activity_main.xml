@@ -33,18 +33,27 @@
         app:layout_constraintStart_toStartOf="@+id/vpSlide"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bnSelect"
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/vpSlide"
         android:layout_margin="30dp"
-        android:elevation="3dp"
-        app:itemRippleColor="@android:color/transparent"
-        app:itemIconSize="30dp"
-        app:labelVisibilityMode="unlabeled"
         android:background="@drawable/rounded_bn"
+        android:elevation="3dp"
+        app:itemIconSize="30dp"
         app:itemIconTint="@drawable/itemselector"
-        app:menu="@menu/menu_bn"
-        />
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="@+id/vpSlide"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

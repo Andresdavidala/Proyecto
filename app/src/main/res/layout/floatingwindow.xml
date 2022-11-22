@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardContainer"
+        android:layout_width="191dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="@color/textcol"
+        app:cardCornerRadius="20dp">
+
+        <TextView
+            android:id="@+id/edt_description2"
+            android:layout_width="171dp"
+            android:layout_height="51dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edt_description"
+            android:padding="10dp"
+            android:scrollbars="vertical"
+
+
+            android:textAlignment="gravity"
+
+
+            android:textSize="22dp" />
+
+        <EditText
+            android:id="@+id/edt_description"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:layout_width="171dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="70dp"
+
+            android:background="@drawable/edt_description"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/btnMax"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="120dp"
+            android:background="@color/backColor"
+
+            android:drawableLeft="@android:drawable/ic_menu_send"
+
+
+            tools:ignore="SpeakableTextPresentCheck" />
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
