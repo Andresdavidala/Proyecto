@@ -43,23 +43,28 @@ class listWords : Fragment() {
 
     }
 
+
+    fun listWrite(context: Context){
+
+    }
     fun iniRecyclerView(){
 
-
-        adapter = CustomerAdapter(dataWordProvider.dataWords,{onItemSelected(it)},{position -> onDeleteWord(position)})
+        adapter = CustomerAdapter(dataWordProvider.dataWords,{position -> onDeleteWord(position)}, requireContext())
         val recyclerView= binding.rvDataList
+
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+
+
     }
 
-    fun onItemSelected(dataWordProvider: DataWordsBase){
-        Toast.makeText(context, dataWordProvider.wordTrad, Toast.LENGTH_SHORT).show()
-    }
 
     fun onDeleteWord(position: Int){
-        var txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_PRIVATE)
-        var outputWriter = OutputStreamWriter(txtFile)
+
+        //proceso para eliminar palabras en el recyclerView
+        val txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_PRIVATE)
+        val outputWriter = OutputStreamWriter(txtFile)
         dataWordProvider.dataWords.removeAt(position)
 
         Log.d("datosRV", dataWordProvider.dataWords.toString())
@@ -74,6 +79,8 @@ class listWords : Fragment() {
         }
         outputWriter.flush()
         outputWriter.close()
+
+        //se notifica al recycler que se elimino un elemento
         adapter.notifyItemRemoved(position)
 
     }
