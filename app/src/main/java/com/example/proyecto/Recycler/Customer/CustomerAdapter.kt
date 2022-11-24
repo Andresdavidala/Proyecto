@@ -15,10 +15,6 @@ import java.io.OutputStreamWriter
 
 class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):RecyclerView.Adapter<CustomerAdapter.vhDataList>() {
 
-
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): vhDataList {
         val dataLayout =LayoutInflater.from(parent.context)
         return vhDataList(dataLayout.inflate(R.layout.wordslistrecyclerview, parent, false))
@@ -35,17 +31,12 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
 
     inner class vhDataList(view: View): RecyclerView.ViewHolder(view){
 
-
         val binding = WordslistrecyclerviewBinding.bind(view)
 
         fun renderData(dataListW: DataWordsBase, onClickDelete: (Int) -> Unit, fileContext: Context) {
 
-
-
-
             binding.tvWordOrg.text = dataListW.wordOrg
             binding.tvWordTrad.text = dataListW.wordTrad.replace(",", "")
-
 
             binding.btnDelete.setOnClickListener {
                 onClickDelete(adapterPosition)
@@ -62,10 +53,6 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
                 Log.d("datosWT", dataListW.wordTrad)
             }
 
-
-
-
-
             binding.btnEdit.setOnClickListener {
 
                 binding.btnCheck.visibility = View.VISIBLE
@@ -77,7 +64,7 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
                 binding.etWordTrad.visibility = View.VISIBLE
                 binding.etWordOrg.setText(dataListW.wordOrg)
                 binding.etWordTrad.setText(dataListW.wordTrad.replace(",", ""))
-
+                binding.btnCancel.visibility = View.VISIBLE
             }
 
             binding.btnCheck.setOnClickListener {
@@ -88,9 +75,8 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
 
                 binding.etWordOrg.visibility = View.GONE
                 binding.etWordTrad.visibility = View.GONE
+                binding.btnCancel.visibility = View.GONE
 
-
-//                val os: FileOutputStream = openFileOutput("myfile.txt", Context.MODE_PRIVATE)
                 dataWordProvider.dataWords[adapterPosition] = DataWordsBase(binding.etWordOrg.text.toString().trim(), binding.etWordTrad.text.toString().trim())
                 val txtfile: FileOutputStream? = fileContext.openFileOutput("myfile.txt",Context.MODE_PRIVATE) // se borra porque automaticamente el modoprivate lo borra desde aqui piensa
                 val outputWriter = OutputStreamWriter(txtfile)
@@ -111,15 +97,23 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
                     Log.d("datosE", "ERRROR")
                 }
 
-//                val txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_PRIVATE)
-//            var outputWriter = OutputStreamWriter(txtFile)
-
-//            var outputWriter = OutputStreamWriter(txtFile)
-
             }
 
+            binding.btnCancel.setOnClickListener {
+                binding.btnEdit.visibility = View.VISIBLE
+                binding.btnCheck.visibility = View.GONE
+                binding.btnDelete.visibility = View.VISIBLE
+                binding.btnCancel.visibility = View.GONE
+                binding.etWordOrg.visibility = View.GONE
+                binding.etWordTrad.visibility = View.GONE
+                binding.tvWordOrg.visibility = View.VISIBLE
+                binding.tvWordTrad.visibility = View.VISIBLE
+
+                binding.etWordOrg.setText(dataListW.wordOrg)
+                binding.etWordTrad.setText(dataListW.wordTrad.replace(",", ""))
 
 
+            }
         }
     }
 }

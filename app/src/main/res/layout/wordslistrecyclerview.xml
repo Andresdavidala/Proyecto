@@ -42,11 +42,11 @@
                 android:id="@+id/etWordOrg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/viga_regular"
                 android:gravity="center|center_horizontal|center_vertical"
                 android:textSize="20sp"
                 android:visibility="gone"
-                android:background="@android:color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -135,6 +135,19 @@
         app:srcCompat="@drawable/deletebtn" />
 
     <ImageView
+        android:id="@+id/btnCancel"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:srcCompat="@drawable/cancelbtn" />
+
+    <ImageView
         android:id="@+id/btnEdit"
         android:layout_width="41dp"
         android:layout_height="43dp"
@@ -149,9 +162,9 @@
 
     <ImageView
         android:id="@+id/btnCheck"
-        android:visibility="gone"
         android:layout_width="41dp"
         android:layout_height="43dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.68"
