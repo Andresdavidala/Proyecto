@@ -105,6 +105,8 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
 
                     outputWriter.flush()
                     outputWriter.close()
+
+                    notifyItemChanged(adapterPosition)
                 }catch (_: java.lang.Exception){
                     Log.d("datosE", "ERRROR")
                 }
