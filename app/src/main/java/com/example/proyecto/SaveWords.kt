@@ -43,6 +43,8 @@ class SaveWords : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        dataWordProvider.dataWords.clear()
+        Log.d("datosEmpty", "vacio")
         var txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_APPEND) //important
 //
         val openFile = activity?.openFileInput("myfile.txt")

@@ -20,28 +20,54 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.vpSlide.adapter = AdapterVP2(this)
+        replaceFragment(SaveWords())
 
-        val tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.vpSlide,
-        TabLayoutMediator.TabConfigurationStrategy{
-            tab, position ->
-                when(position){
-                    0 -> {
-                        tab.setIcon(R.drawable.save)
-                    }
-                    1 -> {
-                        tab.setIcon(R.drawable.quiz)
-                    }
-                    2 ->{
-                        tab.setIcon(R.drawable.ic_baseline_format_list_bulleted_24)
-                    }
-                    3 ->{
-                        tab.setIcon(R.drawable.ic_baseline_settings_24)
-                    }
+        binding.btnNav.setOnItemSelectedListener{
+            when(it.itemId){
+                R.id.newWord -> replaceFragment(SaveWords())
+                R.id.evaWord -> replaceFragment(EvaWord())
+                R.id.listWord -> replaceFragment(listWords())
+                R.id.setting -> replaceFragment(configuration())
+
+                else->{
+
                 }
-        })
-        tabLayoutMediator.attach()
 
+            }
+
+            true
+        }
+        //ANTERIOR ↓
+//        binding.vpSlide.adapter = AdapterVP2(this)
+
+//        val tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.vpSlide,
+//        TabLayoutMediator.TabConfigurationStrategy{
+//            tab, position ->
+//                when(position){
+//                    0 -> {
+//                        tab.setIcon(R.drawable.save)
+//                    }
+//                    1 -> {
+//                        tab.setIcon(R.drawable.quiz)
+//                    }
+//                    2 ->{
+//                        tab.setIcon(R.drawable.ic_baseline_format_list_bulleted_24)
+//                    }
+//                    3 ->{
+//                        tab.setIcon(R.drawable.ic_baseline_settings_24)
+//                    }
+//                }
+//        })
+//        tabLayoutMediator.attach()
+
+        //ANTERIOR ↑
+    }
+
+    fun replaceFragment(fragment: Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(binding.fmTextField.id, fragment)
+            .commit()
     }
 
 }
