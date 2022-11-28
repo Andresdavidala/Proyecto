@@ -40,7 +40,6 @@ class FloatingWindow: Service() {
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         val inflater = baseContext.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         floatView = inflater.inflate(R.layout.floatingwindow, null) as ViewGroup
-
         btnMax = floatView.findViewById(R.id.btnMax)
         edtDes = floatView.findViewById(R.id.edt_description)
         cardView = floatView.findViewById(R.id.cardContainer)
@@ -70,12 +69,12 @@ class FloatingWindow: Service() {
 
 //random words ↓
 
-        val fileInputStream = openFileInput("words.txt")
+        val fileInputStream = openFileInput("myfile.txt")
         val inputReader = InputStreamReader(fileInputStream)
-        val output = inputReader.readText()
+        val output = inputReader.readText().trimEnd()
 
 
-        var words = output.split(",")
+        var words = output.split(", ")
 
 
 

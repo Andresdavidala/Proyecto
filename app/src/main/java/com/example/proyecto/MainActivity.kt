@@ -1,5 +1,6 @@
 package com.example.proyecto
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -11,6 +12,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         //para que no se muevan los elementos al abrir el teclado
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.newWord -> replaceFragment(SaveWords())
                 R.id.evaWord -> replaceFragment(EvaWord())
                 R.id.listWord -> replaceFragment(listWords())
-                R.id.setting -> replaceFragment(configuration())
+                R.id.setting -> startActivity(Intent(this, SettingActivity::class.java))
 
                 else->{
 
@@ -68,6 +70,10 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(binding.fmTextField.id, fragment)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        finishAffinity()
     }
 
 }

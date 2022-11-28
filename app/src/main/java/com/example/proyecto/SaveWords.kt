@@ -22,7 +22,7 @@ import java.io.OutputStreamWriter
 
 
 class SaveWords : Fragment() {
-    private var _binding: FragmentSaveWordsBinding?=null
+    private var _binding: FragmentSaveWordsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -36,7 +36,7 @@ class SaveWords : Fragment() {
 
         return binding.root
 
-        //return inflater.inflate(R.layout.fragment_save_words, container, false)
+
     }
 
     @SuppressLint("SuspiciousIndentation")
@@ -49,76 +49,59 @@ class SaveWords : Fragment() {
 //
         val openFile = activity?.openFileInput("myfile.txt")
         val inputReader = InputStreamReader(openFile)
-        val data =inputReader.readText().trimEnd()
+        val data = inputReader.readText().trimEnd()
         val datatoList = data.split(", ")
 
-        var contWord= 0
+        var contWord = 0
         Log.d("datos8", data)
         Log.d("datos6", (datatoList.indices.toString()))
         Log.d("datos9", datatoList.toString())
 
-        if(data.isNotEmpty()){
-            for (i in datatoList.indices step 2){
-//           dataWordProvider.dataWords = mutableListOf(DataWordsBase("${datatoList[i]}", "${datatoList[i+1]}"))
-                dataWordProvider.dataWords.add(DataWordsBase(datatoList[contWord], datatoList[contWord+1]))
+        if (data.isNotEmpty()) {
+            for (i in datatoList.indices step 2) {
 
-                contWord+=2
-//                Log.d("datos2", i.toString())
+                dataWordProvider.dataWords.add(
+                    DataWordsBase(
+                        datatoList[contWord],
+                        datatoList[contWord + 1]
+                    )
+                )
 
-                  Log.d("datos9", datatoList.toString())
+                contWord += 2
+
+                Log.d("datos9", datatoList.toString())
             }
             Log.d("datos2", "no vacio")
-        }else{
+        } else {
             Log.d("datos2", "vacio")
         }
 
 
-        Log.d("datos2",dataWordProvider.dataWords.toString())
+        Log.d("datos2", dataWordProvider.dataWords.toString())
 
         binding.btnSaveWord.setOnClickListener {
             val campoWordOrg = binding.wordOrg.text.toString().trim()
             val campoWordTrad = binding.wordTrad.text.toString().trim()
             try {
-                dataWordProvider.dataWords.add(DataWordsBase(campoWordOrg, campoWordTrad))
 
-//                for(i in dataWordProvider.dataWords.indices){
-//                    fileContents = "${dataWordProvider.dataWords[i].wordOrg},${dataWordProvider.dataWords[i].wordTrad},"
-//                }
-//
-//                context?.openFileOutput(filename, Context.MODE_APPEND).use {
-//                    it?.write(fileContents.toByteArray())
-//                }
-//
-//
-//
-////                Log.d("datos", dataWordProvider.dataWords.toString())
-//                Log.d("datos2",  fileContents)
-//                Log.d("datos4", context?.fileList().toString())
-
-
-
+                if(binding.wordOrg.text?.isEmpty()==true || binding.wordTrad.text?.isEmpty()==true){
+                    Toast.makeText(context, "Debe llenar los campos", Toast.LENGTH_SHORT).show()
+                }else {
+                    dataWordProvider.dataWords.add(DataWordsBase(campoWordOrg, campoWordTrad))
+                    Toast.makeText(context, "Palabra guardada correctamente!", Toast.LENGTH_SHORT)
+                        .show()
+                }
                 //guardar en un textfile integrado dentro de la app↓
 
                 txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_PRIVATE)
                 var outputWriter = OutputStreamWriter(txtFile)
 
                 //escritura de datos ↓
-                if(binding.wordOrg.text?.isEmpty()==true || binding.wordTrad.text?.isEmpty()==true){
-                    Toast.makeText(context, "Error debe llenar los campos", Toast.LENGTH_SHORT).show()
-                }else{
-                    for( i in dataWordProvider.dataWords.indices){
-                        outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}, ")
-                        outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}, ")
-//                        if(data.isEmpty()){
-//                            outputWriter.write("${dataWordProvider.dataWords[i].wordOrg} ,")
-//                            outputWriter.write(dataWordProvider.dataWords[i].wordTrad)
-//                        }else{
-//                            outputWriter.write(",${dataWordProvider.dataWords[i].wordOrg},")
-//                            outputWriter.write("${dataWordProvider.dataWords[i].wordTrad} ")
-//                        }
-                    }
 
-                    Toast.makeText(context, "Palabra guardada correctamente!", Toast.LENGTH_SHORT).show()
+                for (i in dataWordProvider.dataWords.indices) {
+                    outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}, ")
+                    outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}, ")
+
 
                 }
 
@@ -130,38 +113,12 @@ class SaveWords : Fragment() {
                 binding.wordTrad.setText("")
 
 
-
-
-            }catch (e: java.lang.Exception){
+            } catch (e: java.lang.Exception) {
                 Toast.makeText(context, "Something Wrong", Toast.LENGTH_SHORT).show()
 
             }
 
-
-//            val txtFile = activity?.openFileOutput("words.txt", Context.MODE_APPEND)
-//                var outputWriter = OutputStreamWriter(txtFile)
-//
-//                //escritura de datos ↓
-//                if(binding.wordOrg.text?.isEmpty()==true || binding.wordTrad.text?.isEmpty()==true){
-//                    Toast.makeText(context, "Error debe llenar los campos", Toast.LENGTH_SHORT).show()
-//                }else{
-//                    outputWriter.write(binding.wordOrg.text.toString().trim()+",")
-//                    outputWriter.write(binding.wordTrad.text.toString().trim()+",")
-//                    Toast.makeText(context, "Palabra guardada correctamente!", Toast.LENGTH_SHORT).show()
-//
-//                }
-//
-//                outputWriter.flush()
-//                outputWriter.close()
-//
-//
-//                binding.wordOrg.setText("")
-//                binding.wordTrad.setText("")
-
-
-
         }
-
 
 
     }
