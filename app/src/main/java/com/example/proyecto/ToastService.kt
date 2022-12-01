@@ -21,13 +21,7 @@ class ToastService(): Service(){
     var mapWords: MutableMap<String, String> = mutableMapOf()
     var numword = 0;
 
-    //para la lectura del .txt
-//    private val fileInputStream: FileInputStream = openFileInput("myfile.txt")
-//    private val inputReader = InputStreamReader(fileInputStream)
-//    private val output = inputReader.readText().trimEnd()
-//    private var words = output.split(", ")
 
-    //↑
     init {
         Log.d("datos","Service Toast running ")
     }
@@ -69,11 +63,30 @@ class ToastService(): Service(){
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         mainHandler = Handler(Looper.getMainLooper())
+        //para la lectura del .txt
+        val fileInputStream: FileInputStream = openFileInput("myfile.txt")
+        val inputReader = InputStreamReader(fileInputStream)
+        val output = inputReader.readText().trimEnd()
+        var words = output.split(", ")
+
+        //↑
         var numPickHour = intent?.getIntExtra("numberPickerHour", 0)
         var numPicMinutes = intent?.getIntExtra("numberPickerMinutes", 0)
+
+        //handler y runnable for Toast
+        var mapWords: MutableMap<String, String> = mutableMapOf()
+        var numword = 0;
+        for (i in words.indices) {
+            try {
+                mapWords[words[numword]] = words[numword + 1]
+                numword += 2
+            } catch (_: IndexOutOfBoundsException) {
+
+            }
+        }
         runn = object : Runnable {
             override fun run() {
-                Toast.makeText(baseContext, "Hello", Toast.LENGTH_SHORT).show()
+                switchChecked(mapWords)
                 mainHandler.postDelayed(this, milisecundos.toLong())
                 Log.d("datos", milisecundos.toString())
             }
