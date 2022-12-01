@@ -100,10 +100,10 @@ class SettingActivity : AppCompatActivity() {
 
 
         //para la lectura del .txt
-        val fileInputStream = openFileInput("myfile.txt")
-        val inputReader = InputStreamReader(fileInputStream)
-        val output = inputReader.readText().trimEnd()
-        var words = output.split(", ")
+//        val fileInputStream = openFileInput("myfile.txt")
+//        val inputReader = InputStreamReader(fileInputStream)
+//        val output = inputReader.readText().trimEnd()
+//        var words = output.split(", ")
 
         //↑
 
@@ -113,20 +113,20 @@ class SettingActivity : AppCompatActivity() {
 
         //time configuration
 
-        var milisecundos by Delegates.notNull<Int>()
-        var milisegundosDoa by Delegates.notNull<Int>()
-
-        //handler y runnable for Toast
-        var mapWords: MutableMap<String, String> = mutableMapOf()
-        var numword = 0;
-        for (i in words.indices) {
-            try {
-                mapWords[words[numword]] = words[numword + 1]
-                numword += 2
-            } catch (_: IndexOutOfBoundsException) {
-
-            }
-        }
+//        var milisecundos by Delegates.notNull<Int>()
+//        var milisegundosDoa by Delegates.notNull<Int>()
+//
+//        //handler y runnable for Toast
+//        var mapWords: MutableMap<String, String> = mutableMapOf()
+//        var numword = 0;
+//        for (i in words.indices) {
+//            try {
+//                mapWords[words[numword]] = words[numword + 1]
+//                numword += 2
+//            } catch (_: IndexOutOfBoundsException) {
+//
+//            }
+//        }
 
 
 //        mainHandler = Handler(Looper.getMainLooper())
@@ -243,7 +243,7 @@ class SettingActivity : AppCompatActivity() {
 
                 binding.btnEstablecer.text = "Establecer"
                 btnTextToast.putString("btnETextToastSP", "Establecer").apply()
-                Intent(this@SettingActivity, ToastService()::class.java).also {
+                Intent(this@SettingActivity, ToastService::class.java).also {
                     stopService(it)
                 }
 //                mainHandler.removeCallbacks(runn)
@@ -257,18 +257,18 @@ class SettingActivity : AppCompatActivity() {
 
         //For windowsFloating
 
-        val mainHandlerWindowsDOA = Handler(Looper.getMainLooper())
-        var intent = Intent(this@SettingActivity, FloatingWindow :: class.java)
-        var runnWindowDOA = object : Runnable{
-            override fun run() {
-
-                startService(intent)
-
-
-                mainHandlerWindowsDOA.postDelayed(this,milisegundosDoa.toLong())
-                Log.d("Tagmili", milisegundosDoa.toString())
-            }
-        }
+//        val mainHandlerWindowsDOA = Handler(Looper.getMainLooper())
+//        var intent = Intent(this@SettingActivity, FloatingWindow :: class.java)
+//        var runnWindowDOA = object : Runnable{
+//            override fun run() {
+//
+//                startService(intent)
+//
+//
+//                mainHandlerWindowsDOA.postDelayed(this,milisegundosDoa.toLong())
+//                Log.d("Tagmili", milisegundosDoa.toString())
+//            }
+//        }
 
         //↑
 
@@ -292,28 +292,35 @@ class SettingActivity : AppCompatActivity() {
             val btnTextWin = getSharedPreferences("buttonEstTextWin", MODE_PRIVATE)!!.edit()
             //↑SPT
 
-            if(binding.btnEstablecerW.isSelected == true){
+            if(binding.btnEstablecerW.isSelected){
                 binding.btnEstablecerW.text = "Cancelar"
                 btnTextWin.putString("btnETextWinSP", "Cancelar").apply()
-                val numHora = numberPickerHourW.value * 60
-
-                val numMinute = numberPickerMinutesW.value
-
-                var minutosTotal =  numMinute + numHora
-                milisegundosDoa = minutosTotal * 1000
-
-
-                mainHandlerWindowsDOA.removeCallbacks(runnWindowDOA)
-
-
-                mainHandlerWindowsDOA.postDelayed(runnWindowDOA, milisegundosDoa.toLong())
-                Log.d("TAGERROR", "Imprimiento")
-
+//                val numHora = numberPickerHourW.value * 60
+//
+//                val numMinute = numberPickerMinutesW.value
+//
+//                var minutosTotal =  numMinute + numHora
+//                milisegundosDoa = minutosTotal * 1000
+//
+//
+//                mainHandlerWindowsDOA.removeCallbacks(runnWindowDOA)
+//
+//
+//                mainHandlerWindowsDOA.postDelayed(runnWindowDOA, milisegundosDoa.toLong())
+//                Log.d("TAGERROR", "Imprimiento")
+                Intent(this@SettingActivity, FloatingWindow::class.java ).also {
+                    it.putExtra("numberPickerHourW", numberPickerHourW.value)
+                    it.putExtra("numberPickerMinutesW", numberPickerMinutesW.value)
+                    startService(it)
+                }
             }else{
                 binding.btnEstablecerW.text = "Establecer"
                 btnTextWin.putString("btnETextWinSP", "Establecer").apply()
-                mainHandlerWindowsDOA.removeCallbacks(runnWindowDOA)
+//                mainHandlerWindowsDOA.removeCallbacks(runnWindowDOA)
 
+                Intent(this@SettingActivity, FloatingWindow::class.java).also {
+                    stopService(it)
+                }
             }
 
 
@@ -394,15 +401,15 @@ class SettingActivity : AppCompatActivity() {
 
     }
 
-    private fun switchChecked(mapWords: Map<String,String>){
-
-        var randoMap = mapWords.entries.elementAt(Random.nextInt(mapWords.size))
-        Log.d("TAGSw", mapWords.toString())
-        Toast.makeText(baseContext, "${randoMap.key.uppercase()} → ${randoMap.value.uppercase()}", Toast.LENGTH_LONG).show()
-
-        Log.d("datos", "funcionando")
-
-    }
+//    private fun switchChecked(mapWords: Map<String,String>){
+//
+//        var randoMap = mapWords.entries.elementAt(Random.nextInt(mapWords.size))
+//        Log.d("TAGSw", mapWords.toString())
+//        Toast.makeText(baseContext, "${randoMap.key.uppercase()} → ${randoMap.value.uppercase()}", Toast.LENGTH_LONG).show()
+//
+//        Log.d("datos", "funcionando")
+//
+//    }
 
 
     @RequiresApi(Build.VERSION_CODES.M)

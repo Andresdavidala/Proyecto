@@ -18,8 +18,6 @@ class ToastService(): Service(){
     private lateinit var runn: Runnable
     var milisecundos by Delegates.notNull<Int>()
 
-    var mapWords: MutableMap<String, String> = mutableMapOf()
-    var numword = 0;
 
 
     init {
