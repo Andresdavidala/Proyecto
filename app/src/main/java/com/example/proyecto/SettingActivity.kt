@@ -6,22 +6,17 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
-import android.provider.Settings.Global
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.proyecto.databinding.ActivitySettingBinding
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.io.InputStreamReader
 import kotlin.properties.Delegates
 import kotlin.random.Random
@@ -30,6 +25,15 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
     private lateinit var dialog: AlertDialog
 
+    private lateinit var mainHandler: Handler
+    private lateinit var runn: Runnable
+
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        mainHandler.removeCallbacksAndMessages(null)
+//
+//    }
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +65,38 @@ class SettingActivity : AppCompatActivity() {
 
         val sharedPreferencesWindow = getSharedPreferences("openCardWindows", MODE_PRIVATE)
         clHS2.isVisible = sharedPreferencesWindow!!.getBoolean("visCardWindows", false)
+
+
+
+    //SharedPBtnEstablecer--
+
+    //EstBtnToast
+    val buttonEstablecerToast = getSharedPreferences("buttonEstToast", MODE_PRIVATE)
+    binding.btnEstablecer.isSelected =
+        buttonEstablecerToast!!.getBoolean("btnEToastSP", binding.btnEstablecer.isSelected)
+
+    //EstBtnWin
+    val buttonEstablecerWin = getSharedPreferences("buttonEstWin", MODE_PRIVATE)
+    binding.btnEstablecerW.isSelected =
+        buttonEstablecerWin!!.getBoolean("btnEWinSP", binding.btnEstablecer.isSelected)
+
+
+    //SharedPBtnEstablecerText--
+
+    //ToastBtnText
+    val buttonTextToast = getSharedPreferences("buttonEstTextToast", MODE_PRIVATE)
+    binding.btnEstablecer.text = buttonTextToast!!.getString("btnETextToastSP", "Establecer")
+
+
+    //WinBtnText
+
+    val buttonTextWin = getSharedPreferences("buttonEstTextWin", MODE_PRIVATE)
+    binding.btnEstablecerW.text = buttonTextWin!!.getString("btnETextWinSP", "Establecer")
+
+    //SPBE
+
         //↑SP
+
 
 
         //para la lectura del .txt
@@ -88,20 +123,27 @@ class SettingActivity : AppCompatActivity() {
             try {
                 mapWords[words[numword]] = words[numword + 1]
                 numword += 2
-            } catch (e: IndexOutOfBoundsException) {
+            } catch (_: IndexOutOfBoundsException) {
 
             }
         }
-        val mainHandler = Handler(Looper.getMainLooper())
-        val runn = object : Runnable {
-            override fun run() {
-                switchChecked(mapWords)
-                mainHandler.postDelayed(this, milisecundos.toLong())
-                Log.d("Tagmili", milisecundos.toString())
-            }
-        }
+
+
+//        mainHandler = Handler(Looper.getMainLooper())
+//         runn = object : Runnable {
+//            override fun run() {
+//                switchChecked(mapWords)
+//                mainHandler.postDelayed(this, milisecundos.toLong())
+//                Log.d("datos", milisecundos.toString())
+//            }
+//
+//
+//        }
 
         //↑
+
+
+
 
 
         val numberPickerminutes = binding.numberPicker
@@ -142,39 +184,13 @@ class SettingActivity : AppCompatActivity() {
         //↑SPNP
 
 
-        //SharedPBtnEstablecer--
 
-        //EstBtnToast
-        val buttonEstablecerToast = getSharedPreferences("buttonEstToast", MODE_PRIVATE)
-        binding.btnEstablecer.isSelected =
-            buttonEstablecerToast!!.getBoolean("btnEToastSP", binding.btnEstablecer.isSelected)
-
-        //EstBtnWin
-        val buttonEstablecerWin = getSharedPreferences("buttonEstWin", MODE_PRIVATE)
-        binding.btnEstablecerW.isSelected =
-            buttonEstablecerWin!!.getBoolean("btnEWinSP", binding.btnEstablecer.isSelected)
-
-
-        //SharedPBtnEstablecerText--
-
-        //ToastBtnText
-        val buttonTextToast = getSharedPreferences("buttonEstTextToast", MODE_PRIVATE)
-        binding.btnEstablecer.text = buttonTextToast!!.getString("btnETextToastSP", "Establecer")
-
-
-        //WinBtnText
-
-        val buttonTextWin = getSharedPreferences("buttonEstTextWin", MODE_PRIVATE)
-        binding.btnEstablecerW.text = buttonTextWin!!.getString("btnETextWinSP", "Establecer")
-
-        //SPBE
 
 
         //para toast
         binding.btnEstablecer.setOnClickListener {
             binding.btnEstablecer.isSelected = !binding.btnEstablecer.isSelected
             //sharedPToast
-
 
             //numberPickerHoras toast ↓
             val nPTSharedHour = getSharedPreferences("numPickerToastHour", MODE_PRIVATE)!!.edit()
@@ -195,31 +211,48 @@ class SettingActivity : AppCompatActivity() {
             //↑SPT
 
 
+
             if(binding.btnEstablecer.isSelected){
+
+
                 binding.btnEstablecer.text = "Cancelar"
                 btnTextToast.putString("btnETextToastSP", "Cancelar").apply()
-                val numHora = numberPickerHour.value * 60
+//                val numHora = numberPickerHour.value * 60
+//
+//                val numMinute = numberPickerminutes.value
+//
+//                val minutosTotal =  numMinute + numHora
+//                milisecundos = minutosTotal * 1000
+//
+//                mainHandler.removeCallbacks(runn)
+//                mainHandler.postDelayed(runn, milisecundos.toLong())
 
-                val numMinute = numberPickerminutes.value
+//                Intent(this@SettingActivity, ToastService()::class.java).also {
+//                    startService(it)
+//                }
 
-                val minutosTotal =  numMinute + numHora
-                milisecundos = minutosTotal * 1000
-
-                mainHandler.removeCallbacks(runn)
-                mainHandler.postDelayed(runn, milisecundos.toLong())
-
+                Intent(this@SettingActivity, ToastService::class.java ).also {
+                    it.putExtra("numberPickerHour", numberPickerHour.value)
+                    it.putExtra("numberPickerMinutes", numberPickerminutes.value)
+                    startService(it)
+                }
                 Log.d("datos", "funcionando")
 
+
             }else{
+
                 binding.btnEstablecer.text = "Establecer"
                 btnTextToast.putString("btnETextToastSP", "Establecer").apply()
-                mainHandler.removeCallbacks(runn)
+                Intent(this@SettingActivity, ToastService()::class.java).also {
+                    stopService(it)
+                }
+//                mainHandler.removeCallbacks(runn)
                 Log.d("datos", "dejo de funcionar")
             }
 
-        }
 
-        //↑
+        }
+//        //↑
 
 
         //For windowsFloating
@@ -404,6 +437,12 @@ class SettingActivity : AppCompatActivity() {
         startActivity(Intent(this, MainActivity::class.java))
     }
 
+
+
+//    override fun onPause() {
+//        super.onPause()
+//        mainHandler.removeCallbacksAndMessages(null)
+//    }
 
 
 }
