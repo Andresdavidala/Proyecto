@@ -200,7 +200,7 @@ class FloatingWindow: Service() {
                 }
 //                Toast.makeText(baseContext, "Hola", Toast.LENGTH_SHORT).show()
                 mainHandler.postDelayed(this,milisecundos.toLong())
-
+                mainHandler.removeCallbacks(runn)
                 Log.d("Tagmili", milisecundos.toString())
             }
 
@@ -215,6 +215,8 @@ class FloatingWindow: Service() {
 
                 windowManager.removeView(floatView)
 
+                //↓codigo para volver a llamar al postdelayed debido a que se lo cancela una vez aparece la ventana flotante 
+                mainHandler.postDelayed(runn, milisecundos.toLong())
                 Log.d("MAP", wordtras.toString())
             }else{
 
@@ -232,6 +234,7 @@ class FloatingWindow: Service() {
         milisecundos = minutosTotal!! * 1000
 
         mainHandler.postDelayed(runn, milisecundos.toLong())
+
 
 
         return super.onStartCommand(intent, flags, startId)

@@ -181,6 +181,15 @@ class SettingActivity : AppCompatActivity() {
         //numberPickerMinWindowDOA toast ↓
         val npSPWinMin = getSharedPreferences("numPickerWinMin", MODE_PRIVATE)
         numberPickerMinutesW.value = npSPWinMin!!.getInt("SPNPWTMin", 0)
+
+        //numberPickerisEnabledwhenpressbtnEstablecer
+        val numPickIsEnable = getSharedPreferences("numPickEnabled", MODE_PRIVATE)
+        numberPickerHour.isEnabled = numPickIsEnable.getBoolean("nPEnabled", numberPickerHour.isEnabled)
+        numberPickerminutes.isEnabled = numPickIsEnable.getBoolean("nPEnabled", numberPickerHour.isEnabled)
+
+        val numPickIsEnableW = getSharedPreferences("numPickEnabledW", MODE_PRIVATE)
+        numberPickerHourW.isEnabled = numPickIsEnableW.getBoolean("nPEnabledW", numberPickerHour.isEnabled)
+        numberPickerMinutesW.isEnabled = numPickIsEnableW.getBoolean("nPEnabledW", numberPickerHour.isEnabled)
         //↑SPNP
 
 
@@ -190,6 +199,9 @@ class SettingActivity : AppCompatActivity() {
         //para toast
         binding.btnEstablecer.setOnClickListener {
             binding.btnEstablecer.isSelected = !binding.btnEstablecer.isSelected
+            binding.numberPicker.isEnabled = !binding.numberPicker.isEnabled
+            binding.numberPicker2.isEnabled = !binding.numberPicker2.isEnabled
+
             //sharedPToast
 
             //numberPickerHoras toast ↓
@@ -206,6 +218,10 @@ class SettingActivity : AppCompatActivity() {
 
             //SharedPBtnEstablecerText
             val btnTextToast = getSharedPreferences("buttonEstTextToast", MODE_PRIVATE)!!.edit()
+
+            val numPEnabled = getSharedPreferences("numPickEnabled", MODE_PRIVATE)!!.edit()
+            numPEnabled.putBoolean("nPEnabled",numberPickerHour.isEnabled).apply()
+            numPEnabled.putBoolean("nPEnabled", numberPickerminutes.isEnabled).apply()
 
 
             //↑SPT
@@ -274,6 +290,8 @@ class SettingActivity : AppCompatActivity() {
 
         binding.btnEstablecerW.setOnClickListener {
             binding.btnEstablecerW.isSelected = !binding.btnEstablecerW.isSelected
+            binding.numberPicker3.isEnabled = !binding.numberPicker3.isEnabled
+            binding.numberPicker4.isEnabled = !binding.numberPicker4.isEnabled
             //sharedPToast
 
             //numberPickerHorasWindowDOA  ↓
@@ -290,6 +308,11 @@ class SettingActivity : AppCompatActivity() {
 
             //SharedPBtnEstablecerWinText
             val btnTextWin = getSharedPreferences("buttonEstTextWin", MODE_PRIVATE)!!.edit()
+
+            //para SP NumberPicker issEnabled
+            val numPEnabledW = getSharedPreferences("numPickEnabledW", MODE_PRIVATE)!!.edit()
+            numPEnabledW.putBoolean("nPEnabledW",numberPickerHourW.isEnabled).apply()
+            numPEnabledW.putBoolean("nPEnabledW", numberPickerMinutesW.isEnabled).apply()
             //↑SPT
 
             if(binding.btnEstablecerW.isSelected){
