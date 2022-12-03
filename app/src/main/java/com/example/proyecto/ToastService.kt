@@ -8,6 +8,7 @@ import android.os.Looper
 import android.util.Log
 import android.widget.NumberPicker
 import android.widget.Toast
+import com.example.proyecto.Recycler.dataWordProvider
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import kotlin.properties.Delegates
@@ -18,43 +19,13 @@ class ToastService(): Service(){
     private lateinit var runn: Runnable
     var milisecundos by Delegates.notNull<Int>()
 
-
+    var mapWords: MutableMap<String, String> = mutableMapOf()
+    var numword = 0;
 
     init {
         Log.d("datos","Service Toast running ")
     }
 
-    override fun onCreate() {
-        super.onCreate()
-
-        mainHandler = Handler(Looper.getMainLooper())
-
-//        for (i in words.indices) {
-//            try {
-//                mapWords[words[numword]] = words[numword + 1]
-//                numword += 2
-//            } catch (_: IndexOutOfBoundsException) {
-//
-//            }
-//        }
-//        runn = object : Runnable {
-//            override fun run() {
-//                Toast.makeText(baseContext, "Hello", Toast.LENGTH_SHORT).show()
-//                mainHandler.postDelayed(this, milisecundos.toLong())
-//                Log.d("datos", milisecundos.toString())
-//            }
-//        }
-//        val numHora = npTH.value * 60
-//
-//        val numMinute = npTM.value
-
-//        val minutosTotal =  numMinute + numHora
-//        milisecundos = 1 * 1000
-//
-//        mainHandler.removeCallbacks(runn)
-//        mainHandler.postDelayed(runn, milisecundos.toLong())
-
-    }
     override fun onBind(p0: Intent?): IBinder? {
         return null
     }
@@ -72,8 +43,7 @@ class ToastService(): Service(){
         var numPicMinutes = intent?.getIntExtra("numberPickerMinutes", 0)
 
         //handler y runnable for Toast
-        var mapWords: MutableMap<String, String> = mutableMapOf()
-        var numword = 0;
+
         for (i in words.indices) {
             try {
                 mapWords[words[numword]] = words[numword + 1]
@@ -84,7 +54,8 @@ class ToastService(): Service(){
         }
         runn = object : Runnable {
             override fun run() {
-                switchChecked(mapWords)
+
+                PairWordGenerate()
                 mainHandler.postDelayed(this, milisecundos.toLong())
                 Log.d("datos", milisecundos.toString())
             }
@@ -108,14 +79,16 @@ class ToastService(): Service(){
         mainHandler.removeCallbacks(runn)
 
     }
+    private fun PairWordGenerate(){
 
-    private fun switchChecked(mapWords: Map<String,String>){
+        val list = dataWordProvider.dataWords
+        val data = list.shuffled().take(1)[0]
+        Toast.makeText(baseContext, "${data.wordOrg} - ${data.wordTrad}".uppercase().replace(",",""), Toast.LENGTH_LONG).show()
 
-        var randoMap = mapWords.entries.elementAt(Random.nextInt(mapWords.size))
-        Log.d("TAGSw", mapWords.toString())
-        Toast.makeText(baseContext, "${randoMap.key.uppercase()} → ${randoMap.value.uppercase()}", Toast.LENGTH_LONG).show()
 
-        Log.d("datos", "funcionando")
+        Log.d("TAGSwDAta", data.toString())
+
 
     }
+
 }

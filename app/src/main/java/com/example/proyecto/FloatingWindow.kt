@@ -15,6 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
+import com.example.proyecto.Recycler.DataWordsBase
+import com.example.proyecto.Recycler.dataWordProvider
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import kotlin.properties.Delegates
@@ -34,9 +36,7 @@ class FloatingWindow: Service() {
     private lateinit var cardView: CardView
     private lateinit var btnMax: Button
 
-
-
-
+    private lateinit var wordTrad: String
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -192,7 +192,7 @@ class FloatingWindow: Service() {
         runn = object : Runnable{
             override fun run() {
                 try{
-
+                     wordTrad = mapWords[valorRam(dataWordProvider.dataWords,edtDes2)]!!
                     windowManager.addView(floatView, floatWindowLayoutParams)
 
                 }catch (_: Exception){
@@ -207,17 +207,18 @@ class FloatingWindow: Service() {
         }
 
         var wordtras = mapWords[valorRandom(mapWords, edtDes2)]
-        Log.d("MAP", wordtras.toString())
+
+//        Log.d("datosWordTras", wordtras.toString())
         btnMax.setOnClickListener {
 
-            if(wordtras == edtDes.text.toString().trim()){
+            if(wordTrad == edtDes.text.toString().trim()){
 //                stopSelf()
 
                 windowManager.removeView(floatView)
 
                 //↓codigo para volver a llamar al postdelayed debido a que se lo cancela una vez aparece la ventana flotante 
                 mainHandler.postDelayed(runn, milisecundos.toLong())
-                Log.d("MAP", wordtras.toString())
+//                Log.d("MAP", wordtras.toString())
             }else{
 
             }
@@ -251,9 +252,20 @@ class FloatingWindow: Service() {
         }
     }
 
+
+    private fun valorRam(valList:MutableList<DataWordsBase>, editEvaluar: TextView): String {
+        var list = valList.shuffled().take(1)[0]
+        var wordReturn = list.wordOrg
+        editEvaluar.text = wordReturn
+
+        Log.d("datosMap", wordReturn)
+        return wordReturn
+    }
     private fun valorRandom(mapValor: Map<String,String>, editEvaluar: TextView):String{
+
         var randoMap = mapValor.entries.elementAt(Random.nextInt(mapValor.size))
         editEvaluar.setText(randoMap.key)
+        Log.d("datosMap", randoMap.key)
         return randoMap.key
     }
 }
