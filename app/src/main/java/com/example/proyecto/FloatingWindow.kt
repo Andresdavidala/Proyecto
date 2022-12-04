@@ -17,10 +17,8 @@ import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
-import java.io.FileInputStream
 import java.io.InputStreamReader
 import kotlin.properties.Delegates
-import kotlin.random.Random
 
 class FloatingWindow: Service() {
     private lateinit var mainHandler: Handler
@@ -77,50 +75,6 @@ class FloatingWindow: Service() {
         floatWindowLayoutParams.x = 0
         floatWindowLayoutParams.y = 0
 
-
-
-
-//random words ↓
-
-//        val fileInputStream = openFileInput("myfile.txt")
-//        val inputReader = InputStreamReader(fileInputStream)
-//        val output = inputReader.readText().trimEnd()
-//
-//
-//        var words = output.split(", ")
-//
-//
-//
-//        var mapWords: MutableMap<String, String> =mutableMapOf()
-//        var numword = 0;
-//        for(i in words.indices){
-//            try {
-//                mapWords[words[numword]] = words[numword + 1]
-//                numword += 2
-//            }catch (e:IndexOutOfBoundsException){
-//
-//            }
-//        }
-//        Log.d("TAG4", mapWords.toString())
-
-//        var wordtras = mapWords[valorRandom(mapWords, edtDes2).toString()]
-//        Log.d("MAP", wordtras.toString())
-//        btnMax.setOnClickListener {
-//
-//            if(wordtras == edtDes.text.toString().trim()){
-//                stopSelf()
-//                windowManager.removeView(floatView)
-//
-//                Log.d("MAP", wordtras.toString())
-//            }else{
-//
-//            }
-//            edtDes.setText("")
-//
-//
-//        }
-
-        //↑
         floatView.setOnTouchListener(object : View.OnTouchListener {
             val updatedFloatWindowLayoutParams = floatWindowLayoutParams
             var x = 0.0
@@ -174,11 +128,11 @@ class FloatingWindow: Service() {
         val fileInputStream = openFileInput("myfile.txt")
         val inputReader = InputStreamReader(fileInputStream)
         val output = inputReader.readText().trimEnd()
-        var words = output.split(", ")
+        val words = output.split(", ")
 
 
 
-        var mapWords: MutableMap<String, String> =mutableMapOf()
+        val mapWords: MutableMap<String, String> =mutableMapOf()
         var numword = 0;
         for(i in words.indices){
             try {
@@ -192,11 +146,11 @@ class FloatingWindow: Service() {
         runn = object : Runnable{
             override fun run() {
                 try{
-                     wordTrad = mapWords[valorRam(dataWordProvider.dataWords,edtDes2)]!!
+                    wordTrad = mapWords[valorRam(dataWordProvider.dataWords,edtDes2)]!!
                     windowManager.addView(floatView, floatWindowLayoutParams)
 
                 }catch (_: Exception){
-
+                    Toast.makeText(baseContext,"No se encontraron palabras", Toast.LENGTH_LONG).show()
                 }
 //                Toast.makeText(baseContext, "Hola", Toast.LENGTH_SHORT).show()
                 mainHandler.postDelayed(this,milisecundos.toLong())
@@ -206,12 +160,12 @@ class FloatingWindow: Service() {
 
         }
 
-        var wordtras = mapWords[valorRandom(mapWords, edtDes2)]
+//        var wordtras = mapWords[valorRandom(mapWords, edtDes2)]
 
 //        Log.d("datosWordTras", wordtras.toString())
         btnMax.setOnClickListener {
 
-            if(wordTrad == edtDes.text.toString().trim()){
+            if(wordTrad.replace(",", "") == edtDes.text.toString().trim()){
 //                stopSelf()
 
                 windowManager.removeView(floatView)
@@ -254,18 +208,18 @@ class FloatingWindow: Service() {
 
 
     private fun valorRam(valList:MutableList<DataWordsBase>, editEvaluar: TextView): String {
-        var list = valList.shuffled().take(1)[0]
-        var wordReturn = list.wordOrg
+        val list = valList.shuffled().take(1)[0]
+        val wordReturn = list.wordOrg
         editEvaluar.text = wordReturn
 
         Log.d("datosMap", wordReturn)
         return wordReturn
     }
-    private fun valorRandom(mapValor: Map<String,String>, editEvaluar: TextView):String{
-
-        var randoMap = mapValor.entries.elementAt(Random.nextInt(mapValor.size))
-        editEvaluar.setText(randoMap.key)
-        Log.d("datosMap", randoMap.key)
-        return randoMap.key
-    }
+//    private fun valorRandom(mapValor: Map<String,String>, editEvaluar: TextView):String{
+//
+//        var randoMap = mapValor.entries.elementAt(Random.nextInt(mapValor.size))
+//        editEvaluar.setText(randoMap.key)
+//        Log.d("datosMap", randoMap.key)
+//        return randoMap.key
+//    }
 }

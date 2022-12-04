@@ -318,19 +318,7 @@ class SettingActivity : AppCompatActivity() {
             if(binding.btnEstablecerW.isSelected){
                 binding.btnEstablecerW.text = "Cancelar"
                 btnTextWin.putString("btnETextWinSP", "Cancelar").apply()
-//                val numHora = numberPickerHourW.value * 60
-//
-//                val numMinute = numberPickerMinutesW.value
-//
-//                var minutosTotal =  numMinute + numHora
-//                milisegundosDoa = minutosTotal * 1000
-//
-//
-//                mainHandlerWindowsDOA.removeCallbacks(runnWindowDOA)
-//
-//
-//                mainHandlerWindowsDOA.postDelayed(runnWindowDOA, milisegundosDoa.toLong())
-//                Log.d("TAGERROR", "Imprimiento")
+
                 Intent(this@SettingActivity, FloatingWindow::class.java ).also {
                     it.putExtra("numberPickerHourW", numberPickerHourW.value)
                     it.putExtra("numberPickerMinutesW", numberPickerMinutesW.value)
@@ -339,7 +327,6 @@ class SettingActivity : AppCompatActivity() {
             }else{
                 binding.btnEstablecerW.text = "Establecer"
                 btnTextWin.putString("btnETextWinSP", "Establecer").apply()
-//                mainHandlerWindowsDOA.removeCallbacks(runnWindowDOA)
 
                 Intent(this@SettingActivity, FloatingWindow::class.java).also {
                     stopService(it)

@@ -2,15 +2,16 @@ package com.example.proyecto
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.example.proyecto.Recycler.DataWordsBase
+import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentEvaWordBinding
 import java.io.InputStreamReader
-import kotlin.random.Random
 
 
 class EvaWord : Fragment() {
@@ -62,12 +63,12 @@ class EvaWord : Fragment() {
 
             Log.d("mapword", mapWords.toString())
 
-            var wordTrad =mapWords[valorRandom(mapWords, binding.evaWO.editText)]
+            var wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
             Log.d("MAP",wordTrad.toString())
 
             binding.btnEvaWord.setOnClickListener {
-                if(wordTrad == binding.evaWT.editText?.text.toString().trim()+","){
-                    wordTrad = mapWords[valorRandom(mapWords, binding.evaWO.editText)]
+                if(wordTrad.replace(",", "") == binding.evaWT.editText?.text.toString().trim()){
+                    wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
 
                 }else{
 
@@ -83,9 +84,18 @@ class EvaWord : Fragment() {
 
     }
 
-    private fun valorRandom(mapValor: Map<String, String>, editWO: EditText?):String{
-        var randomMap = mapValor.entries.elementAt(Random.nextInt(mapValor.size))
-        editWO?.setText(randomMap.key)
-        return randomMap.key
+    private fun valorRam(valList:MutableList<DataWordsBase>, editEvaluar: EditText?): String {
+        var list = valList.shuffled().take(1)[0]
+        var wordReturn = list.wordOrg
+        editEvaluar?.setText(wordReturn)
+
+        Log.d("datosMap", wordReturn)
+        return wordReturn
     }
+
+//    private fun valorRandom(mapValor: Map<String, String>, editWO: EditText?):String{
+//        var randomMap = mapValor.entries.elementAt(Random.nextInt(mapValor.size))
+//        editWO?.setText(randomMap.key)
+//        return randomMap.key
+//    }
 }

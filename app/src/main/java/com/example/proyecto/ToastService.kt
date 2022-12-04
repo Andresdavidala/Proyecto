@@ -36,11 +36,11 @@ class ToastService(): Service(){
         val fileInputStream: FileInputStream = openFileInput("myfile.txt")
         val inputReader = InputStreamReader(fileInputStream)
         val output = inputReader.readText().trimEnd()
-        var words = output.split(", ")
+        val words = output.split(", ")
 
         //↑
-        var numPickHour = intent?.getIntExtra("numberPickerHour", 0)
-        var numPicMinutes = intent?.getIntExtra("numberPickerMinutes", 0)
+        val numPickHour = intent?.getIntExtra("numberPickerHour", 0)
+        val numPicMinutes = intent?.getIntExtra("numberPickerMinutes", 0)
 
         //handler y runnable for Toast
 
@@ -55,9 +55,13 @@ class ToastService(): Service(){
         runn = object : Runnable {
             override fun run() {
 
-                PairWordGenerate()
-                mainHandler.postDelayed(this, milisecundos.toLong())
-                Log.d("datos", milisecundos.toString())
+                try{
+                    PairWordGenerate()
+                    mainHandler.postDelayed(this, milisecundos.toLong())
+                    Log.d("datos", milisecundos.toString())
+                }catch (_ : Exception){
+                    Toast.makeText(baseContext,"No se encontraron palabras", Toast.LENGTH_LONG).show()
+                }
             }
         }
         val numHora = numPickHour?.times(60)
