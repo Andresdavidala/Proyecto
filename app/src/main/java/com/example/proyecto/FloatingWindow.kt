@@ -188,7 +188,12 @@ class FloatingWindow: Service() {
         val minutosTotal = numHora?.let { numMinute?.plus(it) }
         milisecundos = minutosTotal!! * 1000
 
-        mainHandler.postDelayed(runn, milisecundos.toLong())
+        if(milisecundos != 0){
+            mainHandler.postDelayed(runn, milisecundos.toLong())
+        }else{
+            Toast.makeText(this, "Tiempo igual a 0 no valido", Toast.LENGTH_LONG).show()
+        }
+
 
 
 

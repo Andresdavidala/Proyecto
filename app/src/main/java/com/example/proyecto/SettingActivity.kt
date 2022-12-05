@@ -1,9 +1,12 @@
 package com.example.proyecto
 
 import android.app.AlertDialog
+import android.app.TaskInfo
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +19,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.proyecto.databinding.ActivitySettingBinding
 import java.io.InputStreamReader
 import kotlin.properties.Delegates
@@ -27,8 +31,11 @@ class SettingActivity : AppCompatActivity() {
 
     private lateinit var mainHandler: Handler
     private lateinit var runn: Runnable
+//    private lateinit var br: BroadcastReceiver
 
-//
+    private var miliDate by Delegates.notNull<Int>()
+
+    //
 //    override fun onDestroy() {
 //        super.onDestroy()
 //        mainHandler.removeCallbacksAndMessages(null)
@@ -98,54 +105,6 @@ class SettingActivity : AppCompatActivity() {
         //↑SP
 
 
-
-        //para la lectura del .txt
-//        val fileInputStream = openFileInput("myfile.txt")
-//        val inputReader = InputStreamReader(fileInputStream)
-//        val output = inputReader.readText().trimEnd()
-//        var words = output.split(", ")
-
-        //↑
-
-
-        //cambiar icono al presionar
-
-
-        //time configuration
-
-//        var milisecundos by Delegates.notNull<Int>()
-//        var milisegundosDoa by Delegates.notNull<Int>()
-//
-//        //handler y runnable for Toast
-//        var mapWords: MutableMap<String, String> = mutableMapOf()
-//        var numword = 0;
-//        for (i in words.indices) {
-//            try {
-//                mapWords[words[numword]] = words[numword + 1]
-//                numword += 2
-//            } catch (_: IndexOutOfBoundsException) {
-//
-//            }
-//        }
-
-
-//        mainHandler = Handler(Looper.getMainLooper())
-//         runn = object : Runnable {
-//            override fun run() {
-//                switchChecked(mapWords)
-//                mainHandler.postDelayed(this, milisecundos.toLong())
-//                Log.d("datos", milisecundos.toString())
-//            }
-//
-//
-//        }
-
-        //↑
-
-
-
-
-
         val numberPickerminutes = binding.numberPicker
         val numberPickerHour = binding.numberPicker2
         val numberPickerHourW = binding.numberPicker3
@@ -155,11 +114,11 @@ class SettingActivity : AppCompatActivity() {
         numberPickerHour.minValue = 0
         numberPickerHour.maxValue = 24
         numberPickerminutes.minValue = 0
-        numberPickerminutes.maxValue = 60
+        numberPickerminutes.maxValue = 59
 
 
         numberPickerMinutesW.minValue = 0
-        numberPickerMinutesW.maxValue = 60
+        numberPickerMinutesW.maxValue = 59
         numberPickerHourW.maxValue = 24
         numberPickerHourW.minValue = 0
 
@@ -196,11 +155,38 @@ class SettingActivity : AppCompatActivity() {
 
 
 
+
         //para toast
+
         binding.btnEstablecer.setOnClickListener {
+
+//            br: BroadcastReceiver = object : BroadcastReceiver(){
+//                override fun onReceive(p0: Context?, p1: Intent?) {
+//                    val date = p1?.getIntExtra("DATE", 0)
+//                    Log.d("datosRecev", date.toString())
+//                }
+//
+//            }
+//            br = object :BroadcastReceiver(){
+//                override fun onReceive(p0: Context?, p1: Intent?) {
+//                    miliDate = p1?.getIntExtra("DATE", 0)!!
+//                    Log.d("datosRecev", miliDate.toString())
+//                    if(miliDate == 0){
+////                        Toast.makeText(baseContext, "Tiempo igual a 0", Toast.LENGTH_SHORT).show()
+//                    }else{
+//
+//                    }
+//
+//                }
+//            }
+//            val filter = IntentFilter("sendMili")
+//            LocalBroadcastManager.getInstance(this).registerReceiver(br, filter)
+
+
             binding.btnEstablecer.isSelected = !binding.btnEstablecer.isSelected
             binding.numberPicker.isEnabled = !binding.numberPicker.isEnabled
             binding.numberPicker2.isEnabled = !binding.numberPicker2.isEnabled
+
 
             //sharedPToast
 
@@ -250,6 +236,8 @@ class SettingActivity : AppCompatActivity() {
                 Intent(this@SettingActivity, ToastService::class.java ).also {
                     it.putExtra("numberPickerHour", numberPickerHour.value)
                     it.putExtra("numberPickerMinutes", numberPickerminutes.value)
+
+
                     startService(it)
                 }
                 Log.d("datos", "funcionando")
@@ -421,6 +409,28 @@ class SettingActivity : AppCompatActivity() {
 //
 //    }
 
+//    private fun isCeroMili(){
+//        //broadcast
+//        br = object :BroadcastReceiver(){
+//            override fun onReceive(p0: Context?, p1: Intent?) {
+//                miliDate = p1?.getIntExtra("DATE", 0)!!
+//                Log.d("datosRecev", miliDate.toString())
+//                if(miliDate == 0){
+//                    Toast.makeText(baseContext, "Tiempo igual a 0", Toast.LENGTH_SHORT).show()
+//                    binding.btnEstablecer.isSelected = false
+//                    binding.btnEstablecer.text = "ESTABLECER"
+//                    binding.numberPicker.isEnabled = true
+//                    binding.numberPicker2.isEnabled = true
+//                }
+//
+//            }
+//        }
+//        val filter = IntentFilter("sendMili")
+//        LocalBroadcastManager.getInstance(this).registerReceiver(br, filter)
+//
+//
+//        //↑
+//    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun requestFlowatingPermission() {
@@ -453,6 +463,12 @@ class SettingActivity : AppCompatActivity() {
     override fun onBackPressed() {
         startActivity(Intent(this, MainActivity::class.java))
     }
+
+//    override fun onPause() {
+//        super.onPause()
+//        LocalBroadcastManager.getInstance(this).unregisterReceiver(br)
+//    }
+
 
 
 

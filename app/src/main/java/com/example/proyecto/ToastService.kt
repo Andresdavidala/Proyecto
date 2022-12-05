@@ -1,5 +1,6 @@
 package com.example.proyecto
 
+import android.app.Notification.Action
 import android.app.Service
 import android.content.Intent
 import android.os.Handler
@@ -8,6 +9,7 @@ import android.os.Looper
 import android.util.Log
 import android.widget.NumberPicker
 import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.proyecto.Recycler.dataWordProvider
 import java.io.FileInputStream
 import java.io.InputStreamReader
@@ -21,6 +23,7 @@ class ToastService(): Service(){
 
     var mapWords: MutableMap<String, String> = mutableMapOf()
     var numword = 0;
+
 
     init {
         Log.d("datos","Service Toast running ")
@@ -42,6 +45,14 @@ class ToastService(): Service(){
         val numPickHour = intent?.getIntExtra("numberPickerHour", 0)
         val numPicMinutes = intent?.getIntExtra("numberPickerMinutes", 0)
 
+
+        //↓para broadcast
+
+        val intent = Intent("sendMili")
+
+
+
+        //↑
         //handler y runnable for Toast
 
         for (i in words.indices) {
@@ -57,6 +68,7 @@ class ToastService(): Service(){
 
                 try{
                     PairWordGenerate()
+
                     mainHandler.postDelayed(this, milisecundos.toLong())
                     Log.d("datos", milisecundos.toString())
                 }catch (_ : Exception){
@@ -70,9 +82,18 @@ class ToastService(): Service(){
 
         val minutosTotal = numHora?.let { numMinute?.plus(it) }
         milisecundos = minutosTotal!! * 1000
+        if(milisecundos !=0){
 
-        mainHandler.removeCallbacks(runn)
-        mainHandler.postDelayed(runn, milisecundos.toLong())
+            mainHandler.postDelayed(runn, milisecundos.toLong())
+        }else{
+            Toast.makeText(this, "Tiempo igual a 0 no valido", Toast.LENGTH_LONG).show()
+        }
+
+
+        //intent para enviar valores del serve a la actividad
+        intent.putExtra("DATE", milisecundos)
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
         return super.onStartCommand(intent, flags, startId)
 
     }
