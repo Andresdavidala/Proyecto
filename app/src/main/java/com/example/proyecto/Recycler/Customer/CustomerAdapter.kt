@@ -1,9 +1,12 @@
 package com.example.proyecto.Recycler.Customer
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto.R
@@ -12,6 +15,7 @@ import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordslistrecyclerviewBinding
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
+
 
 class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):RecyclerView.Adapter<CustomerAdapter.vhDataList>() {
 
@@ -33,10 +37,31 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
 
         val binding = WordslistrecyclerviewBinding.bind(view)
 
+        @SuppressLint("ClickableViewAccessibility")
         fun renderData(dataListW: DataWordsBase, onClickDelete: (Int) -> Unit, fileContext: Context) {
 
             binding.tvWordOrg.text = dataListW.wordOrg
-            binding.tvWordTrad.text = dataListW.wordTrad.replace(",", "")
+            binding.tvWordTrad.text = dataListW.wordTrad.replace("☼○", "")
+
+            binding.tvWordOrg.setOnTouchListener(OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+                v.parent.requestDisallowInterceptTouchEvent(true)
+                false
+            })
+            binding.tvWordTrad.setOnTouchListener(OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+                v.parent.requestDisallowInterceptTouchEvent(true)
+                false
+            })
+
+            binding.etWordOrg.setOnTouchListener(OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+                v.parent.requestDisallowInterceptTouchEvent(true)
+                false
+            })
+
+            binding.etWordTrad.setOnTouchListener(OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+                v.parent.requestDisallowInterceptTouchEvent(true)
+                false
+            })
+
 
             binding.btnDelete.setOnClickListener {
                 onClickDelete(adapterPosition)
@@ -63,7 +88,7 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
                 binding.etWordOrg.visibility = View.VISIBLE
                 binding.etWordTrad.visibility = View.VISIBLE
                 binding.etWordOrg.setText(dataListW.wordOrg)
-                binding.etWordTrad.setText(dataListW.wordTrad.replace(",", ""))
+                binding.etWordTrad.setText(dataListW.wordTrad.replace("☼○", ""))
                 binding.btnCancel.visibility = View.VISIBLE
             }
 
@@ -83,8 +108,8 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
                 try {
 
                     for( i in dataWordProvider.dataWords.indices){
-                        outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}, ")
-                        outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}, ")
+                        outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼○ ")
+                        outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼○ ")
                     }
                     Log.d("datosE", "FUNC")
                     Log.d("datosRV", dataWordProvider.dataWords.toString())
@@ -110,7 +135,7 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
                 binding.tvWordTrad.visibility = View.VISIBLE
 
                 binding.etWordOrg.setText(dataListW.wordOrg)
-                binding.etWordTrad.setText(dataListW.wordTrad.replace(",", ""))
+                binding.etWordTrad.setText(dataListW.wordTrad.replace("☼○", ""))
 
 
             }

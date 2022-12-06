@@ -5,27 +5,26 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EvaWord" >
+    tools:context=".EvaWord">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/evaWO"
 
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="290dp"
-        android:layout_height="56dp"
-        app:boxBackgroundColor="@color/textfieldMost"
+        android:layout_height="wrap_content"
 
+        app:boxBackgroundColor="@color/textfieldMost"
         app:boxCornerRadiusBottomEnd="25dp"
         app:boxCornerRadiusBottomStart="25dp"
         app:boxCornerRadiusTopEnd="25dp"
         app:boxCornerRadiusTopStart="25dp"
-
         app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
 
+        app:boxStrokeWidthFocused="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias=".504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.48000002">
@@ -34,9 +33,10 @@
             android:id="@+id/wordOrg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/viga_regular"
+            android:maxHeight="85dp"
 
             android:focusable="false"
+            android:fontFamily="@font/viga_regular"
             android:textSize="20dp"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -66,7 +66,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/viga_regular"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView

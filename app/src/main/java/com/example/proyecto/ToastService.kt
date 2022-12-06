@@ -39,7 +39,7 @@ class ToastService(): Service(){
         val fileInputStream: FileInputStream = openFileInput("myfile.txt")
         val inputReader = InputStreamReader(fileInputStream)
         val output = inputReader.readText().trimEnd()
-        val words = output.split(", ")
+        val words = output.split("☼○ ")
 
         //↑
         val numPickHour = intent?.getIntExtra("numberPickerHour", 0)
@@ -108,7 +108,7 @@ class ToastService(): Service(){
 
         val list = dataWordProvider.dataWords
         val data = list.shuffled().take(1)[0]
-        Toast.makeText(baseContext, "${data.wordOrg} - ${data.wordTrad}".uppercase().replace(",",""), Toast.LENGTH_LONG).show()
+        Toast.makeText(baseContext, "${data.wordOrg} - ${data.wordTrad}".uppercase().replace("☼○",""), Toast.LENGTH_LONG).show()
 
 
         Log.d("TAGSwDAta", data.toString())

@@ -37,7 +37,6 @@ class listWords : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         iniRecyclerView()
 
 
@@ -71,8 +70,8 @@ class listWords : Fragment() {
 
         try{
             for( i in dataWordProvider.dataWords.indices){
-                outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}, ")
-                outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}, ")
+                outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼○ ")
+                outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼○ ")
             }
         }catch (_: java.lang.Exception){
 

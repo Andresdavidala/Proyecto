@@ -45,7 +45,7 @@ class EvaWord : Fragment() {
             val openFile = activity?.openFileInput("myfile.txt")
             val inputReader = InputStreamReader(openFile)
             val data =inputReader.readText().trimEnd()
-            val datatoList = data.split(", ")
+            val datatoList = data.split("☼○ ")
 
 
             Log.d("datos", datatoList.toString())
@@ -67,7 +67,7 @@ class EvaWord : Fragment() {
             Log.d("MAP",wordTrad.toString())
 
             binding.btnEvaWord.setOnClickListener {
-                if(wordTrad.replace(",", "") == binding.evaWT.editText?.text.toString().trim()){
+                if(wordTrad.replace("☼○", "") == binding.evaWT.editText?.text.toString().trim()){
                     wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
 
                 }else{

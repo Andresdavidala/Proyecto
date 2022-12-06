@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.*
 import android.widget.Button
@@ -120,6 +121,8 @@ class FloatingWindow: Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         mainHandler = Handler(Looper.getMainLooper())
+        edtDes2.movementMethod = ScrollingMovementMethod()
+
 
 
         val numPickHour = intent?.getIntExtra("numberPickerHourW", 0)
@@ -128,7 +131,7 @@ class FloatingWindow: Service() {
         val fileInputStream = openFileInput("myfile.txt")
         val inputReader = InputStreamReader(fileInputStream)
         val output = inputReader.readText().trimEnd()
-        val words = output.split(", ")
+        val words = output.split("☼○ ")
 
 
 
@@ -165,7 +168,7 @@ class FloatingWindow: Service() {
 //        Log.d("datosWordTras", wordtras.toString())
         btnMax.setOnClickListener {
 
-            if(wordTrad.replace(",", "") == edtDes.text.toString().trim()){
+            if(wordTrad.replace("☼○", "") == edtDes.text.toString().trim()){
 //                stopSelf()
 
                 windowManager.removeView(floatView)
