@@ -188,6 +188,14 @@ class SettingActivity : AppCompatActivity() {
             binding.numberPicker2.isEnabled = !binding.numberPicker2.isEnabled
 
 
+            //foreground
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                startForegroundService(intent)
+            }else{
+                stopService(intent)
+            }
+
+            //↑
             //sharedPToast
 
             //numberPickerHoras toast ↓
@@ -281,6 +289,16 @@ class SettingActivity : AppCompatActivity() {
             binding.numberPicker3.isEnabled = !binding.numberPicker3.isEnabled
             binding.numberPicker4.isEnabled = !binding.numberPicker4.isEnabled
             //sharedPToast
+
+
+            //foreground
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                startForegroundService(intent)
+            }else{
+                stopService(intent)
+            }
+
+            //↑
 
             //numberPickerHorasWindowDOA  ↓
             val nPWHour = getSharedPreferences("numPickerWinHour", MODE_PRIVATE)!!.edit()

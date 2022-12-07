@@ -1,6 +1,6 @@
 package com.example.proyecto
 
-import android.app.Service
+import android.app.*
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Build
@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
+import androidx.core.app.NotificationCompat
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import java.io.InputStreamReader
@@ -134,6 +135,20 @@ class FloatingWindow: Service() {
         val words = output.split("☼○ ")
 
 
+        //↓ForegroundService
+
+        createNotification()
+        val intentForeGroun = Intent(this, SettingActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, 0)
+        val notificacion: Notification = NotificationCompat.Builder(this, "channel1")
+            .setContentText("Esta ejecutandose Proyecto")
+            .setContentTitle("Servicio en ejecución")
+            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setContentIntent(pendingIntent).build()
+
+        startForeground(1, notificacion)
+        //↑
+
 
         val mapWords: MutableMap<String, String> =mutableMapOf()
         var numword = 0;
@@ -205,6 +220,8 @@ class FloatingWindow: Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        stopForeground(true)
+        stopSelf()
         mainHandler.removeCallbacks(runn)
 //        stopSelf()
         try{
@@ -222,6 +239,15 @@ class FloatingWindow: Service() {
 
         Log.d("datosMap", wordReturn)
         return wordReturn
+    }
+
+    private fun createNotification(){
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+            val notificationChanel = NotificationChannel("channel1","Foreground Service", NotificationManager.IMPORTANCE_DEFAULT)
+            val manager: NotificationManager = getSystemService(NotificationManager::class.java)
+            manager.createNotificationChannel(notificationChanel)
+
+        }
     }
 //    private fun valorRandom(mapValor: Map<String,String>, editEvaluar: TextView):String{
 //

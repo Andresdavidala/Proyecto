@@ -1,20 +1,23 @@
 package com.example.proyecto
 
-import android.app.Notification.Action
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.util.Log
-import android.widget.NumberPicker
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.proyecto.Recycler.dataWordProvider
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import kotlin.properties.Delegates
-import kotlin.random.Random
 
 class ToastService(): Service(){
     private lateinit var mainHandler: Handler
@@ -55,6 +58,21 @@ class ToastService(): Service(){
         //↑
         //handler y runnable for Toast
 
+
+        //↓ForegroundService
+
+        createNotification()
+        val intentForeGroun = Intent(this, SettingActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, 0)
+        val notificacion: Notification = NotificationCompat.Builder(this, "channel1")
+            .setContentText("Esta ejecutandose Proyecto")
+            .setContentTitle("Servicio en ejecución")
+            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setContentIntent(pendingIntent).build()
+
+        startForeground(1, notificacion)
+        //↑
+
         for (i in words.indices) {
             try {
                 mapWords[words[numword]] = words[numword + 1]
@@ -94,6 +112,7 @@ class ToastService(): Service(){
         intent.putExtra("DATE", milisecundos)
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+        START_STICKY
         return super.onStartCommand(intent, flags, startId)
 
     }
@@ -102,10 +121,11 @@ class ToastService(): Service(){
     override fun onDestroy() {
         super.onDestroy()
         mainHandler.removeCallbacks(runn)
+        stopForeground(true)
+        stopSelf()
 
     }
     private fun PairWordGenerate(){
-
         val list = dataWordProvider.dataWords
         val data = list.shuffled().take(1)[0]
         Toast.makeText(baseContext, "${data.wordOrg} - ${data.wordTrad}".uppercase().replace("☼○",""), Toast.LENGTH_LONG).show()
@@ -116,4 +136,12 @@ class ToastService(): Service(){
 
     }
 
+    private fun createNotification(){
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+            val notificationChanel = NotificationChannel("channel1","Foreground Service", NotificationManager.IMPORTANCE_DEFAULT)
+            val manager: NotificationManager = getSystemService(NotificationManager::class.java)
+            manager.createNotificationChannel(notificationChanel)
+
+        }
+    }
 }
