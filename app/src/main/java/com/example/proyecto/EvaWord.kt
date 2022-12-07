@@ -1,12 +1,18 @@
 package com.example.proyecto
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
@@ -66,15 +72,29 @@ class EvaWord : Fragment() {
             var wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
             Log.d("MAP",wordTrad.toString())
 
-            binding.btnEvaWord.setOnClickListener {
+            fun evaWord(){
                 if(wordTrad.replace("☼○", "").equals(binding.evaWT.editText?.text.toString().trim(), true)){
                     wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
-
+                    binding.wordTrad.requestFocus()
                 }else{
-
+                    binding.evaWT.editText?.setText("")
                 }
                 binding.evaWT.editText?.setText("")
             }
+            binding.btnEvaWord.setOnClickListener {
+                evaWord()
+            }
+
+
+            binding.wordTrad.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+                if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_SEND) {
+                    evaWord()
+
+                }
+                true
+            })
+
+
 
         }catch (_: Exception){
             Toast.makeText(context, "No existen palabras registradas", Toast.LENGTH_SHORT ).show()
@@ -92,6 +112,9 @@ class EvaWord : Fragment() {
         Log.d("datosMap", wordReturn)
         return wordReturn
     }
+
+
+
 
 //    private fun valorRandom(mapValor: Map<String, String>, editWO: EditText?):String{
 //        var randomMap = mapValor.entries.elementAt(Random.nextInt(mapValor.size))

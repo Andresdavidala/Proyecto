@@ -18,6 +18,7 @@ import com.example.proyecto.R
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordslistrecyclerviewBinding
+import com.example.proyecto.listWords
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
@@ -38,9 +39,9 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
         return wordsDataList.size
     }
 
-    fun updateWords (wordsOrg:List<DataWordsBase>, wordsTrad:List<DataWordsBase>){
-        this.wordsDataList = wordsOrg
-        this.wordsDataList = wordsTrad
+//
+    fun updateWord(words: List<DataWordsBase>){
+        this.wordsDataList = words
         notifyDataSetChanged()
     }
     inner class vhDataList(view: View): RecyclerView.ViewHolder(view){

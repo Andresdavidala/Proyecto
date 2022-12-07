@@ -38,13 +38,11 @@ class listWords : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.filterET.addTextChangedListener { filterWords ->
-           val wordsOrg =  dataWordProvider.dataWords.filter { wordsOrg -> wordsOrg.wordOrg.lowercase().contains(filterWords.toString().lowercase()) }
-            val wordTrad = dataWordProvider.dataWords.filter { wordsTrad -> wordsTrad.wordTrad.lowercase().contains(filterWords.toString().lowercase()) }
-            adapter.updateWords(wordsOrg, wordTrad)
+        binding.filterET.addTextChangedListener { it->
+            val words = dataWordProvider.dataWords.filter { words -> words.toString().lowercase().contains(it.toString().lowercase()) }
+            adapter.updateWord(words)
         }
         iniRecyclerView()
-
 
 
     }
