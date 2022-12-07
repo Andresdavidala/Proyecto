@@ -87,8 +87,8 @@
 
     <TextView
         android:id="@+id/tvEvaDescription"
-        android:layout_width="369dp"
-        android:layout_height="38dp"
+        android:layout_width="369sp"
+        android:layout_height="38sp"
         android:fontFamily="@font/roboto_regular"
         android:text="!Evalúate! intenta repasar las palabras que has guardado para que no se te olviden."
         android:textColor="@color/textfieldMost"

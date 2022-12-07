@@ -1,22 +1,23 @@
 package com.example.proyecto
 
 import android.annotation.SuppressLint
-import android.app.RemoteInput
+import android.app.Activity
 import android.content.Context
-import android.media.MediaParser.InputReader
+import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputBinding
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentSaveWordsBinding
-import java.io.File
-import java.io.FileWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
@@ -78,8 +79,10 @@ class SaveWords : Fragment() {
 
 
         Log.d("datos2", dataWordProvider.dataWords.toString())
-
-        binding.btnSaveWord.setOnClickListener {
+        fun Fragment.hideKeyboard() {
+            view?.let { activity?.hideKeyboard(it) }
+        }
+        fun saveWord(){
             val campoWordOrg = binding.wordOrg.text.toString().trim()
             val campoWordTrad = binding.wordTrad.text.toString().trim()
             try {
@@ -108,19 +111,39 @@ class SaveWords : Fragment() {
                 outputWriter.flush()
                 outputWriter.close()
 
-
+                hideKeyboard()
+                binding.wordOrg.clearFocus()
                 binding.wordOrg.setText("")
                 binding.wordTrad.setText("")
+
 
 
             } catch (e: java.lang.Exception) {
                 Toast.makeText(context, "Something Wrong", Toast.LENGTH_SHORT).show()
 
             }
+        }
+        binding.btnSaveWord.setOnClickListener {
+            saveWord()
 
         }
 
 
+        binding.wordTrad.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                saveWord()
+
+            }
+            false
+        })
+
+
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        binding.wordOrg.requestFocus()
     }
 
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".configuration">
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -82,8 +82,8 @@
 
                 <TextView
                     android:id="@+id/tvcontain1"
-                    android:layout_width="247dp"
-                    android:layout_height="64dp"
+                    android:layout_width="247sp"
+                    android:layout_height="64sp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/viga_regular"
                     android:text="Muestra un toast con las palabras insertadas como recortadorio. Establece tu intervalo de tiempo."
@@ -131,10 +131,10 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.72" />
 
-                    <Button
+                <Button
                     android:id="@+id/btnEstablecer"
-                    android:layout_width="122dp"
-                    android:layout_height="47dp"
+                    android:layout_width="122sp"
+                    android:layout_height="47sp"
                     android:layout_marginBottom="32dp"
                     android:backgroundTint="@color/button_press_color"
                     android:text="Establecer"
@@ -241,10 +241,11 @@
                     app:layout_constraintHorizontal_bias="0.067"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/tvcontain5"
-                    android:layout_width="216dp"
-                    android:layout_height="65dp"
+                    android:layout_width="216sp"
+                    android:layout_height="65sp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/viga_regular"
                     android:text="Muestra una ventana emergente, traduce la palabra o falla tres veces para cerrar la ventana."
@@ -298,16 +299,16 @@
 
                 <Button
                     android:id="@+id/btnEstablecerW"
-                    android:layout_width="122dp"
-                    android:layout_height="47dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_width="122sp"
+                    android:layout_height="47sp"
+                    android:layout_marginBottom="40sp"
                     android:backgroundTint="@color/button_press_color"
                     android:text="Establecer"
                     android:textColor="#FFFFFF"
 
                     android:textColorHint="#FF0000"
                     android:textSize="13sp"
-                    app:cornerRadius="20dp"
+                    app:cornerRadius="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.659"

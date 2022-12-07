@@ -40,6 +40,8 @@
             android:id="@+id/wordOrg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:fontFamily="@font/viga_regular"
 
             android:textSize="20dp" />
@@ -70,14 +72,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/viga_regular"
+            android:imeOptions="actionSend"
+            android:inputType="text"
             android:hint="Palabra a traducir"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tvparrafo"
-        android:layout_width="369dp"
-        android:layout_height="38dp"
+        android:layout_width="369sp"
+        android:layout_height="38sp"
         android:fontFamily="@font/roboto_regular"
         android:text="Ingresa la palabra que deseas y luego su traducción. ¡Te la recordaremos cuando quieras!"
         android:textColor="@color/textfieldMost"

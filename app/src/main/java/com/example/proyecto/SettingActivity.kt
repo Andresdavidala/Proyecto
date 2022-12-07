@@ -15,6 +15,7 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -109,6 +110,12 @@ class SettingActivity : AppCompatActivity() {
         val numberPickerHour = binding.numberPicker2
         val numberPickerHourW = binding.numberPicker3
         val numberPickerMinutesW = binding.numberPicker4
+
+
+        numberPickerHour.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS;
+        numberPickerminutes.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS;
+        numberPickerHourW.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS;
+        numberPickerMinutesW.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS;
 
 
         numberPickerHour.minValue = 0

@@ -40,8 +40,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDataList"
-        android:layout_width="414dp"
-        android:layout_height="328dp"
+        android:layout_width="414sp"
+        android:layout_height="328sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
