@@ -113,6 +113,7 @@ class SaveWords : Fragment() {
 
                 hideKeyboard()
                 binding.wordOrg.clearFocus()
+
                 binding.wordOrg.setText("")
                 binding.wordTrad.setText("")
 
