@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/carViewWO"
         android:layout_width="165dp"
-        android:layout_height="41dp"
+        android:layout_height="wrap_content"
         android:layout_margin="7dp"
         android:backgroundTint="@color/textfieldMost"
         app:cardCornerRadius="25dp"
@@ -42,6 +42,7 @@
                     android:fontFamily="@font/viga_regular"
                     android:gravity="center|center_horizontal|center_vertical"
                     android:scrollbars="vertical"
+                    android:padding="7dp"
                     android:text="TextView"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -58,6 +59,7 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/viga_regular"
                 android:gravity="center|center_horizontal|center_vertical"
+                android:padding="7dp"
                 android:textSize="20sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -73,7 +75,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewWT"
         android:layout_width="165dp"
-        android:layout_height="41dp"
+        android:layout_height="wrap_content"
         android:layout_margin="7dp"
         android:backgroundTint="@color/secundarioCel"
         app:cardCornerRadius="25dp"
@@ -98,14 +100,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5">
+
                 <TextView
                     android:id="@+id/tvWordTrad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/viga_regular"
                     android:gravity="center|center_horizontal|center_vertical"
-                    android:text="TextView"
                     android:scrollbars="vertical"
+                    android:text="TextView"
+                    android:padding="7dp"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +119,6 @@
             </ScrollView>
 
 
-
             <EditText
                 android:id="@+id/etWordTrad"
                 android:layout_width="match_parent"
@@ -123,6 +126,7 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/viga_regular"
                 android:gravity="center|center_horizontal|center_vertical"
+                android:padding="7dp"
                 android:textSize="20sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"

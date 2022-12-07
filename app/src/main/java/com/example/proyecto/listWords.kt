@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto.Recycler.Customer.CustomerAdapter
@@ -37,6 +38,11 @@ class listWords : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.filterET.addTextChangedListener { filterWords ->
+           val wordsOrg =  dataWordProvider.dataWords.filter { wordsOrg -> wordsOrg.wordOrg.lowercase().contains(filterWords.toString().lowercase()) }
+            val wordTrad = dataWordProvider.dataWords.filter { wordsTrad -> wordsTrad.wordTrad.lowercase().contains(filterWords.toString().lowercase()) }
+            adapter.updateWords(wordsOrg, wordTrad)
+        }
         iniRecyclerView()
 
 

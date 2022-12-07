@@ -67,7 +67,7 @@ class EvaWord : Fragment() {
             Log.d("MAP",wordTrad.toString())
 
             binding.btnEvaWord.setOnClickListener {
-                if(wordTrad.replace("☼○", "") == binding.evaWT.editText?.text.toString().trim()){
+                if(wordTrad.replace("☼○", "").equals(binding.evaWT.editText?.text.toString().trim(), true)){
                     wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
 
                 }else{

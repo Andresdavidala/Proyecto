@@ -1,14 +1,19 @@
 package com.example.proyecto.Recycler.Customer
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
+import com.example.proyecto.MainActivity
 import com.example.proyecto.R
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
@@ -17,7 +22,7 @@ import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
 
-class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):RecyclerView.Adapter<CustomerAdapter.vhDataList>() {
+class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):RecyclerView.Adapter<CustomerAdapter.vhDataList>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): vhDataList {
         val dataLayout =LayoutInflater.from(parent.context)
@@ -33,6 +38,11 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
         return wordsDataList.size
     }
 
+    fun updateWords (wordsOrg:List<DataWordsBase>, wordsTrad:List<DataWordsBase>){
+        this.wordsDataList = wordsOrg
+        this.wordsDataList = wordsTrad
+        notifyDataSetChanged()
+    }
     inner class vhDataList(view: View): RecyclerView.ViewHolder(view){
 
         val binding = WordslistrecyclerviewBinding.bind(view)
@@ -62,9 +72,36 @@ class CustomerAdapter(val wordsDataList:List<DataWordsBase>, private val onClick
                 false
             })
 
-
+//dentro del btn esta la validacion del boton borrar con alertDialog
             binding.btnDelete.setOnClickListener {
-                onClickDelete(adapterPosition)
+                val customDialogView: View = LayoutInflater.from(fileContext).inflate(R.layout.custom_dialog, null)
+                val customDialog = AlertDialog.Builder(fileContext)
+                customDialog.setView(customDialogView)
+                val cancelBtn = customDialogView.findViewById<Button>(R.id.btnNegative)
+                val okBtn = customDialogView.findViewById<Button>(R.id.btnPositive)
+
+                val dialog = customDialog.create()
+
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.show()
+
+                cancelBtn.setOnClickListener {
+                    dialog.dismiss()
+                }
+
+                okBtn.setOnClickListener {
+                    onClickDelete(adapterPosition)
+                    dialog.dismiss()
+                }
+//                val sureDelete = AlertDialog.Builder(fileContext).setTitle("¿Quieres eliminar la palabra?").setPositiveButton("OK", null)
+//                    .setNegativeButton("Cancel", null).show()
+//                val okButton : Button = sureDelete.getButton(AlertDialog.BUTTON_POSITIVE)
+//
+//                okButton.setOnClickListener {
+//                    onClickDelete(adapterPosition)
+//                    sureDelete.dismiss()
+//                }
+//
             }
 
             binding.btnEdit.setOnClickListener {
