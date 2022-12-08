@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +12,10 @@ import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
-import com.example.proyecto.MainActivity
 import com.example.proyecto.R
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordslistrecyclerviewBinding
-import com.example.proyecto.listWords
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 

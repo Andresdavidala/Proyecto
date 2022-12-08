@@ -1,10 +1,6 @@
 package com.example.proyecto
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.Service
+import android.app.*
 import android.content.Intent
 import android.os.Build
 import android.os.Handler
@@ -13,7 +9,6 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.proyecto.Recycler.dataWordProvider
 import java.io.FileInputStream
 import java.io.InputStreamReader
@@ -49,13 +44,13 @@ class ToastService(): Service(){
         val numPicMinutes = intent?.getIntExtra("numberPickerMinutes", 0)
 
 
-        //↓para broadcast
-
-        val intent = Intent("sendMili")
-
-
-
-        //↑
+//        //↓para broadcast
+//
+//        val intent = Intent("sendMili")
+//
+//
+//
+//        //↑
         //handler y runnable for Toast
 
 
@@ -70,7 +65,8 @@ class ToastService(): Service(){
             .setSmallIcon(R.mipmap.ic_launcher_round)
             .setContentIntent(pendingIntent).build()
 
-        startForeground(1, notificacion)
+
+
         //↑
 
         for (i in words.indices) {
@@ -103,15 +99,16 @@ class ToastService(): Service(){
         if(milisecundos !=0){
 
             mainHandler.postDelayed(runn, milisecundos.toLong())
+            startForeground(1, notificacion)
         }else{
             Toast.makeText(this, "Tiempo igual a 0 no valido", Toast.LENGTH_LONG).show()
         }
 
 
         //intent para enviar valores del serve a la actividad
-        intent.putExtra("DATE", milisecundos)
-
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+//        intent.putExtra("DATE", milisecundos)
+//
+//        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
         START_STICKY
         return super.onStartCommand(intent, flags, startId)
 

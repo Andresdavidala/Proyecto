@@ -1,30 +1,22 @@
 package com.example.proyecto
 
 import android.app.AlertDialog
-import android.app.TaskInfo
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.NumberPicker
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.proyecto.databinding.ActivitySettingBinding
-import java.io.InputStreamReader
 import kotlin.properties.Delegates
-import kotlin.random.Random
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
@@ -291,72 +283,72 @@ class SettingActivity : AppCompatActivity() {
 
         //↑
 
+
         binding.btnEstablecerW.setOnClickListener {
-            binding.btnEstablecerW.isSelected = !binding.btnEstablecerW.isSelected
-            binding.numberPicker3.isEnabled = !binding.numberPicker3.isEnabled
-            binding.numberPicker4.isEnabled = !binding.numberPicker4.isEnabled
-            //sharedPToast
 
-
-            //foreground
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                startForegroundService(intent)
-            }else{
-                stopService(intent)
-            }
-
-            //↑
-
-            //numberPickerHorasWindowDOA  ↓
-            val nPWHour = getSharedPreferences("numPickerWinHour", MODE_PRIVATE)!!.edit()
-            nPWHour.putInt("SPNPWTHour", numberPickerHourW.value).apply()
-
-            //numberPickerMinWindowDOA  ↓
-            val nPWMin = getSharedPreferences("numPickerWinMin", MODE_PRIVATE)!!.edit()
-            nPWMin.putInt("SPNPWTMin", numberPickerMinutesW.value).apply()
-
-            //SharedPBtnEstablecerWin
-            val btnEstablecerWin = getSharedPreferences("buttonEstWin", MODE_PRIVATE)!!.edit()
-            btnEstablecerWin.putBoolean("btnEWinSP", binding.btnEstablecerW.isSelected).apply()
-
-            //SharedPBtnEstablecerWinText
-            val btnTextWin = getSharedPreferences("buttonEstTextWin", MODE_PRIVATE)!!.edit()
-
-            //para SP NumberPicker issEnabled
-            val numPEnabledW = getSharedPreferences("numPickEnabledW", MODE_PRIVATE)!!.edit()
-            numPEnabledW.putBoolean("nPEnabledW",numberPickerHourW.isEnabled).apply()
-            numPEnabledW.putBoolean("nPEnabledW", numberPickerMinutesW.isEnabled).apply()
-            //↑SPT
-
-            if(binding.btnEstablecerW.isSelected){
-                binding.btnEstablecerW.text = "Cancelar"
-                btnTextWin.putString("btnETextWinSP", "Cancelar").apply()
-
-                Intent(this@SettingActivity, FloatingWindow::class.java ).also {
-                    it.putExtra("numberPickerHourW", numberPickerHourW.value)
-                    it.putExtra("numberPickerMinutesW", numberPickerMinutesW.value)
-                    startService(it)
-                }
-            }else{
-                binding.btnEstablecerW.text = "Establecer"
-                btnTextWin.putString("btnETextWinSP", "Establecer").apply()
-
-                Intent(this@SettingActivity, FloatingWindow::class.java).also {
-                    stopService(it)
-                }
-            }
 
 
 
             if(checkOverlayPermission()){
 
+                binding.btnEstablecerW.isSelected = !binding.btnEstablecerW.isSelected
+                binding.numberPicker3.isEnabled = !binding.numberPicker3.isEnabled
+                binding.numberPicker4.isEnabled = !binding.numberPicker4.isEnabled
+                //sharedPToast
 
+
+                //foreground
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    startForegroundService(intent)
+                }else{
+                    stopService(intent)
+                }
+
+                //↑
+
+                //numberPickerHorasWindowDOA  ↓
+                val nPWHour = getSharedPreferences("numPickerWinHour", MODE_PRIVATE)!!.edit()
+                nPWHour.putInt("SPNPWTHour", numberPickerHourW.value).apply()
+
+                //numberPickerMinWindowDOA  ↓
+                val nPWMin = getSharedPreferences("numPickerWinMin", MODE_PRIVATE)!!.edit()
+                nPWMin.putInt("SPNPWTMin", numberPickerMinutesW.value).apply()
+
+                //SharedPBtnEstablecerWin
+                val btnEstablecerWin = getSharedPreferences("buttonEstWin", MODE_PRIVATE)!!.edit()
+                btnEstablecerWin.putBoolean("btnEWinSP", binding.btnEstablecerW.isSelected).apply()
+
+                //SharedPBtnEstablecerWinText
+                val btnTextWin = getSharedPreferences("buttonEstTextWin", MODE_PRIVATE)!!.edit()
+
+                //para SP NumberPicker issEnabled
+                val numPEnabledW = getSharedPreferences("numPickEnabledW", MODE_PRIVATE)!!.edit()
+                numPEnabledW.putBoolean("nPEnabledW",numberPickerHourW.isEnabled).apply()
+                numPEnabledW.putBoolean("nPEnabledW", numberPickerMinutesW.isEnabled).apply()
+                //↑SPT
+
+                if(binding.btnEstablecerW.isSelected){
+                    binding.btnEstablecerW.text = "Cancelar"
+                    btnTextWin.putString("btnETextWinSP", "Cancelar").apply()
+
+                    Intent(this@SettingActivity, FloatingWindow::class.java ).also {
+                        it.putExtra("numberPickerHourW", numberPickerHourW.value)
+                        it.putExtra("numberPickerMinutesW", numberPickerMinutesW.value)
+                        startService(it)
+                    }
+                }else{
+                    binding.btnEstablecerW.text = "Establecer"
+                    btnTextWin.putString("btnETextWinSP", "Establecer").apply()
+
+                    Intent(this@SettingActivity, FloatingWindow::class.java).also {
+                        stopService(it)
+                    }
+                }
 
             }else{
                 requestFlowatingPermission()
 
             }
-
 
         }
 

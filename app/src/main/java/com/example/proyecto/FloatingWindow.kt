@@ -146,7 +146,7 @@ class FloatingWindow: Service() {
             .setSmallIcon(R.mipmap.ic_launcher_round)
             .setContentIntent(pendingIntent).build()
 
-        startForeground(1, notificacion)
+
         //↑
 
 
@@ -208,6 +208,7 @@ class FloatingWindow: Service() {
 
         if(milisecundos != 0){
             mainHandler.postDelayed(runn, milisecundos.toLong())
+            startForeground(1, notificacion)
         }else{
             Toast.makeText(this, "Tiempo igual a 0 no valido", Toast.LENGTH_LONG).show()
         }

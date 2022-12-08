@@ -2,22 +2,17 @@ package com.example.proyecto
 
 import android.content.Context
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto.Recycler.Customer.CustomerAdapter
-import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
-import com.example.proyecto.databinding.FragmentEvaWordBinding
 import com.example.proyecto.databinding.FragmentListWordsBinding
-import java.io.*
+import java.io.OutputStreamWriter
 
 
 class listWords : Fragment() {

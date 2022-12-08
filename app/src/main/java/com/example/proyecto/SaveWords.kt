@@ -3,7 +3,6 @@ package com.example.proyecto
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent

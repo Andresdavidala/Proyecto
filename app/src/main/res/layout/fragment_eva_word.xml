@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxHeight="85dp"
-
+            android:inputType="textNoSuggestions"
             android:focusable="false"
             android:fontFamily="@font/viga_regular"
             android:textSize="20dp"
