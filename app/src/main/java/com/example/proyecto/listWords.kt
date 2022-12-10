@@ -13,6 +13,7 @@ import com.example.proyecto.Recycler.Customer.CustomerAdapter
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentListWordsBinding
 import java.io.OutputStreamWriter
+import java.util.concurrent.locks.ReentrantLock
 
 
 class listWords : Fragment() {
@@ -32,10 +33,29 @@ class listWords : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//
+//        binding.filterET.addTextChangedListener { it->
+//            val words = dataWordProvider.dataWords.filter { words -> words.toString().lowercase().contains(it.toString().lowercase()) }
+//            adapter.updateWord(words)
+//        }
+        binding.filterET.addTextChangedListener {
+            val listData = binding.filterET.text.toString()
 
-        binding.filterET.addTextChangedListener { it->
-            val words = dataWordProvider.dataWords.filter { words -> words.toString().lowercase().contains(it.toString().lowercase()) }
-            adapter.updateWord(words)
+
+            try{
+                val findWord = dataWordProvider.dataWords.indexOfFirst {
+                    it.wordOrg.replace("☼○", "") == listData || it.wordTrad.replace("☼○", "") == listData
+                }
+
+                if(findWord == -1){
+                    binding.rvDataList.scrollToPosition(0)
+                }
+                Log.i("datos", findWord.toString())
+                binding.rvDataList.smoothScrollToPosition(findWord)
+            }catch (_: Exception){
+
+            }
+
         }
         iniRecyclerView()
 
@@ -51,7 +71,9 @@ class listWords : Fragment() {
         val recyclerView= binding.rvDataList
 
 
+
         recyclerView.layoutManager = LinearLayoutManager(context)
+
         recyclerView.adapter = adapter
 
 

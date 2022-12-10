@@ -25,12 +25,13 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/primarioCel"
-        android:imeOptions="actionDone"
         android:drawableLeft="@drawable/loopa"
+        android:imeOptions="actionDone"
         android:maxLines="1"
         android:singleLine="true"
         android:textColor="@color/textfieldMost"
         android:textColorHint="@color/primarioCel"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/rvDataList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -48,4 +49,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.653" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

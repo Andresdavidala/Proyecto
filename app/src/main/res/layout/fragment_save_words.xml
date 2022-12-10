@@ -41,7 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
-            android:inputType="text"
+
+            android:inputType="textNoSuggestions"
             android:fontFamily="@font/viga_regular"
 
             android:textSize="20dp" />
@@ -73,7 +74,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/viga_regular"
             android:imeOptions="actionSend"
-            android:inputType="text"
+            android:inputType="textNoSuggestions"
             android:hint="Palabra a traducir"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>

@@ -207,8 +207,12 @@ class FloatingWindow: Service() {
         milisecundos = minutosTotal!! * 1000
 
         if(milisecundos != 0){
-            mainHandler.postDelayed(runn, milisecundos.toLong())
-            startForeground(1, notificacion)
+            if(dataWordProvider.dataWords.size != 0){
+                mainHandler.postDelayed(runn, milisecundos.toLong())
+                startForeground(1, notificacion)
+            }else{
+                Toast.makeText(this, "No se encontraron palabras", Toast.LENGTH_LONG).show()
+            }
         }else{
             Toast.makeText(this, "Tiempo igual a 0 no valido", Toast.LENGTH_LONG).show()
         }

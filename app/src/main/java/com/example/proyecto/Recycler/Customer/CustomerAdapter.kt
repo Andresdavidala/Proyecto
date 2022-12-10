@@ -107,10 +107,10 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
             }
 
             binding.carViewWO.setOnClickListener {
-                Log.d("datosWT", dataListW.wordOrg)
+                Log.d("datosWT", dataListW.wordOrg.replace("☼○", ""))
             }
             binding.cardViewWT.setOnClickListener {
-                Log.d("datosWT", dataListW.wordTrad)
+                Log.d("datosWT", dataListW.wordTrad.replace("☼○", ""))
             }
 
             binding.btnEdit.setOnClickListener {
