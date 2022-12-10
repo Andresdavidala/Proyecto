@@ -125,6 +125,7 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
                 binding.etWordOrg.setText(dataListW.wordOrg)
                 binding.etWordTrad.setText(dataListW.wordTrad.replace("☼○", ""))
                 binding.btnCancel.visibility = View.VISIBLE
+
             }
 
             binding.btnCheck.setOnClickListener {
