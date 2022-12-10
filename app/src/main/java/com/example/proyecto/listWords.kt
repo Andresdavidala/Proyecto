@@ -49,6 +49,7 @@ class listWords : Fragment() {
                     it.wordOrg.replace("☼○", "") == listData || it.wordTrad.replace("☼○", "") == listData
                 }
 
+
                 if(findWord == -1){
                     binding.rvDataList.scrollToPosition(0)
                 }
