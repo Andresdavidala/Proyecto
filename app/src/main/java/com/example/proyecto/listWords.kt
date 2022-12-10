@@ -38,8 +38,10 @@ class listWords : Fragment() {
 //            val words = dataWordProvider.dataWords.filter { words -> words.toString().lowercase().contains(it.toString().lowercase()) }
 //            adapter.updateWord(words)
 //        }
+
+        iniRecyclerView()
         binding.filterET.addTextChangedListener {
-            val listData = binding.filterET.text.toString()
+            val listData = binding.filterET.text.toString().trim()
 
 
             try{
@@ -51,13 +53,13 @@ class listWords : Fragment() {
                     binding.rvDataList.scrollToPosition(0)
                 }
                 Log.i("datos", findWord.toString())
-                binding.rvDataList.smoothScrollToPosition(findWord)
+                binding.rvDataList.smoothScrollToPosition(findWord+2)
+
             }catch (_: Exception){
 
             }
 
         }
-        iniRecyclerView()
 
 
     }
