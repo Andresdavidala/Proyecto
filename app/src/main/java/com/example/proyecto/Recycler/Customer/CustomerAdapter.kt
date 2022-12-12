@@ -36,11 +36,6 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
         return wordsDataList.size
     }
 
-//
-    fun updateWord(words: List<DataWordsBase>){
-        this.wordsDataList = words
-        notifyDataSetChanged()
-    }
     inner class vhDataList(view: View): RecyclerView.ViewHolder(view){
 
         val binding = WordslistrecyclerviewBinding.bind(view)
@@ -91,15 +86,7 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
                     onClickDelete(adapterPosition)
                     dialog.dismiss()
                 }
-//                val sureDelete = AlertDialog.Builder(fileContext).setTitle("¿Quieres eliminar la palabra?").setPositiveButton("OK", null)
-//                    .setNegativeButton("Cancel", null).show()
-//                val okButton : Button = sureDelete.getButton(AlertDialog.BUTTON_POSITIVE)
-//
-//                okButton.setOnClickListener {
-//                    onClickDelete(adapterPosition)
-//                    sureDelete.dismiss()
-//                }
-//
+
             }
 
             binding.btnEdit.setOnClickListener {

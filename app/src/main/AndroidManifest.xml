@@ -39,10 +39,12 @@
         </activity>
 
         <service
-            android:name=".FloatingWindow"
+            android:name=".Service.FloatingWindow"
             tools:ignore="Instantiatable" />
-        <service android:name=".ToastService"
+        <service android:name=".Service.ToastService"
             android:foregroundServiceType="dataSync"/>
+        <service android:name=".Service.BubbleService"
+            />
     </application>
 
 </manifest>

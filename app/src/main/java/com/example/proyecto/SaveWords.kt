@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentSaveWordsBinding
+import org.w3c.dom.Text
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
@@ -86,12 +88,14 @@ class SaveWords : Fragment() {
             val campoWordTrad = binding.wordTrad.text.toString().trim()
             try {
 
-                if(binding.wordOrg.text?.isEmpty()==true || binding.wordTrad.text?.isEmpty()==true){
+                if(binding.wordOrg.text?.isEmpty()==true || binding.wordTrad.text?.isEmpty()==true || TextUtils.isEmpty(campoWordOrg) || TextUtils.isEmpty(campoWordTrad)){
                     Toast.makeText(context, "Debe llenar los campos", Toast.LENGTH_SHORT).show()
                 }else {
                     dataWordProvider.dataWords.add(DataWordsBase(campoWordOrg, campoWordTrad))
                     Toast.makeText(context, "Palabra guardada correctamente!", Toast.LENGTH_SHORT)
                         .show()
+                    binding.wordOrg.setText("")
+                    binding.wordTrad.setText("")
                 }
                 //guardar en un textfile integrado dentro de la app↓
 
@@ -113,8 +117,7 @@ class SaveWords : Fragment() {
                 hideKeyboard()
                 binding.wordOrg.clearFocus()
 
-                binding.wordOrg.setText("")
-                binding.wordTrad.setText("")
+
 
 
 

@@ -1,4 +1,4 @@
-package com.example.proyecto
+package com.example.proyecto.Service
 
 import android.app.*
 import android.content.Intent
@@ -9,7 +9,9 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import com.example.proyecto.R
 import com.example.proyecto.Recycler.dataWordProvider
+import com.example.proyecto.SettingActivity
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import kotlin.properties.Delegates

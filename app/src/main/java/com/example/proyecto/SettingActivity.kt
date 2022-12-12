@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +16,9 @@ import android.widget.NumberPicker
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.proyecto.Service.BubbleService
+import com.example.proyecto.Service.FloatingWindow
+import com.example.proyecto.Service.ToastService
 import com.example.proyecto.databinding.ActivitySettingBinding
 import kotlin.properties.Delegates
 
@@ -48,6 +52,8 @@ class SettingActivity : AppCompatActivity() {
         val clTitle2 = binding.clTitle2
         val clHS2 = binding.clShow2
 
+        //DECLARE SWITCH
+        val switchBlb = binding.switchBurbj
 
 
         //backbtn
@@ -92,6 +98,8 @@ class SettingActivity : AppCompatActivity() {
 
     val buttonTextWin = getSharedPreferences("buttonEstTextWin", MODE_PRIVATE)
     binding.btnEstablecerW.text = buttonTextWin!!.getString("btnETextWinSP", "Establecer")
+
+
 
     //SPBE
 
@@ -149,6 +157,14 @@ class SettingActivity : AppCompatActivity() {
         numberPickerHourW.isEnabled = numPickIsEnableW.getBoolean("nPEnabledW", numberPickerHour.isEnabled)
         numberPickerMinutesW.isEnabled = numPickIsEnableW.getBoolean("nPEnabledW", numberPickerHour.isEnabled)
         //↑SPNP
+
+
+        //SharedPSwitch
+        val switchBubble = getSharedPreferences("switchBuble", MODE_PRIVATE)
+        switchBlb.isChecked = switchBubble.getBoolean("valSwitch", false)
+
+
+        //↑
 
 
 
@@ -414,40 +430,48 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
+        //section bubble
+        binding.switchBurbj.setOnCheckedChangeListener { compoundButton, isChecked ->
+
+            if(isChecked){
+
+                if(checkOverlayPermission()){
+                    val switchValBbl  = getSharedPreferences("switchBuble", MODE_PRIVATE)!!.edit()
+                    switchValBbl.putBoolean("valSwitch", true).apply()
+                    //foreground
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                        startForegroundService(intent)
+                    }else{
+                        stopService(intent)
+                    }
+
+                    //↑
+                    Intent(this@SettingActivity, BubbleService::class.java).also {
+                            startService(it)
+                    }
+
+                }else{
+                    switchBlb.isChecked = false
+                    requestFlowatingPermission()
+                }
+            }else{
+                val switchValBbl  = getSharedPreferences("switchBuble", MODE_PRIVATE)!!.edit()
+                switchValBbl.putBoolean("valSwitch", false).apply()
+                Intent(this@SettingActivity, BubbleService::class.java).also {
+                    stopService(it)
+                }
+
+            }
+        }
+
+
+
+
+        //↑
     }
 
-//    private fun switchChecked(mapWords: Map<String,String>){
-//
-//        var randoMap = mapWords.entries.elementAt(Random.nextInt(mapWords.size))
-//        Log.d("TAGSw", mapWords.toString())
-//        Toast.makeText(baseContext, "${randoMap.key.uppercase()} → ${randoMap.value.uppercase()}", Toast.LENGTH_LONG).show()
-//
-//        Log.d("datos", "funcionando")
-//
-//    }
 
-//    private fun isCeroMili(){
-//        //broadcast
-//        br = object :BroadcastReceiver(){
-//            override fun onReceive(p0: Context?, p1: Intent?) {
-//                miliDate = p1?.getIntExtra("DATE", 0)!!
-//                Log.d("datosRecev", miliDate.toString())
-//                if(miliDate == 0){
-//                    Toast.makeText(baseContext, "Tiempo igual a 0", Toast.LENGTH_SHORT).show()
-//                    binding.btnEstablecer.isSelected = false
-//                    binding.btnEstablecer.text = "ESTABLECER"
-//                    binding.numberPicker.isEnabled = true
-//                    binding.numberPicker2.isEnabled = true
-//                }
-//
-//            }
-//        }
-//        val filter = IntentFilter("sendMili")
-//        LocalBroadcastManager.getInstance(this).registerReceiver(br, filter)
-//
-//
-//        //↑
-//    }
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun requestFlowatingPermission() {

@@ -13,7 +13,6 @@ import com.example.proyecto.Recycler.Customer.CustomerAdapter
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentListWordsBinding
 import java.io.OutputStreamWriter
-import java.util.concurrent.locks.ReentrantLock
 
 
 class listWords : Fragment() {
@@ -33,11 +32,9 @@ class listWords : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//
-//        binding.filterET.addTextChangedListener { it->
-//            val words = dataWordProvider.dataWords.filter { words -> words.toString().lowercase().contains(it.toString().lowercase()) }
-//            adapter.updateWord(words)
-//        }
+
+
+
 
         iniRecyclerView()
         binding.filterET.addTextChangedListener {
@@ -46,7 +43,7 @@ class listWords : Fragment() {
 
             try{
                 val findWord = dataWordProvider.dataWords.indexOfFirst {
-                    it.wordOrg.replace("☼○", "") == listData || it.wordTrad.replace("☼○", "") == listData
+                    it.wordOrg.replace("☼○", "").lowercase() == listData.lowercase() || it.wordTrad.replace("☼○", "").lowercase() == listData.lowercase()
                 }
 
 
@@ -65,9 +62,7 @@ class listWords : Fragment() {
 
     }
 
-    fun listWrite(context: Context){
 
-    }
     fun iniRecyclerView(){
 
         adapter = CustomerAdapter(dataWordProvider.dataWords,{position -> onDeleteWord(position)}, requireContext())
