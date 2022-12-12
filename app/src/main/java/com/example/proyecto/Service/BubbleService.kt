@@ -59,7 +59,7 @@ class BubbleService: Service() {
         val inflaterCard = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         bubbleView= inflater.inflate(R.layout.bubble, null) as ViewGroup
         bubbleIv = bubbleView.findViewById(R.id.ivBubble)
-        bubbleIv.setImageResource(R.drawable.ic_baseline_circle_24)
+        bubbleIv.setImageResource(R.drawable.iconsvm)
 
         cardView = inflaterCard.inflate(R.layout.cardtobubble, null) as ViewGroup //create new layout for problems
         cardContain = cardView.findViewById(R.id.crdV)
@@ -114,6 +114,8 @@ class BubbleService: Service() {
 
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 when(event!!.action){
+
+
                     MotionEvent.ACTION_DOWN -> {
                         x = updatedFloatWindowLayoutParams.x.toDouble()
                         y = updatedFloatWindowLayoutParams.y.toDouble()

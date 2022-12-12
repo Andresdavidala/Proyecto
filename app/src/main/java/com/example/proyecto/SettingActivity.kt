@@ -440,9 +440,19 @@ class SettingActivity : AppCompatActivity() {
                     switchValBbl.putBoolean("valSwitch", true).apply()
                     //foreground
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                        startForegroundService(intent)
+                        try{
+                            startForegroundService(intent)
+                        }catch (_: Exception){
+
+                        }
+
                     }else{
-                        stopService(intent)
+                        try{
+                            stopService(intent)
+                        }catch (_: Exception){
+
+                        }
+
                     }
 
                     //↑
@@ -457,9 +467,13 @@ class SettingActivity : AppCompatActivity() {
             }else{
                 val switchValBbl  = getSharedPreferences("switchBuble", MODE_PRIVATE)!!.edit()
                 switchValBbl.putBoolean("valSwitch", false).apply()
-                Intent(this@SettingActivity, BubbleService::class.java).also {
-                    stopService(it)
-                }
+               try {
+                   Intent(this@SettingActivity, BubbleService::class.java).also {
+                       stopService(it)
+                   }
+               }catch (_: Exception){
+
+               }
 
             }
         }
