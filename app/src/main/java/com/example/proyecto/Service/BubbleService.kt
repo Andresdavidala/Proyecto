@@ -1,14 +1,18 @@
 package com.example.proyecto.Service
 
 import android.app.*
+import android.app.DownloadManager.ACTION_NOTIFICATION_CLICKED
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
 import android.text.TextUtils
 import android.util.Log
 import android.view.*
+import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
@@ -41,6 +45,7 @@ class BubbleService: Service() {
     private lateinit var etWo: EditText
     private lateinit var etWT: EditText
 
+    val velocityTracker = VelocityTracker.obtain()
     override fun onBind(p0: Intent?): IBinder? {
         return null
     }
@@ -105,6 +110,12 @@ class BubbleService: Service() {
 
         //↑
 
+        //↓
+
+
+
+
+
         bubbleView.setOnTouchListener(object : View.OnTouchListener {
             val updatedFloatWindowLayoutParams = bubbleViewParams
             var x = 0.0
@@ -112,7 +123,23 @@ class BubbleService: Service() {
             var px = 0.0
             var py = 0.0
 
+
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                cardView.alpha = 0f
+                cardView.visibility = View.VISIBLE
+                velocityTracker.addMovement(event)
+                velocityTracker.computeCurrentVelocity(1000)
+                val yVelocity = velocityTracker.yVelocity
+                Log.d("datosMovement", yVelocity.toString())
+
+
+                cardView.animate()
+                    .alpha(1f)
+                    .setInterpolator(LinearInterpolator())
+                    .setDuration(500)
+                    .start()
+
+
                 when(event!!.action){
 
 
@@ -127,6 +154,14 @@ class BubbleService: Service() {
                         updatedFloatWindowLayoutParams.x = (x + event.rawX - px).toInt()
                         updatedFloatWindowLayoutParams.y = (y + event.rawY - py).toInt()
 
+                        if(yVelocity>= 13823.675){
+                            Log.d("datosMovement", "se cerro")
+
+                            windowManager.removeView(bubbleView)
+                            try {
+                                windowManager.removeView(cardView)
+                            }catch (_: Exception){}
+                        }
                         windowManager.updateViewLayout(bubbleView, updatedFloatWindowLayoutParams)
 
                     }
@@ -202,10 +237,22 @@ class BubbleService: Service() {
             if(bubbleIv.isSelected){
                 windowManager.addView(cardView, cardViewParams)
             }else{
+
                 windowManager.removeView(cardView)
+
 
             }
         }
+
+        //Broadcast
+        class NotificationReceiver : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                Log.d("datos", "Notification clicked!")
+            }
+        }
+
+
+
 //↓ForegroundService
 
         createNotification()
@@ -213,12 +260,15 @@ class BubbleService: Service() {
         val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, 0)
         val notificacion: Notification = NotificationCompat.Builder(this, "channel1")
             .setContentText("Esta ejecutandose Proyecto")
-            .setContentTitle("Servicio en ejecución")
-            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setContentTitle("Burbuja esta en ejecución")
+            .setSmallIcon(R.drawable.iconsvm)
             .setContentIntent(pendingIntent).build()
 
-
         //↑
+
+        val receiver = NotificationReceiver()
+        val filter = IntentFilter(ACTION_NOTIFICATION_CLICKED)
+        registerReceiver(receiver, filter)
 
         dataWordProvider.dataWords.clear()
         var txtFile = openFileOutput("myfile.txt", MODE_APPEND)
@@ -314,8 +364,10 @@ class BubbleService: Service() {
         super.onDestroy()
         stopSelf()
         stopForeground(true)
-        windowManager.removeView(bubbleView)
+
         try {
+            velocityTracker.recycle()
+            windowManager.removeView(bubbleView)
             windowManager.removeView(cardView)
 
         }catch (_: Exception){

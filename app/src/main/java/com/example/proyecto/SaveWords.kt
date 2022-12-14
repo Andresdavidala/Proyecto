@@ -16,6 +16,7 @@ import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.DataWordsBase
+import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentSaveWordsBinding
 import org.w3c.dom.Text
@@ -44,6 +45,36 @@ class SaveWords : Fragment() {
     @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //Loading data to memorias
+        dataWordProvider.memorisWords.clear()
+        Log.d("datosEmpty", "vacio")
+        var txtFileMem = activity?.openFileOutput("memorias.txt", Context.MODE_APPEND) //important
+//
+        val openFileMem = activity?.openFileInput("memorias.txt")
+        val inputReaderMem = InputStreamReader(openFileMem)
+        val dataMem = inputReaderMem.readText().trimEnd()
+        val datatoListMem = dataMem.split("☼○ ")
+        var contWordMem = 0
+
+        if (dataMem.isNotEmpty()) {
+            for (i in datatoListMem.indices) {
+
+                dataWordProvider.memorisWords.add(
+                    MemoriWords(
+                        datatoListMem[contWordMem]
+                    )
+                )
+
+                contWordMem += 1
+
+                Log.d("datos9", datatoListMem.toString())
+            }
+            Log.d("datos2", "no vacio")
+        } else {
+            Log.d("datos2", "vacio")
+        }
+        //↑
 
         dataWordProvider.dataWords.clear()
         Log.d("datosEmpty", "vacio")

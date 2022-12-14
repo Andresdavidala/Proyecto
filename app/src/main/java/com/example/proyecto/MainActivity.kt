@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnNav.setOnItemSelectedListener{
             when(it.itemId){
                 R.id.newWord -> replaceFragment(SaveWords())
+                R.id.memorias -> replaceFragment(cardMemor())
                 R.id.evaWord -> replaceFragment(EvaWord())
                 R.id.listWord -> replaceFragment(listWords())
                 R.id.setting -> startActivity(Intent(this, SettingActivity::class.java))

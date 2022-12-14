@@ -3,7 +3,7 @@ package com.example.proyecto.Recycler
 class dataWordProvider {
     companion object{
         var dataWords = mutableListOf<DataWordsBase>()
-
+        var memorisWords = mutableListOf<MemoriWords>()
 
 
 

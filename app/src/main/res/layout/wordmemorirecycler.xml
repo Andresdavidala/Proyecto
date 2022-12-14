@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:elevation="10dp">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/carViewWO"
-        android:layout_width="165dp"
+        android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
-        android:backgroundTint="@color/textfieldMost"
+        android:backgroundTint="@color/primarioCel"
         app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -40,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/viga_regular"
-                    android:gravity="center|center_horizontal|center_vertical"
+                    android:gravity="left|center_vertical"
                     android:padding="7dp"
                     android:scrollbars="vertical"
                     android:text="TextView"
@@ -49,8 +46,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </ScrollView>
 
             <EditText
@@ -59,94 +55,23 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/viga_regular"
-                android:gravity="center|center_horizontal|center_vertical"
+                android:gravity="left|center_vertical"
+                android:inputType="textMultiLine"
                 android:padding="7dp"
                 android:textColor="#80000000"
                 android:textSize="20sp"
                 android:visibility="gone"
-                android:inputType="textMultiLine|textNoSuggestions"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewWT"
-        android:layout_width="165dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="7dp"
-        android:backgroundTint="@color/secundarioCel"
-        app:cardCornerRadius="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carViewWO"
-        app:layout_constraintVertical_bias="0.057">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ScrollView
-                android:id="@+id/scrollTV2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5">
-
-                <TextView
-                    android:id="@+id/tvWordTrad"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/viga_regular"
-                    android:gravity="center|center_horizontal|center_vertical"
-                    android:padding="7dp"
-                    android:scrollbars="vertical"
-                    android:text="TextView"
-                    android:textColor="@color/primarioNeg"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </ScrollView>
-
-
-            <EditText
-                android:id="@+id/etWordTrad"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/viga_regular"
-                android:gravity="center|center_horizontal|center_vertical"
-                android:padding="7dp"
-                android:inputType="textMultiLine|textNoSuggestions"
-                android:textColor="#9C000000"
-                android:textSize="20sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                app:layout_constraintVertical_bias="0.5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <View
-        android:id="@+id/divider"
+        android:id="@+id/divider2"
         android:layout_width="409dp"
         android:layout_height="3dp"
         android:layout_marginTop="10dp"
@@ -156,23 +81,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewWT"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/carViewWO"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
-        android:id="@+id/btnDelete"
+        android:id="@+id/btnDelete2"
         android:layout_width="41dp"
         android:layout_height="43dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.381"
-        app:layout_constraintStart_toEndOf="@+id/btnEdit"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toEndOf="@+id/btnEdit2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.506"
+        app:layout_constraintVertical_bias="0.41000003"
         app:srcCompat="@drawable/deletebtn" />
 
     <ImageView
-        android:id="@+id/btnCancel"
+        android:id="@+id/btnCancel2"
         android:layout_width="41dp"
         android:layout_height="43dp"
         android:visibility="gone"
@@ -185,7 +110,7 @@
         app:srcCompat="@drawable/cancelbtn" />
 
     <ImageView
-        android:id="@+id/btnEdit"
+        android:id="@+id/btnEdit2"
         android:layout_width="41dp"
         android:layout_height="43dp"
         android:layout_marginEnd="112dp"
@@ -194,11 +119,11 @@
         app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toEndOf="@+id/carViewWO"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.506"
+        app:layout_constraintVertical_bias="0.42000002"
         app:srcCompat="@drawable/ic_baseline_edit_24" />
 
     <ImageView
-        android:id="@+id/btnCheck"
+        android:id="@+id/btnCheck2"
         android:layout_width="41dp"
         android:layout_height="43dp"
         android:visibility="gone"
@@ -208,5 +133,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_check_24" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

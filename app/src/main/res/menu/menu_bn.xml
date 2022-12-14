@@ -3,8 +3,14 @@
 
     <item
         android:id="@+id/newWord"
-        android:icon="@drawable/save"
+        android:icon="@drawable/splitscreen"
         android:title="Agg Palabra" />
+    <item
+        android:id="@+id/memorias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_baseline_crop_3_2_24"
+        android:title="Configuraciones" />
     <item
         android:id="@+id/evaWord"
         android:icon="@drawable/quiz"
@@ -16,5 +22,5 @@
     <item
         android:id="@+id/setting"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:title="Configuraciones" />
+        android:title="Memorias" />
 </menu>
