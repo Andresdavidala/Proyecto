@@ -18,411 +18,599 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/backbtn" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:backgroundTint="@color/textfieldMost"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="568dp"
+        android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31">
+        tools:ignore="SpeakableTextPresentCheck">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clTitle1"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/clShow"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/textfieldMost"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2"
                 app:layout_constraintVertical_bias="0.0">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <FrameLayout
-                    android:id="@+id/down1"
-                    android:layout_width="28dp"
-                    android:layout_height="29dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/down"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvtitulo1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.956"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clTitle3"
+                        android:layout_width="403dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5">
 
-                </FrameLayout>
 
-                <FrameLayout
-                    android:id="@+id/up1"
-                    android:layout_width="28dp"
-                    android:layout_height="29dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/up"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvtitulo1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.956"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                        <TextView
+                            android:id="@+id/tvtitulo3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/viga_regular"
+                            android:text="Burbuja Flotante"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.067"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                </FrameLayout>
+                        <TextView
+                            android:id="@+id/tvcontain6"
+                            android:layout_width="230sp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:fontFamily="@font/viga_regular"
+                            android:text="Muestra una burbuja que permite emerger una ventana para guardar palabras sin abrir la aplicación"
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.091"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tvtitulo1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/viga_regular"
-                    android:text="Recordatorio Temporal"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.067"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                        <Switch
+                            android:id="@+id/switchBurbj"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/primarioCel"
+                            android:showText="false"
+                            android:textColorLink="@color/primarioCel"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.87"
+                            app:layout_constraintStart_toEndOf="@+id/tvcontain6"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="TouchTargetSizeCheck" />
 
-                <TextView
-                    android:id="@+id/tvcontain1"
-                    android:layout_width="247dp"
-                    android:layout_height="64dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/viga_regular"
-                    android:text="Muestra un toast con las palabras insertadas como recortadorio. Establece tu intervalo de tiempo."
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.103"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clShow"
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginEnd="16dp"
-                    android:text="min"
-                    android:textColor="@color/black"
-                    android:textSize="17dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/numberPicker"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.721" />
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="H"
-                    android:textColor="@color/black"
-
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/numberPicker2"
-                    app:layout_constraintHorizontal_bias="0.57"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.72" />
-
-                <Button
-                    android:id="@+id/btnEstablecer"
-                    android:layout_width="122dp"
-                    android:layout_height="47dp"
-                    android:layout_marginBottom="32dp"
-                    android:backgroundTint="@color/button_press_color"
-                    android:text="Establecer"
-
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#FF0000"
-                    android:textSize="13sp"
-                    app:cornerRadius="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.407"
-                    app:layout_constraintStart_toEndOf="@+id/numberPicker"
-                    tools:ignore="TouchTargetSizeCheck" />
-
-                <NumberPicker
-                    android:id="@+id/numberPicker"
-                    android:layout_width="65dp"
-                    android:layout_height="108dp"
-                    android:layout_marginTop="88dp"
-                    android:theme="@style/AppTheme.Picker"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.55"
-                    app:layout_constraintStart_toStartOf="@+id/textView3"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <NumberPicker
-                    android:id="@+id/numberPicker2"
-                    android:layout_width="65dp"
-                    android:layout_height="106dp"
-                    android:layout_marginTop="88dp"
-                    android:theme="@style/AppTheme.Picker"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.106"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:backgroundTint="@color/textfieldMost"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.0">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clTitle2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-                <FrameLayout
-                    android:id="@+id/down2"
-                    android:layout_width="28dp"
-                    android:layout_height="29dp"
-                    android:layout_marginTop="4dp"
-
-                    android:background="@drawable/down"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.956"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/up2"
-                    android:layout_width="28dp"
-                    android:layout_height="29dp"
-                    android:layout_marginTop="4dp"
-
-                    android:background="@drawable/up"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.956"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvtitulo2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/viga_regular"
-                    android:text="Ventana Flotante"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.067"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvcontain5"
-                    android:layout_width="216dp"
-                    android:layout_height="65dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/viga_regular"
-                    android:text="Muestra una ventana emergente, traduce la palabra o falla tres veces para cerrar la ventana."
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.091"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clShow2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/clTitle2">
-
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="H"
-                    android:textColor="@color/black"
-
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/numberPicker3"
-                    app:layout_constraintHorizontal_bias="0.56"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.73" />
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="min"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/numberPicker4"
-                    app:layout_constraintHorizontal_bias="0.64"
-                    app:layout_constraintStart_toEndOf="@+id/numberPicker3"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.73" />
-
-                <Button
-                    android:id="@+id/btnEstablecerW"
-                    android:layout_width="122dp"
-                    android:layout_height="47dp"
-                    android:layout_marginBottom="40dp"
-                    android:backgroundTint="@color/button_press_color"
-                    android:text="Establecer"
-                    android:textColor="#FFFFFF"
-
-                    android:textColorHint="#FF0000"
-                    android:textSize="13sp"
-                    app:cornerRadius="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.659"
-                    app:layout_constraintStart_toEndOf="@+id/numberPicker4"
-                    tools:ignore="TouchTargetSizeCheck" />
-
-                <NumberPicker
-                    android:id="@+id/numberPicker3"
-                    android:layout_width="64dp"
-                    android:layout_height="123dp"
-                    android:layout_marginTop="92dp"
-                    android:theme="@style/AppTheme.Picker"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.103"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <NumberPicker
-                    android:id="@+id/numberPicker4"
-                    android:layout_width="64dp"
-                    android:layout_height="125dp"
-                    android:layout_marginTop="92dp"
-                    android:theme="@style/AppTheme.Picker"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:backgroundTint="@color/textfieldMost"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2"
-        app:layout_constraintVertical_bias="0.0">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clTitle3"
-                android:layout_width="403dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/textfieldMost"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clTitle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <FrameLayout
+                            android:id="@+id/down2"
+                            android:layout_width="28dp"
+                            android:layout_height="29dp"
+                            android:layout_marginTop="4dp"
+
+                            android:background="@drawable/down"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.956"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/up2"
+                            android:layout_width="28dp"
+                            android:layout_height="29dp"
+                            android:layout_marginTop="4dp"
+
+                            android:background="@drawable/up"
+                            android:visibility="invisible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.956"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tvtitulo2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/viga_regular"
+                            android:text="Ventana Flotante"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.067"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvcontain5"
+                            android:layout_width="216dp"
+                            android:layout_height="65dp"
+                            android:layout_marginTop="24dp"
+                            android:fontFamily="@font/viga_regular"
+                            android:text="Muestra una ventana emergente, traduce la palabra o falla tres veces para cerrar la ventana."
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.091"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clShow2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/clTitle2">
+
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="H"
+                            android:textColor="@color/black"
+
+                            android:textSize="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/numberPicker3"
+                            app:layout_constraintHorizontal_bias="0.56"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.73" />
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="min"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/numberPicker4"
+                            app:layout_constraintHorizontal_bias="0.64"
+                            app:layout_constraintStart_toEndOf="@+id/numberPicker3"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.73" />
+
+                        <Button
+                            android:id="@+id/btnEstablecerW"
+                            android:layout_width="122dp"
+                            android:layout_height="47dp"
+                            android:layout_marginBottom="40dp"
+                            android:backgroundTint="@color/button_press_color"
+                            android:text="Establecer"
+                            android:textColor="#FFFFFF"
+
+                            android:textColorHint="#FF0000"
+                            android:textSize="13sp"
+                            app:cornerRadius="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.659"
+                            app:layout_constraintStart_toEndOf="@+id/numberPicker4"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                        <NumberPicker
+                            android:id="@+id/numberPicker3"
+                            android:layout_width="64dp"
+                            android:layout_height="123dp"
+                            android:layout_marginTop="92dp"
+                            android:theme="@style/AppTheme.Picker"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.103"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <NumberPicker
+                            android:id="@+id/numberPicker4"
+                            android:layout_width="64dp"
+                            android:layout_height="125dp"
+                            android:layout_marginTop="92dp"
+                            android:theme="@style/AppTheme.Picker"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/textfieldMost"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5">
+                app:layout_constraintVertical_bias="0.31">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clTitle1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toTopOf="@+id/clShow"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0">
 
 
-                <TextView
-                    android:id="@+id/tvtitulo3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/viga_regular"
-                    android:text="Burbuja Flotante"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.067"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                        <FrameLayout
+                            android:id="@+id/down1"
+                            android:layout_width="28dp"
+                            android:layout_height="29dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/down"
+                            app:layout_constraintBottom_toBottomOf="@+id/tvtitulo1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.956"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/tvcontain6"
-                    android:layout_width="230sp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/viga_regular"
-                    android:text="Muestra una burbuja que permite emerger una ventana para guardar palabras sin abrir la aplicación"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.091"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                        </FrameLayout>
 
-                <Switch
-                    android:id="@+id/switchBurbj"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/primarioCel"
-                    android:showText="false"
-                    android:textColorLink="@color/primarioCel"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.87"
-                    app:layout_constraintStart_toEndOf="@+id/tvcontain6"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TouchTargetSizeCheck" />
+                        <FrameLayout
+                            android:id="@+id/up1"
+                            android:layout_width="28dp"
+                            android:layout_height="29dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/up"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="@+id/tvtitulo1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.956"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </FrameLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/tvtitulo1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/viga_regular"
+                            android:text="Recordatorio Temporal"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.067"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvcontain1"
+                            android:layout_width="247dp"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="24dp"
+                            android:fontFamily="@font/viga_regular"
+                            android:text="Muestra un toast con las palabras insertadas como recortadorio. Establece tu intervalo de tiempo."
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.103"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clShow"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:layout_editor_absoluteY="0dp">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginEnd="16dp"
+                            android:text="min"
+                            android:textColor="@color/black"
+                            android:textSize="17dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/numberPicker"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.721" />
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="H"
+                            android:textColor="@color/black"
+
+                            android:textSize="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/numberPicker2"
+                            app:layout_constraintHorizontal_bias="0.57"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.72" />
+
+                        <Button
+                            android:id="@+id/btnEstablecer"
+                            android:layout_width="122dp"
+                            android:layout_height="47dp"
+                            android:layout_marginBottom="32dp"
+                            android:backgroundTint="@color/button_press_color"
+                            android:text="Establecer"
+
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#FF0000"
+                            android:textSize="13sp"
+                            app:cornerRadius="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.407"
+                            app:layout_constraintStart_toEndOf="@+id/numberPicker"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                        <NumberPicker
+                            android:id="@+id/numberPicker"
+                            android:layout_width="65dp"
+                            android:layout_height="108dp"
+                            android:layout_marginTop="88dp"
+                            android:theme="@style/AppTheme.Picker"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.55"
+                            app:layout_constraintStart_toStartOf="@+id/textView3"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <NumberPicker
+                            android:id="@+id/numberPicker2"
+                            android:layout_width="65dp"
+                            android:layout_height="106dp"
+                            android:layout_marginTop="88dp"
+                            android:theme="@style/AppTheme.Picker"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.106"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/textfieldMost"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clTitleCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0">
+
+
+                        <FrameLayout
+                            android:id="@+id/down2Card"
+                            android:layout_width="28dp"
+                            android:layout_height="29dp"
+                            android:layout_marginTop="4dp"
+
+                            android:background="@drawable/down"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.956"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/up2Card"
+                            android:layout_width="28dp"
+                            android:layout_height="29dp"
+                            android:layout_marginTop="4dp"
+
+                            android:background="@drawable/up"
+                            android:visibility="invisible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.956"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tvtitulo2Card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/viga_regular"
+                            android:text="Memorias Flotantes"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.067"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvcontain5Card"
+                            android:layout_width="215dp"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="24dp"
+                            android:fontFamily="@font/viga_regular"
+                            android:text="Muestra una tarjeta emergente que te recordara lo que quieras"
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.091"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clShow2Card"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:layout_editor_absoluteX="0dp">
+
+
+                        <TextView
+                            android:id="@+id/textView9Card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="H"
+                            android:textColor="@color/black"
+
+                            android:textSize="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/numberPicker3Card"
+                            app:layout_constraintHorizontal_bias="0.56"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.68" />
+
+                        <TextView
+                            android:id="@+id/textView10Card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="min"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/numberPicker4Card"
+                            app:layout_constraintHorizontal_bias="0.64"
+                            app:layout_constraintStart_toEndOf="@+id/numberPicker3Card"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.69" />
+
+                        <Button
+                            android:id="@+id/btnEstablecerWCard"
+                            android:layout_width="122dp"
+                            android:layout_height="47dp"
+                            android:layout_marginBottom="40dp"
+                            android:backgroundTint="@color/button_press_color"
+                            android:text="Establecer"
+                            android:textColor="#FFFFFF"
+
+                            android:textColorHint="#FF0000"
+                            android:textSize="13sp"
+                            app:cornerRadius="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.659"
+                            app:layout_constraintStart_toEndOf="@+id/numberPicker4Card"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                        <NumberPicker
+                            android:id="@+id/numberPicker3Card"
+                            android:layout_width="64dp"
+                            android:layout_height="123dp"
+                            android:layout_marginTop="60dp"
+                            android:theme="@style/AppTheme.Picker"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.103"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <NumberPicker
+                            android:id="@+id/numberPicker4Card"
+                            android:layout_width="64dp"
+                            android:layout_height="125dp"
+                            android:layout_marginTop="60dp"
+                            android:theme="@style/AppTheme.Picker"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

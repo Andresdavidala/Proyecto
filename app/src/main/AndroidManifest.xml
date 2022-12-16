@@ -45,6 +45,9 @@
             android:foregroundServiceType="dataSync"/>
         <service android:name=".Service.BubbleService"
             />
+
+        <service android:name=".Service.memoriasService"
+            />
     </application>
 
 </manifest>

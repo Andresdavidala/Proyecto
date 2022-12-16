@@ -36,10 +36,7 @@ class ToastService(): Service(){
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         mainHandler = Handler(Looper.getMainLooper())
         //para la lectura del .txt
-        val fileInputStream: FileInputStream = openFileInput("myfile.txt")
-        val inputReader = InputStreamReader(fileInputStream)
-        val output = inputReader.readText().trimEnd()
-        val words = output.split("☼○ ")
+
 
         //↑
         val numPickHour = intent?.getIntExtra("numberPickerHour", 0)
@@ -71,14 +68,7 @@ class ToastService(): Service(){
 
         //↑
 
-        for (i in words.indices) {
-            try {
-                mapWords[words[numword]] = words[numword + 1]
-                numword += 2
-            } catch (_: IndexOutOfBoundsException) {
 
-            }
-        }
         runn = object : Runnable {
             override fun run() {
 

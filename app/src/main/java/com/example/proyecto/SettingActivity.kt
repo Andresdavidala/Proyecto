@@ -19,6 +19,7 @@ import androidx.core.view.isVisible
 import com.example.proyecto.Service.BubbleService
 import com.example.proyecto.Service.FloatingWindow
 import com.example.proyecto.Service.ToastService
+import com.example.proyecto.Service.memoriasService
 import com.example.proyecto.databinding.ActivitySettingBinding
 import kotlin.properties.Delegates
 
@@ -52,6 +53,9 @@ class SettingActivity : AppCompatActivity() {
         val clTitle2 = binding.clTitle2
         val clHS2 = binding.clShow2
 
+        val clTitle3 = binding.clTitleCard
+        val clHS3 = binding.clShow2Card
+
         //DECLARE SWITCH
         val switchBlb = binding.switchBurbj
 
@@ -72,6 +76,9 @@ class SettingActivity : AppCompatActivity() {
         val sharedPreferencesWindow = getSharedPreferences("openCardWindows", MODE_PRIVATE)
         clHS2.isVisible = sharedPreferencesWindow!!.getBoolean("visCardWindows", false)
 
+        val sharedPreferencesMem = getSharedPreferences("openCardMem", MODE_PRIVATE)
+        clHS3.isVisible = sharedPreferencesMem.getBoolean("visCardMem", false)
+
 
 
     //SharedPBtnEstablecer--
@@ -85,6 +92,13 @@ class SettingActivity : AppCompatActivity() {
     val buttonEstablecerWin = getSharedPreferences("buttonEstWin", MODE_PRIVATE)
     binding.btnEstablecerW.isSelected =
         buttonEstablecerWin!!.getBoolean("btnEWinSP", binding.btnEstablecer.isSelected)
+
+
+    //EstBtnWin
+        val buttonEstablecerMem = getSharedPreferences("buttonEstMem", MODE_PRIVATE)
+        binding.btnEstablecerWCard.isSelected =
+            buttonEstablecerMem.getBoolean("btnEMem", binding.btnEstablecerWCard.isSelected)
+
 
 
     //SharedPBtnEstablecerText--
@@ -101,6 +115,12 @@ class SettingActivity : AppCompatActivity() {
 
 
 
+    //btnMemoria
+
+    val buttonTextMemo = getSharedPreferences("buttonEstMemoria", MODE_PRIVATE)
+    binding.btnEstablecerWCard.text = buttonTextMemo.getString("btnETextMemo","Establecer")
+
+
     //SPBE
 
         //↑SP
@@ -110,12 +130,16 @@ class SettingActivity : AppCompatActivity() {
         val numberPickerHour = binding.numberPicker2
         val numberPickerHourW = binding.numberPicker3
         val numberPickerMinutesW = binding.numberPicker4
+        val numberPickerHourMem = binding.numberPicker3Card
+        val numberPickerMinutesMem = binding.numberPicker4Card
 
 
-        numberPickerHour.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS;
-        numberPickerminutes.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS;
-        numberPickerHourW.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS;
-        numberPickerMinutesW.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS;
+        numberPickerHour.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        numberPickerminutes.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        numberPickerHourW.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        numberPickerMinutesW.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        numberPickerHourMem.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        numberPickerMinutesMem.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
 
         numberPickerHour.minValue = 0
@@ -129,24 +153,37 @@ class SettingActivity : AppCompatActivity() {
         numberPickerHourW.maxValue = 24
         numberPickerHourW.minValue = 0
 
+        numberPickerHourMem.minValue = 0
+        numberPickerHourMem.maxValue = 24
+        numberPickerMinutesMem.minValue = 0
+        numberPickerMinutesMem.maxValue = 59
 
         //SharedPNumberPicker--
         //numberPickerHoras toast ↓
         val numPickerShared = getSharedPreferences("numPickerToastHour", MODE_PRIVATE)
-        numberPickerHour.value = numPickerShared!!.getInt("SPPickerValue", 0)
+        numberPickerHour.value = numPickerShared.getInt("SPPickerValue", 0)
 
         //numberpickerminutos toast↓
         val nPSPMin = getSharedPreferences("numPickerToastMin", MODE_PRIVATE)
-        numberPickerminutes.value = nPSPMin!!.getInt("SPPTMin", 0)
+        numberPickerminutes.value = nPSPMin.getInt("SPPTMin", 0)
 
 
         //numberPickerHorasWindowDOA toast ↓
         val npSPWinHour = getSharedPreferences("numPickerWinHour", MODE_PRIVATE)
-        numberPickerHourW.value = npSPWinHour!!.getInt("SPNPWTHour", 0)
+        numberPickerHourW.value = npSPWinHour.getInt("SPNPWTHour", 0)
 
         //numberPickerMinWindowDOA toast ↓
         val npSPWinMin = getSharedPreferences("numPickerWinMin", MODE_PRIVATE)
-        numberPickerMinutesW.value = npSPWinMin!!.getInt("SPNPWTMin", 0)
+        numberPickerMinutesW.value = npSPWinMin.getInt("SPNPWTMin", 0)
+
+        //numberpicker Memorias
+        val numberPickerSharedMem = getSharedPreferences("numPickerToastHourMem", MODE_PRIVATE)
+        numberPickerHourMem.value = numberPickerSharedMem.getInt("SPPickerValueMem", 0)
+
+        val npSPMinMem = getSharedPreferences("numPickerToastMinMem", MODE_PRIVATE)
+        numberPickerMinutesMem.value = npSPMinMem.getInt("SPNPMinMem", 0)
+
+        //
 
         //numberPickerisEnabledwhenpressbtnEstablecer
         val numPickIsEnable = getSharedPreferences("numPickEnabled", MODE_PRIVATE)
@@ -156,6 +193,10 @@ class SettingActivity : AppCompatActivity() {
         val numPickIsEnableW = getSharedPreferences("numPickEnabledW", MODE_PRIVATE)
         numberPickerHourW.isEnabled = numPickIsEnableW.getBoolean("nPEnabledW", numberPickerHour.isEnabled)
         numberPickerMinutesW.isEnabled = numPickIsEnableW.getBoolean("nPEnabledW", numberPickerHour.isEnabled)
+
+        val numPickIsEnableMem = getSharedPreferences("numPickEnabledMem", MODE_PRIVATE)
+        numberPickerHourMem.isEnabled = numPickIsEnableMem.getBoolean("nPEnabledMem", numberPickerHourMem.isEnabled)
+        numberPickerMinutesMem.isEnabled = numPickIsEnableMem.getBoolean("nPEnabledMem", numberPickerMinutesMem.isEnabled)
         //↑SPNP
 
 
@@ -175,27 +216,6 @@ class SettingActivity : AppCompatActivity() {
 
         binding.btnEstablecer.setOnClickListener {
 
-//            br: BroadcastReceiver = object : BroadcastReceiver(){
-//                override fun onReceive(p0: Context?, p1: Intent?) {
-//                    val date = p1?.getIntExtra("DATE", 0)
-//                    Log.d("datosRecev", date.toString())
-//                }
-//
-//            }
-//            br = object :BroadcastReceiver(){
-//                override fun onReceive(p0: Context?, p1: Intent?) {
-//                    miliDate = p1?.getIntExtra("DATE", 0)!!
-//                    Log.d("datosRecev", miliDate.toString())
-//                    if(miliDate == 0){
-////                        Toast.makeText(baseContext, "Tiempo igual a 0", Toast.LENGTH_SHORT).show()
-//                    }else{
-//
-//                    }
-//
-//                }
-//            }
-//            val filter = IntentFilter("sendMili")
-//            LocalBroadcastManager.getInstance(this).registerReceiver(br, filter)
 
 
             binding.btnEstablecer.isSelected = !binding.btnEstablecer.isSelected
@@ -282,22 +302,6 @@ class SettingActivity : AppCompatActivity() {
 //        //↑
 
 
-        //For windowsFloating
-
-//        val mainHandlerWindowsDOA = Handler(Looper.getMainLooper())
-//        var intent = Intent(this@SettingActivity, FloatingWindow :: class.java)
-//        var runnWindowDOA = object : Runnable{
-//            override fun run() {
-//
-//                startService(intent)
-//
-//
-//                mainHandlerWindowsDOA.postDelayed(this,milisegundosDoa.toLong())
-//                Log.d("Tagmili", milisegundosDoa.toString())
-//            }
-//        }
-
-        //↑
 
 
         binding.btnEstablecerW.setOnClickListener {
@@ -367,7 +371,73 @@ class SettingActivity : AppCompatActivity() {
             }
 
         }
+        binding.btnEstablecerWCard.setOnClickListener {
 
+
+
+
+            if(checkOverlayPermission()){
+
+                binding.btnEstablecerWCard.isSelected = !binding.btnEstablecerWCard.isSelected
+                binding.numberPicker3Card.isEnabled = !binding.numberPicker3Card.isEnabled
+                binding.numberPicker4Card.isEnabled = !binding.numberPicker4Card.isEnabled
+                //sharedPToast
+
+
+                //foreground
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+//                    startForegroundService(intent)
+                }else{
+//                    stopService(intent)
+                }
+
+                //↑
+
+                //numberPickerHorasWindowDOA  ↓
+                val nPWHourMem = getSharedPreferences("numPickerToastHourMem", MODE_PRIVATE)!!.edit()
+                nPWHourMem.putInt("SPPickerValueMem", numberPickerHourMem.value).apply()
+
+                //numberPickerMinWindowDOA  ↓
+                val nPWMinMem = getSharedPreferences("numPickerToastMinMem", MODE_PRIVATE)!!.edit()
+                nPWMinMem.putInt("SPNPMinMem", numberPickerMinutesMem.value).apply()
+
+                //SharedPBtnEstablecerWin
+                val btnEstablecerWinMem = getSharedPreferences("buttonEstMem", MODE_PRIVATE)!!.edit()
+                btnEstablecerWinMem.putBoolean("btnEMem", binding.btnEstablecerWCard.isSelected).apply()
+
+                //SharedPBtnEstablecerWinText
+                val btnTextWinMem = getSharedPreferences("buttonEstMemoria", MODE_PRIVATE)!!.edit()
+
+                //para SP NumberPicker issEnabled
+                val numPEnabledW = getSharedPreferences("numPickEnabledMem", MODE_PRIVATE)!!.edit()
+                numPEnabledW.putBoolean("nPEnabledMem",numberPickerHourMem.isEnabled).apply()
+                numPEnabledW.putBoolean("nPEnabledMem", numberPickerMinutesMem.isEnabled).apply()
+                //↑SPT
+
+                if(binding.btnEstablecerWCard.isSelected){
+                    binding.btnEstablecerWCard.text = "Cancelar"
+                    btnTextWinMem.putString("btnETextMemo", "Cancelar").apply()
+
+                    Intent(this@SettingActivity, memoriasService::class.java ).also {
+                        it.putExtra("numberPickerHourWMem", numberPickerHourMem.value)
+                        it.putExtra("numberPickerMinutesWMem", numberPickerMinutesMem.value)
+                        startService(it)
+                    }
+                }else{
+                    binding.btnEstablecerWCard.text = "Establecer"
+                    btnTextWinMem.putString("btnETextMemo", "Establecer").apply()
+
+                    Intent(this@SettingActivity, memoriasService::class.java).also {
+                        stopService(it)
+                    }
+                }
+
+            }else{
+                requestFlowatingPermission()
+
+            }
+
+        }
 
         //wfloating↑
         //timeconfiguration↑
@@ -429,7 +499,32 @@ class SettingActivity : AppCompatActivity() {
                 binding.up2.visibility = View.VISIBLE
             }
         }
+        clTitle3.setOnClickListener {
+            var visibility2 = clHS3.visibility
 
+            val sharedPWindows = getSharedPreferences("openCardMem", MODE_PRIVATE)
+            val editor = sharedPWindows?.edit()
+
+            if(visibility2 == View.VISIBLE){
+                //SharedP
+                editor?.apply{
+                    putBoolean("visCardMem", false)
+                }?.apply()
+                //↑SP
+                clHS3.visibility = View.GONE
+                binding.down2Card.visibility = View.VISIBLE
+                binding.up2Card.visibility = View.INVISIBLE
+            }else{
+                //SharedP
+                editor?.apply{
+                    putBoolean("visCardMem", true)
+                }?.apply()
+                //↑SP
+                clHS3.visibility = View.VISIBLE
+                binding.down2Card.visibility = View.INVISIBLE
+                binding.up2Card.visibility = View.VISIBLE
+            }
+        }
         //section bubble
         binding.switchBurbj.setOnCheckedChangeListener { compoundButton, isChecked ->
 
