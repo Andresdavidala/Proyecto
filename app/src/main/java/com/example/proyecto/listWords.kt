@@ -44,8 +44,8 @@ class listWords : Fragment() {
 
 
         //sharedPref para el customDialog
-        val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustomEva", Context.MODE_PRIVATE)
-        val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownEva", false)
+        val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustomList", Context.MODE_PRIVATE)
+        val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownList", false)
 
 
 
@@ -58,7 +58,7 @@ class listWords : Fragment() {
             val message = messagefind.setText("La sección lista te permite visualizar, editar y eliminar las preguntas y memorias que hayas guardado. Estan divididas en " +
                     "dos secciones, que puedes ver presionando el switch que se encuentra en la parte superior.")
 
-            customDialog.setMessage(message.toString())
+            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
             val dialog = customDialog.create()
@@ -69,7 +69,7 @@ class listWords : Fragment() {
             cancelBtn.setOnClickListener {
                 dialog.dismiss()
             }
-            sharedPrefCustom.edit().putBoolean("dialog_shownEva", true).apply()
+            sharedPrefCustom.edit().putBoolean("dialog_shownList", true).apply()
         }
 
         //↑

@@ -467,7 +467,7 @@ class SettingActivity : AppCompatActivity() {
                         "un toast que aparecera en la parte inferior de tu pantalla, en donde se te mostrara la pregunta y la respuesta que has ingresado, " +
                         "puedes cancelarlo cuando quieras")
 
-                customDialog.setMessage(message.toString())
+                customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
                 val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
                 val dialog = customDialog.create()
@@ -530,7 +530,7 @@ class SettingActivity : AppCompatActivity() {
                 val message = messagefind.setText("Puedes definir el tiempo en el que quieras practicar tus preguntas aun cuando estes usando otras aplicaciones, esto " +
                         "mediante una ventana que aparecera en tu pantalla que se cerrara en cuanto respondas a tu pregunta o presiones el boton de cerrar")
 
-                customDialog.setMessage(message.toString())
+                customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
                 val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
                 val dialog = customDialog.create()
@@ -587,7 +587,7 @@ class SettingActivity : AppCompatActivity() {
                 val message = messagefind.setText("Puedes definir el tiempo en el que quieres que aparezca una tarjeta en tu pantalla que te mostrara una de las memorias " +
                         "que has guardado")
 
-                customDialog.setMessage(message.toString())
+                customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
                 val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
                 val dialog = customDialog.create()
@@ -643,7 +643,7 @@ class SettingActivity : AppCompatActivity() {
                     val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una ventana que permitira " +
                             "guardar tus preguntas mientras estas usando otras aplicación ")
 
-                    customDialog.setMessage(message.toString())
+                    customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
                     val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
                     val dialog = customDialog.create()
@@ -721,7 +721,7 @@ class SettingActivity : AppCompatActivity() {
                     val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una tarjeta que permitira " +
                             "guardar tus memorias mientras estas usando otras aplicación ")
 
-                    customDialog.setMessage(message.toString())
+                    customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
                     val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
                     val dialog = customDialog.create()

@@ -130,7 +130,7 @@ class SaveWords : Fragment() {
             val message = messagefind.setText("La sección preguntas te permite ingresar una pregunta y una respuesta hechas por ti, " +
                     "estas se mostraran en un tiempo determinado y configurado por ti mismo en la sección de configuraciones.")
 
-            customDialog.setMessage(message.toString())
+            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
             val dialog = customDialog.create()

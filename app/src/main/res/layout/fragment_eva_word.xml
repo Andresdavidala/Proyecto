@@ -14,13 +14,14 @@
         android:layout_width="284dp"
         android:layout_height="88dp"
 
+        android:gravity="center_vertical"
         app:boxBackgroundColor="@color/textfieldMost"
         app:boxCornerRadiusBottomEnd="25dp"
         app:boxCornerRadiusBottomStart="25dp"
         app:boxCornerRadiusTopEnd="25dp"
         app:boxCornerRadiusTopStart="25dp"
-        app:boxStrokeWidth="0dp"
 
+        app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +68,7 @@
             android:layout_height="88dp"
             android:fontFamily="@font/viga_regular"
             android:imeOptions="actionSend"
-            android:inputType="text|textMultiLine"
+            android:inputType="text"
             android:textSize="20dp"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -106,6 +107,7 @@
         android:id="@+id/btnEvaWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/primarioCel"
         android:fontFamily="@font/viga_regular"
         android:text="EVALUAR"
         app:layout_constraintBottom_toBottomOf="parent"

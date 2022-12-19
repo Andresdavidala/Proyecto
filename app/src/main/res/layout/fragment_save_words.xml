@@ -41,9 +41,9 @@
             android:layout_width="match_parent"
             android:layout_height="88dp"
             android:fontFamily="@font/viga_regular"
-            android:gravity="start|top|left"
+            android:gravity="center_vertical"
             android:imeOptions="actionNext"
-            android:inputType="textNoSuggestions|textMultiLine"
+            android:inputType="textNoSuggestions"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,10 +72,10 @@
             android:layout_width="match_parent"
             android:layout_height="88dp"
             android:fontFamily="@font/viga_regular"
-            android:gravity="start|top|left"
+            android:gravity="center_vertical"
             android:hint="Ingresa tu respuesta"
             android:imeOptions="actionSend"
-            android:inputType="textNoSuggestions|textMultiLine"
+            android:inputType="textNoSuggestions"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,6 +113,7 @@
         android:id="@+id/btnSaveWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/primarioCel"
         android:fontFamily="@font/viga_regular"
         android:text="GUARDAR"
         app:layout_constraintBottom_toBottomOf="parent"

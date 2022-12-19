@@ -71,7 +71,7 @@ class cardMemor : Fragment() {
             val message = messagefind.setText("La sección memoria, te permite guardar palabras, frases, etc. que no tengan una respuesta. Puedes establecer el intervalo de " +
                     "tiempo que quieres que se te recuerde en la sección de configuración.")
 
-            customDialog.setMessage(message.toString())
+            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
             val dialog = customDialog.create()

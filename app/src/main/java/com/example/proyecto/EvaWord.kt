@@ -60,7 +60,7 @@ class EvaWord : Fragment() {
             val message = messagefind.setText("La sección evaluación, te permite practicar tus preguntas, es decir deberas ingresar la respuesta a la pregunta" +
                     "que tu mismo guardaste y si correcto podras pasar a tu siguiente pregunta")
 
-            customDialog.setMessage(message.toString())
+            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
             val dialog = customDialog.create()
