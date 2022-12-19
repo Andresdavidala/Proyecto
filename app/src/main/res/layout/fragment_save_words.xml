@@ -16,9 +16,9 @@
         android:id="@+id/evaWO"
 
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:layout_width="290dp"
-        android:layout_height="56dp"
-        android:hint="Palabra"
+        android:layout_width="284dp"
+        android:layout_height="88dp"
+        android:hint="Ingresa tu pregunta"
         app:boxBackgroundColor="@color/textfieldMost"
 
         app:boxCornerRadiusBottomEnd="25dp"
@@ -39,19 +39,18 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/wordOrg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-
-            android:inputType="textNoSuggestions"
+            android:layout_height="88dp"
             android:fontFamily="@font/viga_regular"
-
+            android:gravity="start|top|left"
+            android:imeOptions="actionNext"
+            android:inputType="textNoSuggestions|textMultiLine"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/evaWT"
-        android:layout_width="290dp"
-        android:layout_height="56dp"
+        android:layout_width="284dp"
+        android:layout_height="88dp"
         app:boxBackgroundColor="@color/textfieldMost"
         app:boxCornerRadiusBottomEnd="25dp"
         app:boxCornerRadiusBottomStart="25dp"
@@ -71,11 +70,12 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/wordTrad"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="88dp"
             android:fontFamily="@font/viga_regular"
+            android:gravity="start|top|left"
+            android:hint="Ingresa tu respuesta"
             android:imeOptions="actionSend"
-            android:inputType="textNoSuggestions"
-            android:hint="Palabra a traducir"
+            android:inputType="textNoSuggestions|textMultiLine"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,7 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.655" />
+        app:layout_constraintVertical_bias="0.7" />
 
     <Button
         android:id="@+id/btnSaveWord"

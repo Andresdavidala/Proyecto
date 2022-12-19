@@ -1,7 +1,10 @@
 package com.example.proyecto
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.text.method.TextKeyListener.clear
@@ -13,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.proyecto.Recycler.DataWordsBase
@@ -52,6 +56,36 @@ class cardMemor : Fragment() {
         Log.d("datos6", (datatoList.indices.toString()))
         Log.d("datos9", datatoList.toString())
 
+        //sharedPref para el customDialog
+        val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustomMemo", Context.MODE_PRIVATE)
+        val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownMemo", false)
+
+
+
+        if (!dialogShown!!) {
+            //customDialog
+            val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
+            val customDialog = AlertDialog.Builder(context)
+            customDialog.setView(customDialogView)
+            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+            val message = messagefind.setText("La sección memoria, te permite guardar palabras, frases, etc. que no tengan una respuesta. Puedes establecer el intervalo de " +
+                    "tiempo que quieres que se te recuerde en la sección de configuración.")
+
+            customDialog.setMessage(message.toString())
+            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+            val dialog = customDialog.create()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+            sharedPrefCustom.edit().putBoolean("dialog_shownMemo", true).apply()
+        }
+
+        //↑
         if (data.isNotEmpty()) {
             for (i in datatoList.indices) {
 

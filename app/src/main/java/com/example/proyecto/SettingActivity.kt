@@ -5,21 +5,23 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.NumberPicker
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.example.proyecto.Service.BubbleService
-import com.example.proyecto.Service.FloatingWindow
-import com.example.proyecto.Service.ToastService
-import com.example.proyecto.Service.memoriasService
+import com.example.proyecto.Service.*
 import com.example.proyecto.databinding.ActivitySettingBinding
 import kotlin.properties.Delegates
 
@@ -58,7 +60,7 @@ class SettingActivity : AppCompatActivity() {
 
         //DECLARE SWITCH
         val switchBlb = binding.switchBurbj
-
+        val switchMemoSave = binding.switchBurbjSaveMem
 
         //backbtn
         binding.btnBack.setOnClickListener {
@@ -204,6 +206,8 @@ class SettingActivity : AppCompatActivity() {
         val switchBubble = getSharedPreferences("switchBuble", MODE_PRIVATE)
         switchBlb.isChecked = switchBubble.getBoolean("valSwitch", false)
 
+        val switchMemSave = getSharedPreferences("switchBubleMem", MODE_PRIVATE)
+        switchMemoSave.isChecked = switchMemSave.getBoolean("valSwitchMem", false)
 
         //↑
 
@@ -447,6 +451,38 @@ class SettingActivity : AppCompatActivity() {
             val sharedPToast = getSharedPreferences("openCardToast", Context.MODE_PRIVATE)
             val editor = sharedPToast?.edit()
 
+            //sharedPref para el customDialog
+            val sharedPrefCustom = getSharedPreferences("my_prefCustomCtitle", Context.MODE_PRIVATE)
+            val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownCtitle", false)
+
+
+
+            if (!dialogShown!!) {
+                //customDialog
+                val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+                val customDialog = AlertDialog.Builder(this)
+                customDialog.setView(customDialogView)
+                val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+                val message = messagefind.setText("Podras definir el tiempo en el que quieres que se te recuerde las preguntas que has ingresado mediante " +
+                        "un toast que aparecera en la parte inferior de tu pantalla, en donde se te mostrara la pregunta y la respuesta que has ingresado, " +
+                        "puedes cancelarlo cuando quieras")
+
+                customDialog.setMessage(message.toString())
+                val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+                val dialog = customDialog.create()
+
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.show()
+
+                cancelBtn.setOnClickListener {
+                    dialog.dismiss()
+                }
+                sharedPrefCustom.edit().putBoolean("dialog_shownCtitle", true).apply()
+            }
+
+            //↑
+
             if(visibility == View.VISIBLE ){
 
                 //sharedP
@@ -479,6 +515,37 @@ class SettingActivity : AppCompatActivity() {
             val sharedPWindows = getSharedPreferences("openCardWindows", MODE_PRIVATE)
             val editor = sharedPWindows?.edit()
 
+            //sharedPref para el customDialog
+            val sharedPrefCustom = getSharedPreferences("my_prefCustomClt2", MODE_PRIVATE)
+            val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownClt2", false)
+
+
+
+            if (!dialogShown!!) {
+                //customDialog
+                val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+                val customDialog = AlertDialog.Builder(this)
+                customDialog.setView(customDialogView)
+                val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+                val message = messagefind.setText("Puedes definir el tiempo en el que quieras practicar tus preguntas aun cuando estes usando otras aplicaciones, esto " +
+                        "mediante una ventana que aparecera en tu pantalla que se cerrara en cuanto respondas a tu pregunta o presiones el boton de cerrar")
+
+                customDialog.setMessage(message.toString())
+                val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+                val dialog = customDialog.create()
+
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.show()
+
+                cancelBtn.setOnClickListener {
+                    dialog.dismiss()
+                }
+                sharedPrefCustom.edit().putBoolean("dialog_shownClt2", true).apply()
+            }
+
+            //↑
+
             if(visibility2 == View.VISIBLE){
                 //SharedP
                 editor?.apply{
@@ -505,6 +572,37 @@ class SettingActivity : AppCompatActivity() {
             val sharedPWindows = getSharedPreferences("openCardMem", MODE_PRIVATE)
             val editor = sharedPWindows?.edit()
 
+            //sharedPref para el customDialog
+            val sharedPrefCustom = getSharedPreferences("my_prefCustomClt3", MODE_PRIVATE)
+            val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownClt3", false)
+
+
+
+            if (!dialogShown!!) {
+                //customDialog
+                val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+                val customDialog = AlertDialog.Builder(this)
+                customDialog.setView(customDialogView)
+                val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+                val message = messagefind.setText("Puedes definir el tiempo en el que quieres que aparezca una tarjeta en tu pantalla que te mostrara una de las memorias " +
+                        "que has guardado")
+
+                customDialog.setMessage(message.toString())
+                val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+                val dialog = customDialog.create()
+
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.show()
+
+                cancelBtn.setOnClickListener {
+                    dialog.dismiss()
+                }
+                sharedPrefCustom.edit().putBoolean("dialog_shownClt3", true).apply()
+            }
+
+            //↑
+
             if(visibility2 == View.VISIBLE){
                 //SharedP
                 editor?.apply{
@@ -529,6 +627,37 @@ class SettingActivity : AppCompatActivity() {
         binding.switchBurbj.setOnCheckedChangeListener { compoundButton, isChecked ->
 
             if(isChecked){
+
+                //sharedPref para el customDialog
+                val sharedPrefCustom = getSharedPreferences("my_prefCustomClt4", MODE_PRIVATE)
+                val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownClt4", false)
+
+
+
+                if (!dialogShown!!) {
+                    //customDialog
+                    val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+                    val customDialog = AlertDialog.Builder(this)
+                    customDialog.setView(customDialogView)
+                    val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+                    val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una ventana que permitira " +
+                            "guardar tus preguntas mientras estas usando otras aplicación ")
+
+                    customDialog.setMessage(message.toString())
+                    val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+                    val dialog = customDialog.create()
+
+                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    dialog.show()
+
+                    cancelBtn.setOnClickListener {
+                        dialog.dismiss()
+                    }
+                    sharedPrefCustom.edit().putBoolean("dialog_shownClt4", true).apply()
+                }
+
+                //↑
 
                 if(checkOverlayPermission()){
                     val switchValBbl  = getSharedPreferences("switchBuble", MODE_PRIVATE)!!.edit()
@@ -573,6 +702,83 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
+        binding.switchBurbjSaveMem.setOnCheckedChangeListener { compoundButton, isChecked ->
+
+            if(isChecked){
+
+                //sharedPref para el customDialog
+                val sharedPrefCustom = getSharedPreferences("my_prefCustomClt4Mem", MODE_PRIVATE)
+                val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownClt4Mem", false)
+
+
+
+                if (!dialogShown!!) {
+                    //customDialog
+                    val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+                    val customDialog = AlertDialog.Builder(this)
+                    customDialog.setView(customDialogView)
+                    val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+                    val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una tarjeta que permitira " +
+                            "guardar tus memorias mientras estas usando otras aplicación ")
+
+                    customDialog.setMessage(message.toString())
+                    val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+                    val dialog = customDialog.create()
+
+                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    dialog.show()
+
+                    cancelBtn.setOnClickListener {
+                        dialog.dismiss()
+                    }
+                    sharedPrefCustom.edit().putBoolean("dialog_shownClt4Mem", true).apply()
+                }
+
+                //↑
+
+                if(checkOverlayPermission()){
+                    val switchValBbl  = getSharedPreferences("switchBubleMem", MODE_PRIVATE)!!.edit()
+                    switchValBbl.putBoolean("valSwitchMem", true).apply()
+                    //foreground
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                        try{
+                            startForegroundService(intent)
+                        }catch (_: Exception){
+
+                        }
+
+                    }else{
+                        try{
+                            stopService(intent)
+                        }catch (_: Exception){
+
+                        }
+
+                    }
+
+                    //↑
+                    Intent(this@SettingActivity, MemoriaSaveService::class.java).also {
+                        startService(it)
+                    }
+
+                }else{
+                    switchBlb.isChecked = false
+                    requestFlowatingPermission()
+                }
+            }else{
+                val switchValBbl  = getSharedPreferences("switchBubleMem", MODE_PRIVATE)!!.edit()
+                switchValBbl.putBoolean("valSwitchMem", false).apply()
+                try {
+                    Intent(this@SettingActivity, MemoriaSaveService::class.java).also {
+                        stopService(it)
+                    }
+                }catch (_: Exception){
+
+                }
+
+            }
+        }
 
 
 

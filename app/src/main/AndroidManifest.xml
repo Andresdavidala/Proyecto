@@ -48,6 +48,7 @@
 
         <service android:name=".Service.memoriasService"
             />
+        <service android:name=".Service.MemoriaSaveService"/>
     </application>
 
 </manifest>

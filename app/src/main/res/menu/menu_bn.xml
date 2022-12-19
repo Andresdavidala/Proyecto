@@ -4,7 +4,7 @@
     <item
         android:id="@+id/newWord"
         android:icon="@drawable/splitscreen"
-        android:title="Agg Palabra" />
+        android:title="Preguntas" />
     <item
         android:id="@+id/memorias"
         android:layout_width="wrap_content"

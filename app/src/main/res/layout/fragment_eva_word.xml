@@ -11,8 +11,8 @@
         android:id="@+id/evaWO"
 
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
+        android:layout_width="284dp"
+        android:layout_height="88dp"
 
         app:boxBackgroundColor="@color/textfieldMost"
         app:boxCornerRadiusBottomEnd="25dp"
@@ -32,19 +32,19 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/wordOrg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxHeight="85dp"
-            android:inputType="textNoSuggestions"
+            android:layout_height="88dp"
             android:focusable="false"
             android:fontFamily="@font/viga_regular"
+            android:inputType="textNoSuggestions|textMultiLine"
+            android:maxHeight="85dp"
             android:textSize="20dp"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/evaWT"
-        android:layout_width="290dp"
-        android:layout_height="56dp"
+        android:layout_width="284dp"
+        android:layout_height="88dp"
         app:boxBackgroundColor="@color/textfieldMost"
         app:boxCornerRadiusBottomEnd="25dp"
         app:boxCornerRadiusBottomStart="25dp"
@@ -64,10 +64,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/wordTrad"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="88dp"
             android:fontFamily="@font/viga_regular"
             android:imeOptions="actionSend"
-            android:inputType="text"
+            android:inputType="text|textMultiLine"
             android:textSize="20dp"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -77,10 +77,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/viga_regular"
-        android:text="Practica tus palabras"
+        android:text="Practica tus preguntas"
         android:textColor="@color/textfieldMost"
         android:textColorHint="#FFEB3B"
-        android:textSize="40sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/evaWO"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

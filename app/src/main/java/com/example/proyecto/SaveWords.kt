@@ -2,7 +2,11 @@ package com.example.proyecto
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -12,6 +16,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -19,7 +25,6 @@ import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentSaveWordsBinding
-import org.w3c.dom.Text
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
@@ -109,6 +114,37 @@ class SaveWords : Fragment() {
             Log.d("datos2", "vacio")
         }
 
+
+        //sharedPref para el customDialog
+        val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustom", MODE_PRIVATE)
+        val dialogShown = sharedPrefCustom?.getBoolean("dialog_shown", false)
+
+
+
+        if (!dialogShown!!) {
+            //customDialog
+            val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
+            val customDialog = AlertDialog.Builder(context)
+            customDialog.setView(customDialogView)
+            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+            val message = messagefind.setText("La sección preguntas te permite ingresar una pregunta y una respuesta hechas por ti, " +
+                    "estas se mostraran en un tiempo determinado y configurado por ti mismo en la sección de configuraciones.")
+
+            customDialog.setMessage(message.toString())
+            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+            val dialog = customDialog.create()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+            sharedPrefCustom.edit().putBoolean("dialog_shown", true).apply()
+        }
+
+        //↑
 
         Log.d("datos2", dataWordProvider.dataWords.toString())
         fun Fragment.hideKeyboard() {

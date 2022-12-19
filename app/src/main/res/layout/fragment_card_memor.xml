@@ -63,6 +63,7 @@
                 android:backgroundTint="@color/textfieldMost"
                 android:fontFamily="@font/viga_regular"
                 android:gravity="start"
+                android:hint="Guarda tus memorias aquí"
                 android:imeOptions="actionNext"
                 android:inputType="textMultiLine"
                 android:padding="8dp"

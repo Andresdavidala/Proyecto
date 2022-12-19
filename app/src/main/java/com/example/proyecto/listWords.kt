@@ -1,11 +1,16 @@
 package com.example.proyecto
 
+import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -37,6 +42,38 @@ class listWords : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        //sharedPref para el customDialog
+        val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustomEva", Context.MODE_PRIVATE)
+        val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownEva", false)
+
+
+
+        if (!dialogShown!!) {
+            //customDialog
+            val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
+            val customDialog = AlertDialog.Builder(context)
+            customDialog.setView(customDialogView)
+            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+            val message = messagefind.setText("La sección lista te permite visualizar, editar y eliminar las preguntas y memorias que hayas guardado. Estan divididas en " +
+                    "dos secciones, que puedes ver presionando el switch que se encuentra en la parte superior.")
+
+            customDialog.setMessage(message.toString())
+            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+            val dialog = customDialog.create()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+            sharedPrefCustom.edit().putBoolean("dialog_shownEva", true).apply()
+        }
+
+        //↑
+
         //sharedP
         val switchRV = activity?.getSharedPreferences("switchRv", AppCompatActivity.MODE_PRIVATE)
         binding.switchRV.isChecked = switchRV!!.getBoolean("valSwitchRV", false)
@@ -51,7 +88,7 @@ class listWords : Fragment() {
         binding.tvPreg.isVisible = tvPalabras!!.getBoolean("tvWordsVal", binding.tvPreg.isVisible)
 
         val tvMem = activity?.getSharedPreferences("tvWordsMem", AppCompatActivity.MODE_PRIVATE)
-        binding.tvMem.isVisible = tvMem!!.getBoolean("tvWordsVal", !binding.tvMem.isVisible)
+        binding.tvMem.isVisible = tvMem!!.getBoolean("tvWordsVal", binding.tvMem.isVisible)
         //↑
 
 

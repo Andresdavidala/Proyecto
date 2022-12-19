@@ -1,5 +1,9 @@
 package com.example.proyecto
 
+import android.app.AlertDialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -8,8 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
@@ -38,13 +42,43 @@ class EvaWord : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //desactivar el campo de palabra Orig
+
+
+
+        //sharedPref para el customDialog
+        val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustomEva", Context.MODE_PRIVATE)
+        val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownEva", false)
+
+
+
+        if (!dialogShown!!) {
+            //customDialog
+            val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
+            val customDialog = AlertDialog.Builder(context)
+            customDialog.setView(customDialogView)
+            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+            val message = messagefind.setText("La sección evaluación, te permite practicar tus preguntas, es decir deberas ingresar la respuesta a la pregunta" +
+                    "que tu mismo guardaste y si correcto podras pasar a tu siguiente pregunta")
+
+            customDialog.setMessage(message.toString())
+            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+            val dialog = customDialog.create()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+            sharedPrefCustom.edit().putBoolean("dialog_shownEva", true).apply()
+        }
 
         //↑
 
 //se crea un List de todas las palabras
         try{
-            binding.wordTrad.hint = "Ingresa la traducción"
+            binding.wordTrad.hint = "Ingresa tu respuesta"
             val openFile = activity?.openFileInput("myfile.txt")
             val inputReader = InputStreamReader(openFile)
             val data =inputReader.readText().trimEnd()
@@ -94,9 +128,9 @@ class EvaWord : Fragment() {
 
 
         }catch (_: Exception){
-            Toast.makeText(context, "No existen palabras registradas", Toast.LENGTH_SHORT ).show()
+//            Toast.makeText(context, "No existen palabras registradas", Toast.LENGTH_SHORT ).show()
             binding.wordTrad.isFocusable = false
-            binding.wordTrad.hint = " "
+            binding.wordTrad.hint = " No existen preguntas"
         }
 
     }
