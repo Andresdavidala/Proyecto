@@ -82,7 +82,7 @@ class listWords : Fragment() {
         binding.rvDataList.isVisible = rvVisible!!.getBoolean("valRVVisible", binding.rvDataList.isVisible)
 
         val rvVisibleMem = activity?.getSharedPreferences("rvVisibleMem", AppCompatActivity.MODE_PRIVATE)
-        binding.rvMemorias.isVisible = rvVisibleMem!!.getBoolean("valRVVisibleMem", !binding.rvMemorias.isVisible)
+        binding.rvMemorias.isVisible = rvVisibleMem!!.getBoolean("valRVVisibleMem", false)
 
         val tvPalabras = activity?.getSharedPreferences("tvWords", AppCompatActivity.MODE_PRIVATE)
         binding.tvPreg.isVisible = tvPalabras!!.getBoolean("tvWordsVal", binding.tvPreg.isVisible)
@@ -96,6 +96,9 @@ class listWords : Fragment() {
         binding.switchRV.setOnCheckedChangeListener { compoundButton, b ->
 
             if(b){
+                binding.filterET.visibility = View.GONE
+                binding.filterETMem.visibility = View.VISIBLE
+
                 //sharedP
                 val switchValBbl  = activity?.getSharedPreferences("switchRv", AppCompatActivity.MODE_PRIVATE)!!.edit()
                 switchValBbl.putBoolean("valSwitchRV", true).apply()
@@ -113,6 +116,7 @@ class listWords : Fragment() {
                 tvMemVal.putBoolean("tvWordsVal", true).apply()
                 //↑
 
+                binding.filterET.setText("")
 
                 binding.rvDataList.isVisible = false
                 binding.rvMemorias.isVisible = true
@@ -120,6 +124,10 @@ class listWords : Fragment() {
                 binding.tvPreg.isVisible = false
 
             }else{
+
+                binding.filterET.visibility = View.VISIBLE
+                binding.filterETMem.visibility = View.GONE
+
                 //sharedP
                 val switchValBbl  = activity?.getSharedPreferences("switchRv", AppCompatActivity.MODE_PRIVATE)!!.edit()
                 switchValBbl.putBoolean("valSwitchRV", false).apply()
@@ -149,21 +157,48 @@ class listWords : Fragment() {
         iniRecyclerView()
         initRecyclerMemorisView()
 
-        binding.filterET.addTextChangedListener {
-            val listData = binding.filterET.text.toString().trim()
+        //creo los et filter para filtrar las palabras, ahora bien tuve que crear dos debido a que con uno generaba un error
+
+        binding.filterETMem.addTextChangedListener { filMem ->
+            try{
+                val findWordMem = dataWordProvider.memorisWords.indexOfFirst {it.memorias.lowercase().contains(filMem.toString().lowercase())}//si la lista memorias contiene los valores que le ingresamos en el etFilter
+                binding.rvMemorias.smoothScrollToPosition(findWordMem)
+                Log.d("datosFind", findWordMem.toString())
+            }catch (_: Exception){
+
+            }
+        }
+        binding.filterET.addTextChangedListener {filerWord->
+//            val listData = binding.filterET.text.toString().trim()
 
 
             try{
+//                val superheroesFiltered = superHeroMutableList.filter { superhero -> superhero.superhero.contains (userFilter.toString()) }
+                val findWor = dataWordProvider.dataWords.filter { words -> dataWordProvider.dataWords[0].wordOrg.contains(filerWord.toString()) }
+
+
                 val findWord = dataWordProvider.dataWords.indexOfFirst {
-                    it.wordOrg.replace("☼○", "").lowercase() == listData.lowercase() || it.wordTrad.replace("☼○", "").lowercase() == listData.lowercase()
+                    it.wordOrg.lowercase().contains(filerWord.toString().lowercase()) || it.wordTrad.lowercase().contains(filerWord.toString().lowercase())
                 }
 
+                Log.d("datosFind", findWord.toString())
+//                val findWord = dataWordProvider.dataWords.indexOfFirst {
+//                    it.wordOrg.replace("☼○", "").lowercase() == listData.lowercase() || it.wordTrad.replace("☼○", "").lowercase() == listData.lowercase()
+//                }
 
-                if(findWord == -1){
-                    binding.rvDataList.scrollToPosition(0)
-                }
-                Log.i("datos", findWord.toString())
-                binding.rvDataList.smoothScrollToPosition(findWord+2)
+
+
+
+
+//                val findWordMem = dataWordProvider.memorisWords.indexOfFirst {
+//                    it.memorias.replace("☼○", "").lowercase() == listData.lowercase() || it.memorias.replace("☼○", "").lowercase() == listData.lowercase()
+//                }
+
+//                if(findWord == -1 || findWordMem == -1){
+//                    binding.rvDataList.scrollToPosition(0)
+//                    binding.rvMemorias.scrollToPosition(0)
+//                }
+                binding.rvDataList.smoothScrollToPosition(findWord)
 
             }catch (_: Exception){
 

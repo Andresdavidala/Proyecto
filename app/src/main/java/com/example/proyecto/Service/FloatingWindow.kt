@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -36,7 +37,8 @@ class FloatingWindow: Service() {
     private lateinit var edtDes: EditText
     private lateinit var edtDes2: TextView
     private lateinit var cardView: CardView
-    private lateinit var btnMax: Button
+    private lateinit var btnMax: ImageView
+    private lateinit var btnClose: ImageView
 
     private lateinit var wordTrad: String
 
@@ -56,9 +58,13 @@ class FloatingWindow: Service() {
         val inflater = baseContext.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         floatView = inflater.inflate(R.layout.floatingwindow, null) as ViewGroup
         btnMax = floatView.findViewById(R.id.btnMax)
+        btnMax.setImageResource(R.drawable.send)
+        btnClose = floatView.findViewById(R.id.btnC)
+        btnClose.setImageResource(R.drawable.closecardmem)
         edtDes = floatView.findViewById(R.id.edt_description)
         cardView = floatView.findViewById(R.id.cardContainer)
         edtDes2 = floatView.findViewById(R.id.edt_description2)
+
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
@@ -200,6 +206,15 @@ class FloatingWindow: Service() {
 
 
         }
+
+        btnClose.setOnClickListener {
+
+            windowManager.removeView(floatView)
+            mainHandler.postDelayed(runn, milisecundos.toLong())
+
+        }
+        //↑
+
 
         val numHora = numPickHour?.times(60)
 

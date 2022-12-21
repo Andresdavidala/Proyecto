@@ -34,10 +34,10 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.66999996" />
+        app:layout_constraintVertical_bias="0.669" />
 
     <TextView
         android:id="@+id/tvPreg"
@@ -75,6 +75,7 @@
         android:layout_height="43dp"
         android:backgroundTint="@color/primarioCel"
         android:drawableLeft="@drawable/loopa"
+        android:fontFamily="@font/viga_regular"
         android:imeOptions="actionDone"
         android:maxLines="1"
         android:singleLine="true"
@@ -89,10 +90,32 @@
         app:layout_constraintVertical_bias="0.35000002"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
+    <EditText
+        android:id="@+id/filterETMem"
+        android:layout_width="346dp"
+        android:layout_height="43dp"
+        android:backgroundTint="@color/primarioCel"
+        android:drawableLeft="@drawable/loopa"
+        android:fontFamily="@font/viga_regular"
+        android:imeOptions="actionDone"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/textfieldMost"
+        android:textColorHint="@color/primarioCel"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35000002"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDataList"
         android:layout_width="414sp"
         android:layout_height="328sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"

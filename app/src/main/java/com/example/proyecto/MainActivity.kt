@@ -6,6 +6,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.proyecto.databinding.ActivityMainBinding
+import com.google.android.gms.ads.AdRequest
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+//        loadAds()
         replaceFragment(SaveWords())
 
         binding.btnNav.setOnItemSelectedListener{
@@ -37,30 +38,11 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
-        //ANTERIOR ↓
-//        binding.vpSlide.adapter = AdapterVP2(this)
+    }
 
-//        val tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.vpSlide,
-//        TabLayoutMediator.TabConfigurationStrategy{
-//            tab, position ->
-//                when(position){
-//                    0 -> {
-//                        tab.setIcon(R.drawable.save)
-//                    }
-//                    1 -> {
-//                        tab.setIcon(R.drawable.quiz)
-//                    }
-//                    2 ->{
-//                        tab.setIcon(R.drawable.ic_baseline_format_list_bulleted_24)
-//                    }
-//                    3 ->{
-//                        tab.setIcon(R.drawable.ic_baseline_settings_24)
-//                    }
-//                }
-//        })
-//        tabLayoutMediator.attach()
-
-        //ANTERIOR ↑
+    private fun loadAds(){
+        val adRequest = AdRequest.Builder().build()
+        binding.adBanner.loadAd(adRequest)
     }
 
     fun replaceFragment(fragment: Fragment){

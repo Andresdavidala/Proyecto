@@ -641,7 +641,8 @@ class SettingActivity : AppCompatActivity() {
                     customDialog.setView(customDialogView)
                     val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
                     val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una ventana que permitira " +
-                            "guardar tus preguntas mientras estas usando otras aplicación ")
+                            "guardar tus preguntas mientras estas usando otras aplicación y podras cerrar la ventana volviendo a presionar la burbuja. Podras cerrar la " +
+                            "burbuja si la arrastras hacia abajo con suficiente velocidad.")
 
                     customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
                     val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -719,7 +720,8 @@ class SettingActivity : AppCompatActivity() {
                     customDialog.setView(customDialogView)
                     val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
                     val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una tarjeta que permitira " +
-                            "guardar tus memorias mientras estas usando otras aplicación ")
+                            "guardar tus memorias mientras estas usando otras aplicación y podras cerrar la tarjeta volviendo a presionar la burbuja. Podras cerrar la " +
+                            "burbuja si la arrastras hacia abajo con suficiente velocidad.")
 
                     customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
                     val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -763,7 +765,7 @@ class SettingActivity : AppCompatActivity() {
                     }
 
                 }else{
-                    switchBlb.isChecked = false
+                    switchMemoSave.isChecked = false
                     requestFlowatingPermission()
                 }
             }else{

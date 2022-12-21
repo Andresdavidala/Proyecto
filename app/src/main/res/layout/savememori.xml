@@ -31,10 +31,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="112dp"
                 android:background="@drawable/edt_description"
+                android:fontFamily="@font/viga_regular"
                 android:gravity="top|left"
                 android:padding="8dp"
                 android:textColorHighlight="@color/textfieldMost"
                 android:textCursorDrawable="@color/textfieldMost"
+                android:textSize="18sp"
+                android:hint="Guarda aqui tus memorias"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +55,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etSaveMem"
                 app:layout_constraintVertical_bias="1.0"
-                app:srcCompat="@drawable/save" />
+                app:srcCompat="@drawable/ic_baseline_save_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

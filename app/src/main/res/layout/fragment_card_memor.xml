@@ -41,7 +41,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
         android:layout_width="335dp"
-        android:layout_height="151dp"
+        android:layout_height="161dp"
         android:backgroundTint="@color/textfieldMost"
         app:cardCornerRadius="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,10 +57,10 @@
 
             <EditText
                 android:id="@+id/etmemoris"
-                android:layout_width="341dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:backgroundTint="@color/textfieldMost"
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:background="@drawable/borderet"
+
                 android:fontFamily="@font/viga_regular"
                 android:gravity="start"
                 android:hint="Guarda tus memorias aquí"
@@ -68,28 +68,24 @@
                 android:inputType="textMultiLine"
                 android:padding="8dp"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btnSaveMem"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
                 tools:ignore="SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/btnSaveMem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primarioCel"
+                android:text="Guardar"
+                app:cornerRadius="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/btnSaveMem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/primarioCel"
-        android:text="Guardar"
-        app:cornerRadius="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView4"
-        app:layout_constraintVertical_bias="0.25" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

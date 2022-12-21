@@ -7,8 +7,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/crdV"
-        android:layout_width="191dp"
-        android:layout_height="161dp"
+        android:layout_width="214dp"
+        android:layout_height="164dp"
         android:layout_centerInParent="true"
         android:visibility="visible"
         app:cardBackgroundColor="#0088A9"
@@ -26,9 +26,11 @@
 
             <EditText
                 android:id="@+id/etWO"
-                android:layout_width="171dp"
+                android:layout_width="191dp"
                 android:layout_height="51dp"
                 android:background="@drawable/edt_description"
+                android:fontFamily="@font/viga_regular"
+                android:hint="guarda tu pregunta"
                 android:imeOptions="actionNext"
                 android:inputType="textNoSuggestions"
                 android:padding="10dp"
@@ -36,7 +38,7 @@
                 android:textAlignment="gravity"
                 android:textColorHighlight="@color/textfieldMost"
                 android:textCursorDrawable="@color/textfieldMost"
-                android:textSize="22dp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/etWT"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -46,15 +48,18 @@
 
             <EditText
                 android:id="@+id/etWT"
-                android:layout_width="171dp"
+                android:layout_width="191dp"
                 android:layout_height="48dp"
                 android:layout_marginBottom="4dp"
                 android:background="@drawable/edt_description"
+                android:fontFamily="@font/viga_regular"
+                android:hint="guarda tu respuesta"
                 android:imeOptions="actionDone"
                 android:inputType="textNoSuggestions"
                 android:padding="10dp"
                 android:textColorHighlight="@color/textfieldMost"
                 android:textCursorDrawable="@color/textfieldMost"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/btnSave"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +71,7 @@
                 android:layout_height="37dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintHorizontal_bias="0.52"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/ic_baseline_save_24" />
         </androidx.constraintlayout.widget.ConstraintLayout>
