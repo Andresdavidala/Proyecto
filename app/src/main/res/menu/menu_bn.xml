@@ -6,15 +6,15 @@
         android:icon="@drawable/splitscreen"
         android:title="Preguntas" />
     <item
+        android:id="@+id/evaWord"
+        android:icon="@drawable/quiz"
+        android:title="Evaluar Palabras" />
+    <item
         android:id="@+id/memorias"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/ic_baseline_crop_3_2_24"
         android:title="Memorias" />
-    <item
-        android:id="@+id/evaWord"
-        android:icon="@drawable/quiz"
-        android:title="Evaluar Palabras" />
     <item
         android:id="@+id/listWord"
         android:icon="@drawable/ic_baseline_format_list_bulleted_24"

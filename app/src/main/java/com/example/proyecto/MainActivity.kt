@@ -1,5 +1,6 @@
 package com.example.proyecto
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
@@ -10,6 +11,10 @@ import com.google.android.gms.ads.AdRequest
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    companion object{
+        var nombreVariable = 0
+        var contardorRecyclers = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //para que no se muevan los elementos al abrir el teclado
@@ -19,8 +24,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        loadAds()
+        loadAds()
         replaceFragment(SaveWords())
+
+        val sharedPreferences = getSharedPreferences("preferences_name", Context.MODE_PRIVATE)
+
+// Guarda la variable en SharedPreferences
+        nombreVariable = sharedPreferences.getInt("nombreVariable_key", 0)
+
 
         binding.btnNav.setOnItemSelectedListener{
             when(it.itemId){
@@ -54,6 +65,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         finishAffinity()
+//        sharedPreferences.edit().putInt("nombreVariable_key", nombreVariable).apply()
+
     }
 
 }

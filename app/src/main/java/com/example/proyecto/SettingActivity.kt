@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.proyecto.Service.*
 import com.example.proyecto.databinding.ActivitySettingBinding
+import com.google.android.gms.ads.AdRequest
 import kotlin.properties.Delegates
 
 class SettingActivity : AppCompatActivity() {
@@ -70,7 +71,8 @@ class SettingActivity : AppCompatActivity() {
 
         //↑
 
-
+        //banner↓
+        loadBannerSetting()
         //sharedP
         val sharedPreferencesToast = getSharedPreferences("openCardToast", MODE_PRIVATE)
         clHS.isVisible = sharedPreferencesToast!!.getBoolean("visCardToast", false)
@@ -829,6 +831,11 @@ class SettingActivity : AppCompatActivity() {
 
 
 
+    //Para el banner
+    private fun loadBannerSetting(){
+        val adRequest = AdRequest.Builder().build()
+        binding.adBannerSetting.loadAd(adRequest)
+    }
 
 //    override fun onPause() {
 //        super.onPause()

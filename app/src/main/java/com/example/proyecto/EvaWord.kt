@@ -18,13 +18,17 @@ import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentEvaWordBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.InputStreamReader
 
 
 class EvaWord : Fragment() {
     private var _binding: FragmentEvaWordBinding?=null
     private val binding get() = _binding!!
-
+    private var miInterstitialAd: InterstitialAd? = null
 
 
 
@@ -42,14 +46,20 @@ class EvaWord : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //sharedCountAds
 
+        val sharedPreferences = activity?.getSharedPreferences("preferences_name", Context.MODE_PRIVATE)
+
+// Guarda la variable en SharedPreferences
+        MainActivity.nombreVariable = sharedPreferences!!.getInt("nombreVariable_key", 0)
+        //↑
 
 
         //sharedPref para el customDialog
         val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustomEva", Context.MODE_PRIVATE)
         val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownEva", false)
 
-
+        initAds()
 
         if (!dialogShown!!) {
             //customDialog
@@ -107,6 +117,14 @@ class EvaWord : Fragment() {
                 if(wordTrad.replace("☼○", "").equals(binding.evaWT.editText?.text.toString().trim(), true)){
                     wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
                     binding.wordTrad.requestFocus()
+                    MainActivity.nombreVariable+=1
+                    if(MainActivity.nombreVariable == 4){
+                        callAd()
+                    }
+                    Log.d("datosCount", MainActivity.nombreVariable.toString())
+                    sharedPreferences.edit().putInt("nombreVariable_key",
+                        MainActivity.nombreVariable
+                    ).apply()
                 }else{
                     binding.evaWT.editText?.setText("")
                 }
@@ -144,6 +162,29 @@ class EvaWord : Fragment() {
         return wordReturn
     }
 
+    fun initAds(){
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(requireContext(),"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+
+                miInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+
+                miInterstitialAd = interstitialAd
+            }
+        })
+    }
+    fun callAd(){
+        showAds()
+        MainActivity.nombreVariable = 0
+        initAds()
+    }
+
+    fun showAds(){
+        activity?.let { miInterstitialAd?.show(it) }
+    }
 
 
 

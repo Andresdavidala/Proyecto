@@ -1,6 +1,7 @@
 package com.example.proyecto.Recycler.Customer
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
@@ -11,10 +12,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
+import com.example.proyecto.MainActivity
 import com.example.proyecto.R
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordmemorirecyclerBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
@@ -37,9 +43,20 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
     inner class vhDataList(view: View): RecyclerView.ViewHolder(view){
 
         val binding = WordmemorirecyclerBinding.bind(view)
-
+        var miInterstitialAd: InterstitialAd? = null
         @SuppressLint("ClickableViewAccessibility")
         fun renderData(dataListW: MemoriWords, onClickDelete: (Int) -> Unit, fileContext: Context) {
+
+            //ads
+
+            initAds()
+
+            //sharedCountAds
+            val sharedPreferences = fileContext.getSharedPreferences("preferencesRC", Context.MODE_PRIVATE)
+            // Guarda la variable en SharedPreferences
+            MainActivity.contardorRecyclers = sharedPreferences!!.getInt("recyclersCont", 0)
+            //↑
+
 
             binding.tvWordOrg.text = dataListW.memorias.replace("☼○", "")
 
@@ -80,8 +97,20 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
                 }
 
                 okBtn.setOnClickListener {
+                    MainActivity.contardorRecyclers+=1
+                    if(MainActivity.contardorRecyclers == 7){
+                        callAd()
+                        MainActivity.contardorRecyclers = 0
+                    }
+                    //NO ADS
                     onClickDelete(adapterPosition)
                     dialog.dismiss()
+                    //↑
+
+                    sharedPreferences.edit().putInt("recyclersCont",
+                        MainActivity.contardorRecyclers
+                    ).apply()
+                    Log.d("datosReycler", MainActivity.contardorRecyclers.toString())
                 }
 
             }
@@ -133,6 +162,18 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
                     outputWriter.close()
 
                     notifyItemChanged(adapterPosition)
+
+                    //ads↓
+                    MainActivity.contardorRecyclers+=1
+                    if(MainActivity.contardorRecyclers == 7){
+                        callAd()
+                        MainActivity.contardorRecyclers = 0
+
+                    }
+                    sharedPreferences.edit().putInt("recyclersCont",
+                        MainActivity.contardorRecyclers
+                    ).apply()
+                    Log.d("datosReycler", MainActivity.contardorRecyclers.toString())
                 }catch (_: java.lang.Exception){
                     Log.d("datosE", "ERRROR")
                 }
@@ -151,6 +192,30 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
 
 
             }
+        }
+
+        private fun initAds(){
+            val adRequest = AdRequest.Builder().build()
+            InterstitialAd.load(fileContext,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+
+                    miInterstitialAd = null
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+
+                    miInterstitialAd = interstitialAd
+                }
+            })
+        }
+        private fun callAd(){
+            showAds()
+            MainActivity.nombreVariable = 0
+            initAds()
+        }
+
+        private fun showAds(){
+            miInterstitialAd?.show(Activity().parent)
         }
     }
 

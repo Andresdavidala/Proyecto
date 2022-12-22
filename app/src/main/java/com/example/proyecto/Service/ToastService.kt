@@ -78,7 +78,7 @@ class ToastService(): Service(){
                     mainHandler.postDelayed(this, milisecundos.toLong())
                     Log.d("datos", milisecundos.toString())
                 }catch (_ : Exception){
-                    Toast.makeText(baseContext,"No se encontraron palabras", Toast.LENGTH_LONG).show()
+                    Toast.makeText(baseContext,"No se encontraron palabras", Toast.LENGTH_SHORT).show()
                 }
             }
         }
