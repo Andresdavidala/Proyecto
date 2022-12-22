@@ -123,4 +123,17 @@
         app:layout_constraintTop_toBottomOf="@+id/evaWT"
         app:layout_constraintVertical_bias="0.166" />
 
+    <ImageButton
+        android:id="@+id/btnSHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/help"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSaveWord"
+        app:layout_constraintTop_toBottomOf="@+id/evaWT"
+        app:layout_constraintVertical_bias="0.18"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

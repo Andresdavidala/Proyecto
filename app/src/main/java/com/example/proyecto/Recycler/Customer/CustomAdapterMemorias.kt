@@ -110,7 +110,6 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
                     sharedPreferences.edit().putInt("recyclersCont",
                         MainActivity.contardorRecyclers
                     ).apply()
-                    Log.d("datosReycler", MainActivity.contardorRecyclers.toString())
                 }
 
             }
@@ -119,10 +118,6 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
                 binding.btnEdit2.isSelected = !binding.btnEdit2.isSelected
             }
 
-
-            binding.carViewWO.setOnClickListener {
-                Log.d("datosWT", dataListW.memorias.replace("☼○", ""))
-            }
 
             binding.btnEdit2.setOnClickListener {
 
@@ -155,8 +150,6 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
                         outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼○ ")
 
                     }
-                    Log.d("datosE", "FUNC")
-                    Log.d("datosRV", dataWordProvider.memorisWords.toString())
 
                     outputWriter.flush()
                     outputWriter.close()
@@ -173,9 +166,7 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
                     sharedPreferences.edit().putInt("recyclersCont",
                         MainActivity.contardorRecyclers
                     ).apply()
-                    Log.d("datosReycler", MainActivity.contardorRecyclers.toString())
                 }catch (_: java.lang.Exception){
-                    Log.d("datosE", "ERRROR")
                 }
 
             }

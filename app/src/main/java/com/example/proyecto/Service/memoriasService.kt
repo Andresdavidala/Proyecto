@@ -3,15 +3,16 @@ package com.example.proyecto.Service
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -22,7 +23,6 @@ import com.example.proyecto.R
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.SettingActivity
-import java.io.InputStreamReader
 import kotlin.properties.Delegates
 
 class memoriasService: Service() {
@@ -65,7 +65,6 @@ class memoriasService: Service() {
             LAYOUT_TYPE = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         }
         else LAYOUT_TYPE = WindowManager.LayoutParams.TYPE_TOAST
-        Log.d("datos", width.toString())
         cardMemViewParams = WindowManager.LayoutParams(
 
             (width *0.9f).toInt(),
@@ -116,7 +115,6 @@ class memoriasService: Service() {
                 try{
                    valorMemoriRam(dataWordProvider.memorisWords, tvMemorias)
                     windowManager.addView(cardMemorView, cardMemViewParams)
-                    Log.d("datos", "card en ejecución")
 
                 }catch (_: Exception){
                     Toast.makeText(baseContext,"No se encontraron palabras", Toast.LENGTH_LONG).show()
@@ -124,7 +122,6 @@ class memoriasService: Service() {
 //                Toast.makeText(baseContext, "Hola", Toast.LENGTH_SHORT).show()
                 mainHandler.postDelayed(this,milisecundos.toLong())
                 mainHandler.removeCallbacks(runn)
-                Log.d("Tagmili", milisecundos.toString())
             }
 
         }
@@ -136,7 +133,7 @@ class memoriasService: Service() {
         val numMinute = numPicMinutes
 
         val minutosTotal = numHora?.let { numMinute?.plus(it) }
-        milisecundos = minutosTotal!! * 1000
+        milisecundos = minutosTotal!! * 60000
 
         if(milisecundos != 0){
             if(dataWordProvider.memorisWords.size != 0){
@@ -171,7 +168,6 @@ class memoriasService: Service() {
         val wordReturn = list.memorias.replace("☼○", "")
         editEvaluar.text = wordReturn
         editEvaluar.scrollTo(0,0)
-        Log.d("datosMap", wordReturn)
         return wordReturn
     }
 

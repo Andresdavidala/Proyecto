@@ -9,7 +9,6 @@ import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
 import android.text.TextUtils
-import android.util.Log
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
@@ -20,7 +19,6 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
 import com.example.proyecto.R
-import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.SettingActivity
@@ -122,7 +120,6 @@ class MemoriaSaveService: Service() {
                 velocityTracker.addMovement(event)
                 velocityTracker.computeCurrentVelocity(1000)
                 val yVelocity = velocityTracker.yVelocity
-                Log.d("datosMovement", yVelocity.toString())
 
 
                 cardView.animate()
@@ -147,7 +144,6 @@ class MemoriaSaveService: Service() {
                         updatedFloatWindowLayoutParams.y = (y + event.rawY - py).toInt()
 
                         if(yVelocity>= 13823.675){
-                            Log.d("datosMovement", "se cerro")
 
                             windowManager.removeView(bubbleView)
                             stopForeground(true)
@@ -226,7 +222,6 @@ class MemoriaSaveService: Service() {
         //Broadcast
         class NotificationReceiver : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                Log.d("datos", "Notification clicked!")
             }
         }
 
@@ -267,11 +262,8 @@ class MemoriaSaveService: Service() {
 
                 contWord += 1
 
-                Log.d("datos9", datatoList.toString())
             }
-            Log.d("datos2", "no vacio")
         } else {
-            Log.d("datos2", "vacio")
         }
         startForeground(1, notificacion)
         fun saveWord(){

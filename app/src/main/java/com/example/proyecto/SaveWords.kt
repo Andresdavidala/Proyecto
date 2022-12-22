@@ -67,7 +67,6 @@ class SaveWords : Fragment() {
 
         //Loading data to memorias
         dataWordProvider.memorisWords.clear()
-        Log.d("datosEmpty", "vacio")
         var txtFileMem = activity?.openFileOutput("memorias.txt", Context.MODE_APPEND) //important
 //
         val openFileMem = activity?.openFileInput("memorias.txt")
@@ -87,16 +86,12 @@ class SaveWords : Fragment() {
 
                 contWordMem += 1
 
-                Log.d("datos9", datatoListMem.toString())
             }
-            Log.d("datos2", "no vacio")
         } else {
-            Log.d("datos2", "vacio")
         }
         //↑
 
         dataWordProvider.dataWords.clear()
-        Log.d("datosEmpty", "vacio")
         var txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_APPEND) //important
 //
         val openFile = activity?.openFileInput("myfile.txt")
@@ -105,9 +100,6 @@ class SaveWords : Fragment() {
         val datatoList = data.split("☼○ ")
 
         var contWord = 0
-        Log.d("datos8", data)
-        Log.d("datos6", (datatoList.indices.toString()))
-        Log.d("datos9", datatoList.toString())
 
         if (data.isNotEmpty()) {
             for (i in datatoList.indices step 2) {
@@ -121,25 +113,12 @@ class SaveWords : Fragment() {
 
                 contWord += 2
 
-                Log.d("datos9", datatoList.toString())
             }
-            Log.d("datos2", "no vacio")
         } else {
-            Log.d("datos2", "vacio")
         }
 
 
-        //sharedPref para el customDialog
-        val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustom", MODE_PRIVATE)
-        val dialogShown = sharedPrefCustom?.getBoolean("dialog_shown", false)
-
-
-
-
-
-
-        if (!dialogShown!!) {
-            //customDialog
+        binding.btnSHelp.setOnClickListener {
             val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
             val customDialog = AlertDialog.Builder(context)
             customDialog.setView(customDialogView)
@@ -158,12 +137,8 @@ class SaveWords : Fragment() {
             cancelBtn.setOnClickListener {
                 dialog.dismiss()
             }
-            sharedPrefCustom.edit().putBoolean("dialog_shown", true).apply()
         }
 
-        //↑
-
-        Log.d("datos2", dataWordProvider.dataWords.toString())
         fun Fragment.hideKeyboard() {
             view?.let { activity?.hideKeyboard(it) }
         }
@@ -184,11 +159,9 @@ class SaveWords : Fragment() {
                     MainActivity.nombreVariable += 1
 
                     if(MainActivity.nombreVariable == 4){
-                        Log.d("datosCoun+", "entra")
                         callAd()
                     }
                     sharedPreferences.edit().putInt("nombreVariable_key", nombreVariable).apply()
-                    Log.d("datosCount", MainActivity.nombreVariable.toString())
 
                 }
                 //guardar en un textfile integrado dentro de la app↓

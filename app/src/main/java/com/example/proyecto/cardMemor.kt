@@ -56,7 +56,6 @@ class cardMemor : Fragment() {
         //↑
 
         dataWordProvider.memorisWords.clear()
-        Log.d("datosEmpty", "vacio")
         var txtFile = activity?.openFileOutput("memorias.txt", Context.MODE_APPEND) //important
 //
         val openFile = activity?.openFileInput("memorias.txt")
@@ -65,16 +64,15 @@ class cardMemor : Fragment() {
         val datatoList = data.split("☼○ ")
 
         var contWord = 0
-        Log.d("datos8", data)
-        Log.d("datos6", (datatoList.indices.toString()))
-        Log.d("datos9", datatoList.toString())
 
-        //sharedPref para el customDialog
-        val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustomMemo", Context.MODE_PRIVATE)
-        val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownMemo", false)
+
 
         initAds()
-        if (!dialogShown!!) {
+
+
+        //↑
+
+        binding.btnMHelp.setOnClickListener {
             //customDialog
             val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
             val customDialog = AlertDialog.Builder(context)
@@ -94,10 +92,8 @@ class cardMemor : Fragment() {
             cancelBtn.setOnClickListener {
                 dialog.dismiss()
             }
-            sharedPrefCustom.edit().putBoolean("dialog_shownMemo", true).apply()
         }
 
-        //↑
         if (data.isNotEmpty()) {
             for (i in datatoList.indices) {
 
@@ -109,15 +105,9 @@ class cardMemor : Fragment() {
 
                 contWord += 1
 
-                Log.d("datos9", datatoList.toString())
             }
-            Log.d("datos2", "no vacio")
-        } else {
-            Log.d("datos2", "vacio")
         }
 
-
-        Log.d("datos2", dataWordProvider.memorisWords.toString())
         fun Fragment.hideKeyboard() {
             view.let { activity?.hideKeyboard(it) }
         }
@@ -141,7 +131,6 @@ class cardMemor : Fragment() {
                     if(MainActivity.nombreVariable == 4){
                         callAd()
                     }
-                    Log.d("datosCount", MainActivity.nombreVariable.toString())
                     sharedPreferences.edit().putInt("nombreVariable_key",
                         MainActivity.nombreVariable
                     ).apply()
@@ -156,8 +145,6 @@ class cardMemor : Fragment() {
 
                 for (i in dataWordProvider.memorisWords.indices) {
                     outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼○ ")
-
-
                 }
 
                 outputWriter.flush()

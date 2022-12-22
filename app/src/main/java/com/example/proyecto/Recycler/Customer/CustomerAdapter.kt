@@ -124,20 +124,12 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
                     sharedPreferences.edit().putInt("recyclersCont",
                         MainActivity.contardorRecyclers
                     ).apply()
-                    Log.d("datosReycler", MainActivity.contardorRecyclers.toString())
                 }
 
             }
 
             binding.btnEdit.setOnClickListener {
                 binding.btnEdit.isSelected = !binding.btnEdit.isSelected
-            }
-
-            binding.carViewWO.setOnClickListener {
-                Log.d("datosWT", dataListW.wordOrg.replace("☼○", ""))
-            }
-            binding.cardViewWT.setOnClickListener {
-                Log.d("datosWT", dataListW.wordTrad.replace("☼○", ""))
             }
 
             binding.btnEdit.setOnClickListener {
@@ -181,8 +173,6 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
                         outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼○ ")
                         outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼○ ")
                     }
-                    Log.d("datosE", "FUNC")
-                    Log.d("datosRV", dataWordProvider.dataWords.toString())
 
                     outputWriter.flush()
                     outputWriter.close()
@@ -199,10 +189,7 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
                     sharedPreferences.edit().putInt("recyclersCont",
                         MainActivity.contardorRecyclers
                     ).apply()
-                    Log.d("datosReycler", MainActivity.contardorRecyclers.toString())
-
                 } catch (_: java.lang.Exception) {
-                    Log.d("datosE", "ERRROR")
                 }
 
 

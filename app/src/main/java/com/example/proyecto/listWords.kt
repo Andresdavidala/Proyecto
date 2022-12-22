@@ -42,14 +42,7 @@ class listWords : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        //sharedPref para el customDialog
-        val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustomList", Context.MODE_PRIVATE)
-        val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownList", false)
-
-
-
-        if (!dialogShown!!) {
+        binding.btnLHelp.setOnClickListener {
             //customDialog
             val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
             val customDialog = AlertDialog.Builder(context)
@@ -69,10 +62,7 @@ class listWords : Fragment() {
             cancelBtn.setOnClickListener {
                 dialog.dismiss()
             }
-            sharedPrefCustom.edit().putBoolean("dialog_shownList", true).apply()
         }
-
-        //↑
 
         //sharedP
         val switchRV = activity?.getSharedPreferences("switchRv", AppCompatActivity.MODE_PRIVATE)
@@ -163,7 +153,6 @@ class listWords : Fragment() {
             try{
                 val findWordMem = dataWordProvider.memorisWords.indexOfFirst {it.memorias.lowercase().contains(filMem.toString().lowercase())}//si la lista memorias contiene los valores que le ingresamos en el etFilter
                 binding.rvMemorias.smoothScrollToPosition(findWordMem)
-                Log.d("datosFind", findWordMem.toString())
             }catch (_: Exception){
 
             }
@@ -181,7 +170,6 @@ class listWords : Fragment() {
                     it.wordOrg.lowercase().contains(filerWord.toString().lowercase()) || it.wordTrad.lowercase().contains(filerWord.toString().lowercase())
                 }
 
-                Log.d("datosFind", findWord.toString())
 //                val findWord = dataWordProvider.dataWords.indexOfFirst {
 //                    it.wordOrg.replace("☼○", "").lowercase() == listData.lowercase() || it.wordTrad.replace("☼○", "").lowercase() == listData.lowercase()
 //                }
@@ -237,8 +225,6 @@ class listWords : Fragment() {
         val outputWriter = OutputStreamWriter(txtFile)
         dataWordProvider.memorisWords.removeAt(position)
 
-        Log.d("datosRV", dataWordProvider.memorisWords.toString())
-
         try{
             for( i in dataWordProvider.memorisWords.indices){
                 outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼○ ")
@@ -260,8 +246,6 @@ class listWords : Fragment() {
         val txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_PRIVATE)
         val outputWriter = OutputStreamWriter(txtFile)
         dataWordProvider.dataWords.removeAt(position)
-
-        Log.d("datosRV", dataWordProvider.dataWords.toString())
 
         try{
             for( i in dataWordProvider.dataWords.indices){

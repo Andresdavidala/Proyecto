@@ -8,9 +8,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import android.view.*
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -178,17 +176,12 @@ class FloatingWindow: Service() {
                 }catch (_: Exception){
                     Toast.makeText(baseContext,"No se encontraron palabras", Toast.LENGTH_LONG).show()
                 }
-//                Toast.makeText(baseContext, "Hola", Toast.LENGTH_SHORT).show()
                 mainHandler.postDelayed(this,milisecundos.toLong())
                 mainHandler.removeCallbacks(runn)
-                Log.d("Tagmili", milisecundos.toString())
             }
 
         }
 
-//        var wordtras = mapWords[valorRandom(mapWords, edtDes2)]
-
-//        Log.d("datosWordTras", wordtras.toString())
         btnMax.setOnClickListener {
 
             if(wordTrad.replace("☼○", "") == edtDes.text.toString().trim()){
@@ -198,7 +191,7 @@ class FloatingWindow: Service() {
 
                 //↓codigo para volver a llamar al postdelayed debido a que se lo cancela una vez aparece la ventana flotante 
                 mainHandler.postDelayed(runn, milisecundos.toLong())
-//                Log.d("MAP", wordtras.toString())
+
             }else{
 
             }
@@ -221,7 +214,7 @@ class FloatingWindow: Service() {
         val numMinute = numPicMinutes
 
         val minutosTotal = numHora?.let { numMinute?.plus(it) }
-        milisecundos = minutosTotal!! * 1000
+        milisecundos = minutosTotal!! * 60000
 
         if(milisecundos != 0){
             if(dataWordProvider.dataWords.size != 0){
@@ -259,7 +252,6 @@ class FloatingWindow: Service() {
         val wordReturn = list.wordOrg
         editEvaluar.text = wordReturn
 
-        Log.d("datosMap", wordReturn)
         return wordReturn
     }
 
@@ -271,11 +263,5 @@ class FloatingWindow: Service() {
 
         }
     }
-//    private fun valorRandom(mapValor: Map<String,String>, editEvaluar: TextView):String{
-//
-//        var randoMap = mapValor.entries.elementAt(Random.nextInt(mapValor.size))
-//        editEvaluar.setText(randoMap.key)
-//        Log.d("datosMap", randoMap.key)
-//        return randoMap.key
-//    }
+
 }

@@ -55,36 +55,26 @@ class EvaWord : Fragment() {
         //↑
 
 
-        //sharedPref para el customDialog
-        val sharedPrefCustom = activity?.getSharedPreferences("my_prefCustomEva", Context.MODE_PRIVATE)
-        val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownEva", false)
+      binding.btnEHelp.setOnClickListener {
+          val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
+          val customDialog = AlertDialog.Builder(context)
+          customDialog.setView(customDialogView)
+          val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+          val message = messagefind.setText("La sección evaluación, te permite practicar tus preguntas, es decir deberas ingresar la respuesta a la pregunta " +
+                  "que tu mismo guardaste y si es correcto podras pasar a tu siguiente pregunta")
 
-        initAds()
+          customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
+          val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
-        if (!dialogShown!!) {
-            //customDialog
-            val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
-            val customDialog = AlertDialog.Builder(context)
-            customDialog.setView(customDialogView)
-            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-            val message = messagefind.setText("La sección evaluación, te permite practicar tus preguntas, es decir deberas ingresar la respuesta a la pregunta" +
-                    "que tu mismo guardaste y si correcto podras pasar a tu siguiente pregunta")
+          val dialog = customDialog.create()
 
-            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
-            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+          dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+          dialog.show()
 
-            val dialog = customDialog.create()
-
-            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.show()
-
-            cancelBtn.setOnClickListener {
-                dialog.dismiss()
-            }
-            sharedPrefCustom.edit().putBoolean("dialog_shownEva", true).apply()
-        }
-
-        //↑
+          cancelBtn.setOnClickListener {
+              dialog.dismiss()
+          }
+      }
 
 //se crea un List de todas las palabras
         try{
@@ -94,8 +84,6 @@ class EvaWord : Fragment() {
             val data =inputReader.readText().trimEnd()
             val datatoList = data.split("☼○ ")
 
-
-            Log.d("datos", datatoList.toString())
             var mapWords: MutableMap<String, String> = mutableMapOf()
             var numWord = 0
             for(i in datatoList.indices){
@@ -108,10 +96,8 @@ class EvaWord : Fragment() {
 
             }
 
-            Log.d("mapword", mapWords.toString())
 
             var wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
-            Log.d("MAP",wordTrad.toString())
 
             fun evaWord(){
                 if(wordTrad.replace("☼○", "").equals(binding.evaWT.editText?.text.toString().trim(), true)){
@@ -121,7 +107,6 @@ class EvaWord : Fragment() {
                     if(MainActivity.nombreVariable == 4){
                         callAd()
                     }
-                    Log.d("datosCount", MainActivity.nombreVariable.toString())
                     sharedPreferences.edit().putInt("nombreVariable_key",
                         MainActivity.nombreVariable
                     ).apply()
@@ -157,8 +142,6 @@ class EvaWord : Fragment() {
         var list = valList.shuffled().take(1)[0]
         var wordReturn = list.wordOrg
         editEvaluar?.setText(wordReturn)
-
-        Log.d("datosMap", wordReturn)
         return wordReturn
     }
 

@@ -6,14 +6,11 @@ import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.example.proyecto.R
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.SettingActivity
-import java.io.FileInputStream
-import java.io.InputStreamReader
 import kotlin.properties.Delegates
 
 class ToastService(): Service(){
@@ -21,13 +18,6 @@ class ToastService(): Service(){
     private lateinit var runn: Runnable
     var milisecundos by Delegates.notNull<Int>()
 
-    var mapWords: MutableMap<String, String> = mutableMapOf()
-    var numword = 0;
-
-
-    init {
-        Log.d("datos","Service Toast running ")
-    }
 
     override fun onBind(p0: Intent?): IBinder? {
         return null
@@ -76,7 +66,6 @@ class ToastService(): Service(){
                     PairWordGenerate()
 
                     mainHandler.postDelayed(this, milisecundos.toLong())
-                    Log.d("datos", milisecundos.toString())
                 }catch (_ : Exception){
                     Toast.makeText(baseContext,"No se encontraron palabras", Toast.LENGTH_SHORT).show()
                 }
@@ -87,7 +76,7 @@ class ToastService(): Service(){
         val numMinute = numPicMinutes
 
         val minutosTotal = numHora?.let { numMinute?.plus(it) }
-        milisecundos = minutosTotal!! * 1000
+        milisecundos = minutosTotal!! * 60000
         if(milisecundos !=0){
 
             if(dataWordProvider.dataWords.size != 0){
@@ -122,10 +111,6 @@ class ToastService(): Service(){
         val list = dataWordProvider.dataWords
         val data = list.shuffled().take(1)[0]
         Toast.makeText(baseContext, "${data.wordOrg} - ${data.wordTrad}".uppercase().replace("☼○",""), Toast.LENGTH_LONG).show()
-
-
-        Log.d("TAGSwDAta", data.toString())
-
 
     }
 

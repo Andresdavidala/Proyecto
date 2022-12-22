@@ -10,7 +10,6 @@ import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
 import android.text.TextUtils
-import android.util.Log
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
@@ -130,7 +129,6 @@ class BubbleService: Service() {
                 velocityTracker.addMovement(event)
                 velocityTracker.computeCurrentVelocity(1000)
                 val yVelocity = velocityTracker.yVelocity
-                Log.d("datosMovement", yVelocity.toString())
 
 
                 cardView.animate()
@@ -155,7 +153,6 @@ class BubbleService: Service() {
                         updatedFloatWindowLayoutParams.y = (y + event.rawY - py).toInt()
 
                         if(yVelocity>= 13823.675){
-                            Log.d("datosMovement", "se cerro")
                             windowManager.removeView(bubbleView)
                             stopForeground(true)
                             try {
@@ -247,7 +244,6 @@ class BubbleService: Service() {
         //Broadcast
         class NotificationReceiver : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                Log.d("datos", "Notification clicked!")
             }
         }
 
@@ -291,13 +287,8 @@ class BubbleService: Service() {
 
                 contWord += 2
 
-                Log.d("datos9", datatoList.toString())
             }
-            Log.d("datos2", "no vacio")
-        } else {
-            Log.d("datos2", "vacio")
         }
-
 
         startForeground(1, notificacion)
         fun saveWord(){

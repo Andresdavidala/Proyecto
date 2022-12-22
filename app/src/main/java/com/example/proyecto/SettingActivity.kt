@@ -18,9 +18,11 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.Service.*
 import com.example.proyecto.databinding.ActivitySettingBinding
 import com.google.android.gms.ads.AdRequest
@@ -219,6 +221,14 @@ class SettingActivity : AppCompatActivity() {
 
 
         //para toast
+        if(dataWordProvider.dataWords.size == 0){
+            binding.btnEstablecer.isEnabled = false
+            binding.btnEstablecerW.isEnabled = false
+        }
+
+        if(dataWordProvider.memorisWords.size == 0){
+            binding.btnEstablecerWCard.isEnabled = false
+        }
 
         binding.btnEstablecer.setOnClickListener {
 
@@ -227,6 +237,7 @@ class SettingActivity : AppCompatActivity() {
             binding.btnEstablecer.isSelected = !binding.btnEstablecer.isSelected
             binding.numberPicker.isEnabled = !binding.numberPicker.isEnabled
             binding.numberPicker2.isEnabled = !binding.numberPicker2.isEnabled
+
 
 
             //foreground
@@ -289,8 +300,6 @@ class SettingActivity : AppCompatActivity() {
 
                     startService(it)
                 }
-                Log.d("datos", "funcionando")
-
 
             }else{
 
@@ -300,7 +309,6 @@ class SettingActivity : AppCompatActivity() {
                     stopService(it)
                 }
 //                mainHandler.removeCallbacks(runn)
-                Log.d("datos", "dejo de funcionar")
             }
 
 
@@ -448,42 +456,42 @@ class SettingActivity : AppCompatActivity() {
         //wfloating↑
         //timeconfiguration↑
 
+        binding.btnHelpToast.setOnClickListener {
+            //customDialog
+            val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+            val customDialog = AlertDialog.Builder(this)
+            customDialog.setView(customDialogView)
+            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+            val message = messagefind.setText("Podras definir el tiempo en el que quieres que se te recuerde las preguntas y respuestas que has ingresado mediante " +
+                    "un toast que aparecera en la parte inferior de tu pantalla, mientras usas otras aplicaciones, debes agregar preguntas para habilitar esta función.")
+
+            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
+            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+            val dialog = customDialog.create()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+
+
+            //↑
+        }
+
         clTitle1.setOnClickListener {
             val visibility = clHS.visibility
             val sharedPToast = getSharedPreferences("openCardToast", Context.MODE_PRIVATE)
             val editor = sharedPToast?.edit()
 
-            //sharedPref para el customDialog
-            val sharedPrefCustom = getSharedPreferences("my_prefCustomCtitle", Context.MODE_PRIVATE)
-            val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownCtitle", false)
 
 
 
-            if (!dialogShown!!) {
-                //customDialog
-                val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
-                val customDialog = AlertDialog.Builder(this)
-                customDialog.setView(customDialogView)
-                val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-                val message = messagefind.setText("Podras definir el tiempo en el que quieres que se te recuerde las preguntas que has ingresado mediante " +
-                        "un toast que aparecera en la parte inferior de tu pantalla, en donde se te mostrara la pregunta y la respuesta que has ingresado, " +
-                        "puedes cancelarlo cuando quieras")
 
-                customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
-                val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
 
-                val dialog = customDialog.create()
 
-                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.show()
-
-                cancelBtn.setOnClickListener {
-                    dialog.dismiss()
-                }
-                sharedPrefCustom.edit().putBoolean("dialog_shownCtitle", true).apply()
-            }
-
-            //↑
 
             if(visibility == View.VISIBLE ){
 
@@ -517,35 +525,6 @@ class SettingActivity : AppCompatActivity() {
             val sharedPWindows = getSharedPreferences("openCardWindows", MODE_PRIVATE)
             val editor = sharedPWindows?.edit()
 
-            //sharedPref para el customDialog
-            val sharedPrefCustom = getSharedPreferences("my_prefCustomClt2", MODE_PRIVATE)
-            val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownClt2", false)
-
-
-
-            if (!dialogShown!!) {
-                //customDialog
-                val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
-                val customDialog = AlertDialog.Builder(this)
-                customDialog.setView(customDialogView)
-                val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-                val message = messagefind.setText("Puedes definir el tiempo en el que quieras practicar tus preguntas aun cuando estes usando otras aplicaciones, esto " +
-                        "mediante una ventana que aparecera en tu pantalla que se cerrara en cuanto respondas a tu pregunta o presiones el boton de cerrar")
-
-                customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
-                val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
-
-                val dialog = customDialog.create()
-
-                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.show()
-
-                cancelBtn.setOnClickListener {
-                    dialog.dismiss()
-                }
-                sharedPrefCustom.edit().putBoolean("dialog_shownClt2", true).apply()
-            }
-
             //↑
 
             if(visibility2 == View.VISIBLE){
@@ -568,42 +547,36 @@ class SettingActivity : AppCompatActivity() {
                 binding.up2.visibility = View.VISIBLE
             }
         }
+
+        binding.btnHelpFloating.setOnClickListener {
+            val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+            val customDialog = AlertDialog.Builder(this)
+            customDialog.setView(customDialogView)
+            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+            val message = messagefind.setText("Puedes definir el tiempo en el que quieras practicar tus preguntas aun cuando estes usando otras aplicaciones " +
+                    "mediante una ventana emergente que te mostrara tu pregunta y que se cerrara si respondes correctamente o presionando en el boton de cerrar. agrega tus" +
+                    " preguntas para habilitar esta funcionalidad.")
+
+            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
+            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+            val dialog = customDialog.create()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+
+
         clTitle3.setOnClickListener {
             var visibility2 = clHS3.visibility
 
             val sharedPWindows = getSharedPreferences("openCardMem", MODE_PRIVATE)
             val editor = sharedPWindows?.edit()
 
-            //sharedPref para el customDialog
-            val sharedPrefCustom = getSharedPreferences("my_prefCustomClt3", MODE_PRIVATE)
-            val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownClt3", false)
-
-
-
-            if (!dialogShown!!) {
-                //customDialog
-                val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
-                val customDialog = AlertDialog.Builder(this)
-                customDialog.setView(customDialogView)
-                val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-                val message = messagefind.setText("Puedes definir el tiempo en el que quieres que aparezca una tarjeta en tu pantalla que te mostrara una de las memorias " +
-                        "que has guardado")
-
-                customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
-                val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
-
-                val dialog = customDialog.create()
-
-                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.show()
-
-                cancelBtn.setOnClickListener {
-                    dialog.dismiss()
-                }
-                sharedPrefCustom.edit().putBoolean("dialog_shownClt3", true).apply()
-            }
-
-            //↑
 
             if(visibility2 == View.VISIBLE){
                 //SharedP
@@ -625,42 +598,33 @@ class SettingActivity : AppCompatActivity() {
                 binding.up2Card.visibility = View.VISIBLE
             }
         }
+
+        binding.btnHelpMemorias.setOnClickListener {
+            //customDialog
+            val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+            val customDialog = AlertDialog.Builder(this)
+            customDialog.setView(customDialogView)
+            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+            val message = messagefind.setText("Puedes definir el tiempo en el que quieres que aparezca una tarjeta en tu pantalla que te mostrara una de las memorias " +
+                    "que has guardado, mientras usas otras aplicaciones, deberás agregar memorias para habilitar esta función.")
+
+            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
+            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+            val dialog = customDialog.create()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
         //section bubble
         binding.switchBurbj.setOnCheckedChangeListener { compoundButton, isChecked ->
 
             if(isChecked){
 
-                //sharedPref para el customDialog
-                val sharedPrefCustom = getSharedPreferences("my_prefCustomClt4", MODE_PRIVATE)
-                val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownClt4", false)
-
-
-
-                if (!dialogShown!!) {
-                    //customDialog
-                    val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
-                    val customDialog = AlertDialog.Builder(this)
-                    customDialog.setView(customDialogView)
-                    val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-                    val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una ventana que permitira " +
-                            "guardar tus preguntas mientras estas usando otras aplicación y podras cerrar la ventana volviendo a presionar la burbuja. Podras cerrar la " +
-                            "burbuja si la arrastras hacia abajo con suficiente velocidad.")
-
-                    customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
-                    val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
-
-                    val dialog = customDialog.create()
-
-                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    dialog.show()
-
-                    cancelBtn.setOnClickListener {
-                        dialog.dismiss()
-                    }
-                    sharedPrefCustom.edit().putBoolean("dialog_shownClt4", true).apply()
-                }
-
-                //↑
 
                 if(checkOverlayPermission()){
                     val switchValBbl  = getSharedPreferences("switchBuble", MODE_PRIVATE)!!.edit()
@@ -705,41 +669,33 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnHelpbubFloat.setOnClickListener {
+            //customDialog
+            val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+            val customDialog = AlertDialog.Builder(this)
+            customDialog.setView(customDialogView)
+            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+            val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una ventana que permitira " +
+                    "guardar tus preguntas mientras estas usando otras aplicaciones y podras cerrar la ventana volviendo a presionar la burbuja. Podras cerrar la " +
+                    "burbuja si la arrastras hacia abajo con suficiente velocidad.")
+
+            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
+            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+            val dialog = customDialog.create()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+
         binding.switchBurbjSaveMem.setOnCheckedChangeListener { compoundButton, isChecked ->
 
             if(isChecked){
 
-                //sharedPref para el customDialog
-                val sharedPrefCustom = getSharedPreferences("my_prefCustomClt4Mem", MODE_PRIVATE)
-                val dialogShown = sharedPrefCustom?.getBoolean("dialog_shownClt4Mem", false)
-
-
-
-                if (!dialogShown!!) {
-                    //customDialog
-                    val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
-                    val customDialog = AlertDialog.Builder(this)
-                    customDialog.setView(customDialogView)
-                    val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-                    val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una tarjeta que permitira " +
-                            "guardar tus memorias mientras estas usando otras aplicación y podras cerrar la tarjeta volviendo a presionar la burbuja. Podras cerrar la " +
-                            "burbuja si la arrastras hacia abajo con suficiente velocidad.")
-
-                    customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
-                    val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
-
-                    val dialog = customDialog.create()
-
-                    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    dialog.show()
-
-                    cancelBtn.setOnClickListener {
-                        dialog.dismiss()
-                    }
-                    sharedPrefCustom.edit().putBoolean("dialog_shownClt4Mem", true).apply()
-                }
-
-                //↑
 
                 if(checkOverlayPermission()){
                     val switchValBbl  = getSharedPreferences("switchBubleMem", MODE_PRIVATE)!!.edit()
@@ -781,6 +737,29 @@ class SettingActivity : AppCompatActivity() {
 
                 }
 
+            }
+        }
+
+        binding.btnHelpBubMem.setOnClickListener {
+            //customDialog
+            val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+            val customDialog = AlertDialog.Builder(this)
+            customDialog.setView(customDialogView)
+            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+            val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una tarjeta que permitira " +
+                    "guardar tus memorias mientras estas usando otras aplicación y podras cerrar la tarjeta volviendo a presionar la burbuja. Podras cerrar la " +
+                    "burbuja si la arrastras hacia abajo con suficiente velocidad.")
+
+            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
+            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+            val dialog = customDialog.create()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
             }
         }
 

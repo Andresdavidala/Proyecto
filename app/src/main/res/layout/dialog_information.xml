@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="301dp"
-        android:layout_height="336dp"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/primarioCel"
         app:cardCornerRadius="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -39,12 +39,12 @@
                 android:id="@+id/btnClose"
                 android:layout_width="44dp"
                 android:layout_height="36dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tvInformation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.98"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.01999998"
+                app:layout_constraintVertical_bias="0.16000003"
                 app:srcCompat="@drawable/closecardmem" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

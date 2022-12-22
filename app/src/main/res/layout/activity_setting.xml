@@ -111,12 +111,28 @@
                             android:layout_height="64dp"
                             android:layout_marginTop="24dp"
                             android:fontFamily="@font/viga_regular"
-                            android:text="Muestra un toast con las palabras insertadas como recortadorio. Establece tu intervalo de tiempo."
+                            android:text="Muestra un toast con las preguntas y respuestas insertadas. Establece tu intervalo de tiempo."
                             android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.103"
+                            app:layout_constraintHorizontal_bias="0.09"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/btnHelpToast"
+                            android:layout_width="31dp"
+                            android:layout_height="30dp"
+                            android:background="@null"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            ads:srcCompat="@drawable/help"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.854"
+                            app:layout_constraintStart_toEndOf="@+id/tvcontain1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.94"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -270,15 +286,28 @@
                         <TextView
                             android:id="@+id/tvcontain5"
                             android:layout_width="216dp"
-                            android:layout_height="65dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
                             android:fontFamily="@font/viga_regular"
-                            android:text="Muestra una ventana emergente, traduce la palabra o falla tres veces para cerrar la ventana."
+                            android:text="Muestra una ventana emergente, acierta tu pregunta o presiona el botón de salir para cerrar la ventana. Establece tu intervalo de tiempo."
                             android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.091"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/btnHelpFloating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:background="@null"
+                            ads:srcCompat="@drawable/help"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.892"
+                            app:layout_constraintStart_toEndOf="@+id/tvcontain5"
+                            app:layout_constraintTop_toBottomOf="@+id/down2"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -441,15 +470,29 @@
                         <TextView
                             android:id="@+id/tvcontain5Card"
                             android:layout_width="215dp"
-                            android:layout_height="42dp"
-                            android:layout_marginTop="24dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="27dp"
                             android:fontFamily="@font/viga_regular"
-                            android:text="Muestra una tarjeta emergente que te recordara lo que quieras"
+                            android:text="Muestra una tarjeta emergente que te recordara tus memorias. Establece tu intervalo de tiempo."
                             android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.091"
+                            app:layout_constraintHorizontal_bias="0.09"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/btnHelpMemorias"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            ads:srcCompat="@drawable/help"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.9"
+                            app:layout_constraintStart_toEndOf="@+id/tvcontain5Card"
+                            app:layout_constraintTop_toBottomOf="@+id/down2Card"
+                            app:layout_constraintVertical_bias="1.0"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -589,7 +632,7 @@
                             android:text="Muestra una burbuja que permite emerger una ventana para guardar palabras sin abrir la aplicación"
                             android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.091"
+                            app:layout_constraintHorizontal_bias="0.1"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -602,10 +645,25 @@
                             android:textColorLink="@color/primarioCel"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.87"
+                            app:layout_constraintHorizontal_bias="0.89"
                             app:layout_constraintStart_toEndOf="@+id/tvcontain6"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.18"
                             tools:ignore="TouchTargetSizeCheck" />
+
+                        <ImageButton
+                            android:id="@+id/btnHelpbubFloat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            ads:srcCompat="@drawable/help"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.82"
+                            app:layout_constraintStart_toEndOf="@+id/tvcontain6"
+                            app:layout_constraintTop_toBottomOf="@+id/switchBurbj"
+                            app:layout_constraintVertical_bias="1.0"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -664,7 +722,7 @@
                             android:text="Muestra una burbuja que permite emerger una tarjeta para guardar tus memorias sin abrir la aplicación"
                             android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.091"
+                            app:layout_constraintHorizontal_bias="0.1"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -677,10 +735,25 @@
                             android:textColorLink="@color/primarioCel"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.87"
+                            app:layout_constraintHorizontal_bias="0.89"
                             app:layout_constraintStart_toEndOf="@+id/tvcontain6SaveMem"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.19999999"
                             tools:ignore="TouchTargetSizeCheck" />
+
+                        <ImageButton
+                            android:id="@+id/btnHelpBubMem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            ads:srcCompat="@drawable/help"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.82"
+                            app:layout_constraintStart_toEndOf="@+id/tvcontain6SaveMem"
+                            app:layout_constraintTop_toBottomOf="@+id/switchBurbjSaveMem"
+                            app:layout_constraintVertical_bias="1.0"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
