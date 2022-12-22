@@ -169,11 +169,4 @@ class EvaWord : Fragment() {
         activity?.let { miInterstitialAd?.show(it) }
     }
 
-
-
-//    private fun valorRandom(mapValor: Map<String, String>, editWO: EditText?):String{
-//        var randomMap = mapValor.entries.elementAt(Random.nextInt(mapValor.size))
-//        editWO?.setText(randomMap.key)
-//        return randomMap.key
-//    }
 }
