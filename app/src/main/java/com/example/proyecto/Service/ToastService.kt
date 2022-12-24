@@ -67,7 +67,7 @@ class ToastService(): Service(){
 
                     mainHandler.postDelayed(this, milisecundos.toLong())
                 }catch (_ : Exception){
-                    Toast.makeText(baseContext,"No se encontraron palabras", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext,R.string.toastServicefloat, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -83,10 +83,10 @@ class ToastService(): Service(){
                 mainHandler.postDelayed(runn, milisecundos.toLong())
                 startForeground(1, notificacion)
             }else{
-                Toast.makeText(this, "No se encontraron palabras", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.toastServicefloat, Toast.LENGTH_LONG).show()
             }
         }else{
-            Toast.makeText(this, "Tiempo igual a 0 no valido", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.toastServicefloat2, Toast.LENGTH_LONG).show()
         }
 
 

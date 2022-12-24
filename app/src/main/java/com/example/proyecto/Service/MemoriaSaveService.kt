@@ -272,10 +272,10 @@ class MemoriaSaveService: Service() {
             try {
 
                 if(etWo.text?.isEmpty()==true || TextUtils.isEmpty(campoMem) ){
-                    Toast.makeText(baseContext, "Debe llenar el campo de texto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, R.string.toastCard, Toast.LENGTH_SHORT).show()
                 }else {
                     dataWordProvider.memorisWords.add(MemoriWords(campoMem))
-                    Toast.makeText(baseContext, "Palabra guardada correctamente!", Toast.LENGTH_SHORT)
+                    Toast.makeText(baseContext, R.string.toastcard2, Toast.LENGTH_SHORT)
                         .show()
                     etWo.setText("")
 

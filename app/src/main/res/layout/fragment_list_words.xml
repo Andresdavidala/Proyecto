@@ -7,24 +7,23 @@
     tools:context=".listWords">
 
 
-
     <Switch
         android:id="@+id/switchRV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:showText="true"
+        android:textOff="@string/switchtext"
+        android:textOn="@string/switchMem"
+        android:textStyle="bold"
         android:thumb="@drawable/rectangswitch"
         android:track="@drawable/rectagletrack"
-        android:textOff="Preguntas"
-        android:textOn="Memorias"
         android:typeface="sans"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.25"
-        android:showText="true"
         tools:ignore="TouchTargetSizeCheck,UseSwitchCompatOrMaterialXml" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -44,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/viga_regular"
-        android:text="Lista de palabras"
+        android:text="@string/titlelistW"
         android:textColor="@color/textfieldMost"
         android:textSize="35dp"
         android:visibility="visible"
@@ -59,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/viga_regular"
-        android:text="Lista de Memorias"
+        android:text="@string/titlelistM"
         android:textColor="@color/textfieldMost"
         android:textSize="35dp"
         android:visibility="gone"

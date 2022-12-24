@@ -60,8 +60,7 @@ class EvaWord : Fragment() {
           val customDialog = AlertDialog.Builder(context)
           customDialog.setView(customDialogView)
           val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-          val message = messagefind.setText("La sección evaluación, te permite practicar tus preguntas, es decir deberas ingresar la respuesta a la pregunta " +
-                  "que tu mismo guardaste y si es correcto podras pasar a tu siguiente pregunta")
+          val message = messagefind.setText(R.string.helpEva)
 
           customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
           val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -131,9 +130,8 @@ class EvaWord : Fragment() {
 
 
         }catch (_: Exception){
-//            Toast.makeText(context, "No existen palabras registradas", Toast.LENGTH_SHORT ).show()
             binding.wordTrad.isFocusable = false
-            binding.wordTrad.hint = " No existen preguntas"
+            binding.wordTrad.hint = getString(R.string.textCampTradEva)
         }
 
     }

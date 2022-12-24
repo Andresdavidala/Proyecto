@@ -123,8 +123,7 @@ class SaveWords : Fragment() {
             val customDialog = AlertDialog.Builder(context)
             customDialog.setView(customDialogView)
             val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-            val message = messagefind.setText("La sección preguntas te permite ingresar una pregunta y una respuesta hechas por ti, " +
-                    "estas se mostraran en un tiempo determinado y configurado por ti mismo en la sección de configuraciones.")
+            val message = messagefind.setText(R.string.helpSave)
 
             customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -148,10 +147,10 @@ class SaveWords : Fragment() {
             try {
 
                 if(binding.wordOrg.text?.isEmpty()==true || binding.wordTrad.text?.isEmpty()==true || TextUtils.isEmpty(campoWordOrg) || TextUtils.isEmpty(campoWordTrad)){
-                    Toast.makeText(context, "Debe llenar los campos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.toastSave, Toast.LENGTH_SHORT).show()
                 }else {
                     dataWordProvider.dataWords.add(DataWordsBase(campoWordOrg, campoWordTrad))
-                    Toast.makeText(context, "Palabra guardada correctamente!", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, R.string.toastsave2, Toast.LENGTH_SHORT)
                         .show()
                     binding.wordOrg.setText("")
                     binding.wordTrad.setText("")

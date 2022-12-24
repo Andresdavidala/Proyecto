@@ -297,10 +297,10 @@ class BubbleService: Service() {
             try {
 
                 if(etWo.text.isEmpty() || etWT.text.isEmpty() || TextUtils.isEmpty(campoWordOrg) || TextUtils.isEmpty(campoWordTrad)){
-                    Toast.makeText(baseContext, "Debe llenar los campos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, R.string.toastSave, Toast.LENGTH_SHORT).show()
                 }else {
                     dataWordProvider.dataWords.add(DataWordsBase(campoWordOrg, campoWordTrad))
-                    Toast.makeText(baseContext, "Palabra guardada correctamente!", Toast.LENGTH_SHORT)
+                    Toast.makeText(baseContext, R.string.toastsave2, Toast.LENGTH_SHORT)
                         .show()
 
                     etWo.setText("")

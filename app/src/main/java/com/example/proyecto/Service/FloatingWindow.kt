@@ -174,7 +174,7 @@ class FloatingWindow: Service() {
                     windowManager.addView(floatView, floatWindowLayoutParams)
 
                 }catch (_: Exception){
-                    Toast.makeText(baseContext,"No se encontraron palabras", Toast.LENGTH_LONG).show()
+                    Toast.makeText(baseContext,R.string.toastServicefloat, Toast.LENGTH_LONG).show()
                 }
                 mainHandler.postDelayed(this,milisecundos.toLong())
                 mainHandler.removeCallbacks(runn)
@@ -221,10 +221,10 @@ class FloatingWindow: Service() {
                 mainHandler.postDelayed(runn, milisecundos.toLong())
                 startForeground(1, notificacion)
             }else{
-                Toast.makeText(this, "No se encontraron palabras", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.toastServicefloat, Toast.LENGTH_LONG).show()
             }
         }else{
-            Toast.makeText(this, "Tiempo igual a 0 no valido", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.toastServicefloat2, Toast.LENGTH_LONG).show()
         }
 
 

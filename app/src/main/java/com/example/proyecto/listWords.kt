@@ -48,8 +48,7 @@ class listWords : Fragment() {
             val customDialog = AlertDialog.Builder(context)
             customDialog.setView(customDialogView)
             val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-            val message = messagefind.setText("La sección lista te permite visualizar, editar y eliminar las preguntas y memorias que hayas guardado. Estan divididas en " +
-                    "dos secciones, que puedes ver presionando el switch que se encuentra en la parte superior.")
+            val message = messagefind.setText(R.string.helpList)
 
             customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)

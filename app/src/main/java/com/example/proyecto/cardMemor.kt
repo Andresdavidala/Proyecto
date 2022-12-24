@@ -7,10 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
-import android.text.method.TextKeyListener.clear
-import android.util.Log
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,11 +16,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.example.proyecto.Recycler.DataWordsBase
+import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentCardMemorBinding
-import com.example.proyecto.databinding.FragmentEvaWordBinding
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -78,8 +74,7 @@ class cardMemor : Fragment() {
             val customDialog = AlertDialog.Builder(context)
             customDialog.setView(customDialogView)
             val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-            val message = messagefind.setText("La sección memoria, te permite guardar palabras, frases, etc. que no tengan una respuesta. Puedes establecer el intervalo de " +
-                    "tiempo que quieres que se te recuerde en la sección de configuración.")
+            val message = messagefind.setText(R.string.helpCard)
 
             customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -118,10 +113,10 @@ class cardMemor : Fragment() {
             try {
 
                 if(binding.etmemoris.text?.isEmpty()==true || TextUtils.isEmpty(campoMem) ){
-                    Toast.makeText(context, "Debe llenar el campo de texto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.toastCard, Toast.LENGTH_SHORT).show()
                 }else {
                     dataWordProvider.memorisWords.add(MemoriWords(campoMem))
-                    Toast.makeText(context, "Palabra guardada correctamente!", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, R.string.toastcard2, Toast.LENGTH_SHORT)
                         .show()
                     binding.etmemoris.setText("")
 

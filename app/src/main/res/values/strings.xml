@@ -1,5 +1,67 @@
 <resources>
     <string name="app_name">Memori</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TitleSabeWords">Guarda tus palabras </string>
+    <string name="ContentSaveWords">Ingresa la palabra que deseas y luego su traducción. ¡Te la recordaremos cuando quieras!</string>
+    <string name="textCampOrgSave">Ingresa tu pregunta</string>
+    <string name="textCampTradSave">Ingresa tu respuesta</string>
+    <string name="textbtnsave">GUARDAR</string>
+    <string name="TitleEva">Practica tus preguntas</string>
+    <string name="ContentEva">!Evalúate! intenta repasar las preguntas que has guardado para que no se te olviden.</string>
+    <string name="textCampTradEva">No existen preguntas</string>
+    <string name="textbtneva">EVALUAR</string>
+    <string name="TitleMem">Guarda tus memorias</string>
+    <string name="ContentMem">Guarda tus frases, definiciones, palabras,etc y te las recordaremos cuando quieras.</string>
+    <string name="textCampMem">Guarda tus memorias aquí</string>
+    <string name="textbtnMem">GUARDAR</string>
+    <string name="switchtext">Preguntas</string>
+    <string name="switchMem">Memorias</string>
+    <string name="titlelistW">Lista de palabras</string>
+    <string name="titlelistM">Lista de Memorias</string>
+    <string name="setToastTitle">Recordatorio Temporal</string>
+    <string name="settoastcontent">Muestra un toast con las preguntas y respuestas insertadas. Establece tu intervalo de tiempo.</string>
+    <string name="setFloatTitle">Ventana Flotante</string>
+    <string name="setFloatContent">Muestra una ventana emergente, acierta tu pregunta o presiona el botón de salir para cerrar la ventana. Establece tu intervalo de tiempo.</string>
+    <string name="setMemTitle">Memorias Flotantes</string>
+    <string name="setMemContent">Muestra una tarjeta emergente que te recordara tus memorias. Establece tu intervalo de tiempo.</string>
+    <string name="setBubFloatTitle">Burbuja Flotante</string>
+    <string name="setBubFloatCont">Muestra una burbuja que permite emerger una ventana para guardar palabras mientras usas otras aplicaciones.</string>
+    <string name="setbubmemtitle">Memoria Burbuja.</string>
+    <string name="setbubmemcont">Muestra una burbuja que permite emerger una tarjeta para guardar tus mientras usas otras aplicaciones.</string>
+    <string name="helptoast">Podras definir el tiempo en el que quieres que se te recuerde las preguntas y respuestas que has ingresado mediante
+    un toast que aparecera en la parte inferior de tu pantalla, mientras usas otras aplicaciones, debes agregar preguntas para habilitar esta función.</string>
+    <string name="helpfloating">Puedes definir el tiempo en el que quieras practicar tus preguntas aun cuando estes usando otras aplicaciones
+    mediante una ventana emergente que te mostrara tu pregunta y que se cerrara si respondes correctamente o presionando en el boton de cerrar. agrega tus
+     preguntas para habilitar esta funcionalidad.</string>
+    <string name="helpmemorias">Puedes definir el tiempo en el que quieres que aparezca una tarjeta en tu pantalla que te mostrara una de las memorias
+    que has guardado, mientras usas otras aplicaciones, deberás agregar memorias para habilitar esta función.</string>
+    <string name="helpbubfloat">Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una ventana que permitira
+    guardar tus preguntas mientras estas usando otras aplicaciones y podras cerrar la ventana volviendo a presionar la burbuja. Podras cerrar la
+    burbuja si la arrastras hacia abajo con suficiente velocidad.</string>
+    <string name="helpbubmem">Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una tarjeta que permitira
+    guardar tus memorias mientras estas usando otras aplicación y podras cerrar la tarjeta volviendo a presionar la burbuja. Podras cerrar la
+    burbuja si la arrastras hacia abajo con suficiente velocidad.</string>
+    <string name="permisionTitle">Se necesita permiso de superposición de pantalla</string>
+    <string name="permissonContent">Habilite "Permitir mostrar sobre otras aplicaciones" desde la configuración</string>
+    <string name="btnpermision">Abrir configuraciones</string>
+    <string name="helpSave">La sección preguntas te permite ingresar una pregunta y una respuesta hechas por ti,
+        estas se mostraran en tu pantalla en un intervalo de tiempo establecido por ti en la sección de configuraciones.
+    </string>
+    <string name="helpEva">La sección evaluación, te permite practicar tus preguntas, es decir deberas ingresar la respuesta a la pregunta
+    que tu mismo guardaste y si es correcto podras pasar a tu siguiente pregunta</string>
+    <string name="helpCard">La sección memoria, te permite guardar palabras, frases, etc. que no tengan una respuesta. Puedes establecer el intervalo de
+    tiempo que quieres que se te recuerde en la sección de configuración.</string>
+    <string name="helpList">La sección lista te permite visualizar, editar y eliminar las preguntas y memorias que hayas guardado. Estan divididas en
+    dos secciones, que puedes ver presionando el switch que se encuentra en la parte superior.</string>
+    <string name="toastSave">"Debe llenar los campos"</string>
+    <string name="toastsave2">Palabra guardada correctamente!</string>
+    <string name="toastCard">Debe llenar los campos de texto</string>
+    <string name="toastcard2">Palabra guardada correctamente!</string>
+    <string name="toastServicefloat">No se encontraron palabras</string>
+    <string name="toastServicefloat2">Tiempo igual a 0 no valido</string>
+    <string name="dialogtitle">¿Deseas borrar la palabra?</string>
+    <string name="dialogY">SI</string>
+    <string name="dialogN">NO</string>
+    <string name="btnEstablecer">ESTABLECER</string>
+    <string name="btnCancel">CANCELAR</string>
 </resources>

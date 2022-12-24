@@ -32,18 +32,8 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
     private lateinit var dialog: AlertDialog
 
-    private lateinit var mainHandler: Handler
-    private lateinit var runn: Runnable
-//    private lateinit var br: BroadcastReceiver
-
     private var miliDate by Delegates.notNull<Int>()
 
-    //
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        mainHandler.removeCallbacksAndMessages(null)
-//
-//    }
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,20 +101,20 @@ class SettingActivity : AppCompatActivity() {
 
     //ToastBtnText
     val buttonTextToast = getSharedPreferences("buttonEstTextToast", MODE_PRIVATE)
-    binding.btnEstablecer.text = buttonTextToast!!.getString("btnETextToastSP", "Establecer")
+    binding.btnEstablecer.text = buttonTextToast!!.getString("btnETextToastSP", getText(R.string.btnEstablecer).toString())
 
 
     //WinBtnText
 
     val buttonTextWin = getSharedPreferences("buttonEstTextWin", MODE_PRIVATE)
-    binding.btnEstablecerW.text = buttonTextWin!!.getString("btnETextWinSP", "Establecer")
+    binding.btnEstablecerW.text = buttonTextWin!!.getString("btnETextWinSP", getText(R.string.btnEstablecer).toString())
 
 
 
     //btnMemoria
 
     val buttonTextMemo = getSharedPreferences("buttonEstMemoria", MODE_PRIVATE)
-    binding.btnEstablecerWCard.text = buttonTextMemo.getString("btnETextMemo","Establecer")
+    binding.btnEstablecerWCard.text = buttonTextMemo.getString("btnETextMemo",getText(R.string.btnEstablecer).toString())
 
 
     //SPBE
@@ -277,21 +267,8 @@ class SettingActivity : AppCompatActivity() {
             if(binding.btnEstablecer.isSelected){
 
 
-                binding.btnEstablecer.text = "Cancelar"
-                btnTextToast.putString("btnETextToastSP", "Cancelar").apply()
-//                val numHora = numberPickerHour.value * 60
-//
-//                val numMinute = numberPickerminutes.value
-//
-//                val minutosTotal =  numMinute + numHora
-//                milisecundos = minutosTotal * 1000
-//
-//                mainHandler.removeCallbacks(runn)
-//                mainHandler.postDelayed(runn, milisecundos.toLong())
-
-//                Intent(this@SettingActivity, ToastService()::class.java).also {
-//                    startService(it)
-//                }
+                binding.btnEstablecer.text = getText(R.string.btnCancel)
+                btnTextToast.putString("btnETextToastSP", getText(R.string.btnCancel).toString()).apply()
 
                 Intent(this@SettingActivity, ToastService::class.java ).also {
                     it.putExtra("numberPickerHour", numberPickerHour.value)
@@ -303,8 +280,8 @@ class SettingActivity : AppCompatActivity() {
 
             }else{
 
-                binding.btnEstablecer.text = "Establecer"
-                btnTextToast.putString("btnETextToastSP", "Establecer").apply()
+                binding.btnEstablecer.text = getText(R.string.btnEstablecer)
+                btnTextToast.putString("btnETextToastSP", R.string.btnEstablecer.toString()).apply()
                 Intent(this@SettingActivity, ToastService::class.java).also {
                     stopService(it)
                 }
@@ -362,8 +339,8 @@ class SettingActivity : AppCompatActivity() {
                 //↑SPT
 
                 if(binding.btnEstablecerW.isSelected){
-                    binding.btnEstablecerW.text = "Cancelar"
-                    btnTextWin.putString("btnETextWinSP", "Cancelar").apply()
+                    binding.btnEstablecerW.text = getText(R.string.btnCancel)
+                    btnTextWin.putString("btnETextWinSP", getText(R.string.btnCancel).toString()).apply()
 
                     Intent(this@SettingActivity, FloatingWindow::class.java ).also {
                         it.putExtra("numberPickerHourW", numberPickerHourW.value)
@@ -371,8 +348,8 @@ class SettingActivity : AppCompatActivity() {
                         startService(it)
                     }
                 }else{
-                    binding.btnEstablecerW.text = "Establecer"
-                    btnTextWin.putString("btnETextWinSP", "Establecer").apply()
+                    binding.btnEstablecerW.text = getText(R.string.btnEstablecer)
+                    btnTextWin.putString("btnETextWinSP", getText(R.string.btnEstablecer).toString()).apply()
 
                     Intent(this@SettingActivity, FloatingWindow::class.java).also {
                         stopService(it)
@@ -429,8 +406,8 @@ class SettingActivity : AppCompatActivity() {
                 //↑SPT
 
                 if(binding.btnEstablecerWCard.isSelected){
-                    binding.btnEstablecerWCard.text = "Cancelar"
-                    btnTextWinMem.putString("btnETextMemo", "Cancelar").apply()
+                    binding.btnEstablecerWCard.text = getText(R.string.btnCancel)
+                    btnTextWinMem.putString("btnETextMemo", getText(R.string.btnCancel).toString()).apply()
 
                     Intent(this@SettingActivity, memoriasService::class.java ).also {
                         it.putExtra("numberPickerHourWMem", numberPickerHourMem.value)
@@ -438,8 +415,8 @@ class SettingActivity : AppCompatActivity() {
                         startService(it)
                     }
                 }else{
-                    binding.btnEstablecerWCard.text = "Establecer"
-                    btnTextWinMem.putString("btnETextMemo", "Establecer").apply()
+                    binding.btnEstablecerWCard.text = getText(R.string.btnEstablecer)
+                    btnTextWinMem.putString("btnETextMemo", getText(R.string.btnEstablecer).toString()).apply()
 
                     Intent(this@SettingActivity, memoriasService::class.java).also {
                         stopService(it)
@@ -462,8 +439,7 @@ class SettingActivity : AppCompatActivity() {
             val customDialog = AlertDialog.Builder(this)
             customDialog.setView(customDialogView)
             val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-            val message = messagefind.setText("Podras definir el tiempo en el que quieres que se te recuerde las preguntas y respuestas que has ingresado mediante " +
-                    "un toast que aparecera en la parte inferior de tu pantalla, mientras usas otras aplicaciones, debes agregar preguntas para habilitar esta función.")
+            val message = messagefind.setText(R.string.helptoast)
 
             customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -553,9 +529,7 @@ class SettingActivity : AppCompatActivity() {
             val customDialog = AlertDialog.Builder(this)
             customDialog.setView(customDialogView)
             val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-            val message = messagefind.setText("Puedes definir el tiempo en el que quieras practicar tus preguntas aun cuando estes usando otras aplicaciones " +
-                    "mediante una ventana emergente que te mostrara tu pregunta y que se cerrara si respondes correctamente o presionando en el boton de cerrar. agrega tus" +
-                    " preguntas para habilitar esta funcionalidad.")
+            val message = messagefind.setText(R.string.helpfloating)
 
             customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -605,8 +579,7 @@ class SettingActivity : AppCompatActivity() {
             val customDialog = AlertDialog.Builder(this)
             customDialog.setView(customDialogView)
             val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-            val message = messagefind.setText("Puedes definir el tiempo en el que quieres que aparezca una tarjeta en tu pantalla que te mostrara una de las memorias " +
-                    "que has guardado, mientras usas otras aplicaciones, deberás agregar memorias para habilitar esta función.")
+            val message = messagefind.setText(R.string.helpmemorias)
 
             customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -675,9 +648,7 @@ class SettingActivity : AppCompatActivity() {
             val customDialog = AlertDialog.Builder(this)
             customDialog.setView(customDialogView)
             val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-            val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una ventana que permitira " +
-                    "guardar tus preguntas mientras estas usando otras aplicaciones y podras cerrar la ventana volviendo a presionar la burbuja. Podras cerrar la " +
-                    "burbuja si la arrastras hacia abajo con suficiente velocidad.")
+            val message = messagefind.setText(R.string.helpbubfloat)
 
             customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -746,9 +717,7 @@ class SettingActivity : AppCompatActivity() {
             val customDialog = AlertDialog.Builder(this)
             customDialog.setView(customDialogView)
             val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-            val message = messagefind.setText("Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una tarjeta que permitira " +
-                    "guardar tus memorias mientras estas usando otras aplicación y podras cerrar la tarjeta volviendo a presionar la burbuja. Podras cerrar la " +
-                    "burbuja si la arrastras hacia abajo con suficiente velocidad.")
+            val message = messagefind.setText(R.string.helpbubmem)
 
             customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -775,9 +744,9 @@ class SettingActivity : AppCompatActivity() {
     private fun requestFlowatingPermission() {
         val builder = AlertDialog.Builder(this)
         builder.setCancelable(true)
-        builder.setTitle("Se necesita permiso de superposición de pantalla")
-        builder.setMessage("Habilite 'Permitir mostrar sobre otras aplicaciones' desde la configuración")
-        builder.setPositiveButton("Abrir configuraciones", DialogInterface.OnClickListener{ dialog, which ->
+        builder.setTitle(R.string.permisionTitle)
+        builder.setMessage(R.string.permissonContent)
+        builder.setPositiveButton(R.string.btnpermision, DialogInterface.OnClickListener{ dialog, which ->
 
             val intent = Intent(
                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,

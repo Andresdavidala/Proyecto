@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/viga_regular"
             android:gravity="center"
-            android:text="¿Deseas borrar la palabra?"
+            android:text="@string/dialogtitle"
             android:textColor="@color/textfieldMost"
             android:textSize="24dp" />
 
@@ -36,7 +36,7 @@
                 android:layout_marginRight="30dp"
                 android:backgroundTint="@color/textfieldMost"
                 android:fontFamily="@font/viga_regular"
-                android:text="SI"
+                android:text="@string/dialogY"
                 android:textColor="@color/primarioCel"
                 android:textSize="20sp" />
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/textfieldMost"
                 android:fontFamily="@font/viga_regular"
-                android:text="NO"
+                android:text="@string/dialogN"
                 android:textColor="@color/primarioCel"
                 android:textSize="20sp" />
         </LinearLayout>
