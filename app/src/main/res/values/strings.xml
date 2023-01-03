@@ -30,17 +30,15 @@
     <string name="setbubmemcont">Muestra una burbuja que permite emerger una tarjeta para guardar tus mientras usas otras aplicaciones.</string>
     <string name="helptoast">Podras definir el tiempo en el que quieres que se te recuerde las preguntas y respuestas que has ingresado mediante
     un toast que aparecera en la parte inferior de tu pantalla, mientras usas otras aplicaciones, debes agregar preguntas para habilitar esta función.</string>
-    <string name="helpfloating">Puedes definir el tiempo en el que quieras practicar tus preguntas aun cuando estes usando otras aplicaciones
-    mediante una ventana emergente que te mostrara tu pregunta y que se cerrara si respondes correctamente o presionando en el boton de cerrar. agrega tus
-     preguntas para habilitar esta funcionalidad.</string>
+    <string name="helpfloating">Puedes definir el tiempo en el que quieras practicar tus preguntas aun cuando estes usando otras aplicaciones     mediante una ventana emergente que te mostrara tu pregunta y que se cerrara si respondes correctamente o presionando en el boton de cerrar. Agrega tus      preguntas para habilitar esta funcionalidad.</string>
     <string name="helpmemorias">Puedes definir el tiempo en el que quieres que aparezca una tarjeta en tu pantalla que te mostrara una de las memorias
     que has guardado, mientras usas otras aplicaciones, deberás agregar memorias para habilitar esta función.</string>
     <string name="helpbubfloat">Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una ventana que permitira
     guardar tus preguntas mientras estas usando otras aplicaciones y podras cerrar la ventana volviendo a presionar la burbuja. Podras cerrar la
-    burbuja si la arrastras hacia abajo con suficiente velocidad.</string>
+    burbuja si deslizas rapidamente hacia abajo.</string>
     <string name="helpbubmem">Se mostrara una burbuja permanente en tu pantalla que al presionarla podras abrir una tarjeta que permitira
     guardar tus memorias mientras estas usando otras aplicación y podras cerrar la tarjeta volviendo a presionar la burbuja. Podras cerrar la
-    burbuja si la arrastras hacia abajo con suficiente velocidad.</string>
+    burbuja si deslizas rapidamente hacia abajo.</string>
     <string name="permisionTitle">Se necesita permiso de superposición de pantalla</string>
     <string name="permissonContent">Habilite "Permitir mostrar sobre otras aplicaciones" desde la configuración</string>
     <string name="btnpermision">Abrir configuraciones</string>
@@ -64,4 +62,15 @@
     <string name="dialogN">NO</string>
     <string name="btnEstablecer">ESTABLECER</string>
     <string name="btnCancel">CANCELAR</string>
+    <string name="androidVersion">Lo sentimos, tu version de android no te permite usar esta función</string>
+    <string name="ejecutServ">Memori en ejecución</string>
+    <string name="notifyToast">Recordatorio establecido</string>
+    <string name="notifyMemServ">Memorias establecido</string>
+    <string name="notifyMemSave">Burbuja Flotante establecido</string>
+    <string name="floatingWindow">Ventana Flotante establecido</string>
+    <string name="notifyBubble">Memoria Burbuja establecido</string>
+
+
+
+
 </resources>

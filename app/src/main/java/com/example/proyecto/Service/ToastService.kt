@@ -47,11 +47,11 @@ class ToastService(): Service(){
 
         createNotification()
         val intentForeGroun = Intent(this, SettingActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, 0)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, PendingIntent.FLAG_MUTABLE)
         val notificacion: Notification = NotificationCompat.Builder(this, "channel1")
-            .setContentText("Esta ejecutandose Proyecto")
-            .setContentTitle("Servicio en ejecución")
-            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setContentText(getText(R.string.ejecutServ))
+            .setContentTitle(getText(R.string.notifyToast))
+            .setSmallIcon(R.drawable.iconsvm).setOngoing(true)
             .setContentIntent(pendingIntent).build()
 
 
@@ -94,9 +94,10 @@ class ToastService(): Service(){
 //        intent.putExtra("DATE", milisecundos)
 //
 //        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
-        START_STICKY
-        return super.onStartCommand(intent, flags, startId)
+//        START_STICKY
+//        return super.onStartCommand(intent, flags, startId)
 
+        return START_STICKY
     }
 
 
@@ -115,6 +116,7 @@ class ToastService(): Service(){
     }
 
     private fun createNotification(){
+
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
             val notificationChanel = NotificationChannel("channel1","Foreground Service", NotificationManager.IMPORTANCE_DEFAULT)
             val manager: NotificationManager = getSystemService(NotificationManager::class.java)

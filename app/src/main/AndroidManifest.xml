@@ -47,11 +47,14 @@
         <service android:name=".Service.ToastService"
             android:foregroundServiceType="dataSync"/>
         <service android:name=".Service.BubbleService"
+            android:foregroundServiceType="dataSync"
             />
 
         <service android:name=".Service.memoriasService"
+            android:foregroundServiceType="dataSync"
             />
-        <service android:name=".Service.MemoriaSaveService"/>
+        <service android:name=".Service.MemoriaSaveService"
+            android:foregroundServiceType="dataSync"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

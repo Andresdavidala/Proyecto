@@ -253,10 +253,10 @@ class BubbleService: Service() {
 
         createNotification()
         val intentForeGroun = Intent(this, SettingActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, 0)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, PendingIntent.FLAG_MUTABLE)
         val notificacion: Notification = NotificationCompat.Builder(this, "channel1")
-            .setContentText("Esta ejecutandose Proyecto")
-            .setContentTitle("Burbuja esta en ejecución")
+            .setContentText(getText(R.string.ejecutServ))
+            .setContentTitle(getText(R.string.notifyBubble))
             .setSmallIcon(R.drawable.iconsvm)
             .setContentIntent(pendingIntent).build()
 
@@ -290,7 +290,7 @@ class BubbleService: Service() {
             }
         }
 
-        startForeground(1, notificacion)
+        startForeground(5, notificacion)
         fun saveWord(){
             val campoWordOrg = etWo.text.toString().trim()
             val campoWordTrad = etWT.text.toString().trim()

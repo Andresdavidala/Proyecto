@@ -31,8 +31,8 @@
     <string name="helptoast">You can define the time in which you want to be reminded of the questions and answers you have entered through a toast that will appear at the bottom of your screen while using other applications, you must add questions to enable this function.</string>
     <string name="helpfloating">You can define the time in which you want to practice your questions even when you are using other applications through a pop-up window that will show you your question and close if you answer correctly or by pressing the close button. Add your questions to enable this functionality.</string>
     <string name="helpmemorias">You can define the time in which you want a card to appear on your screen showing one of the memories you have saved while using other applications, you must add memories to enable this function.</string>
-    <string name="helpbubfloat">A permanent bubble will appear on your screen that when pressed will open a window that will allow you to save your questions while using other applications and you can close the window by pressing the bubble again. You can close the bubble by dragging it down with enough speed.</string>
-    <string name="helpbubmem">A permanent bubble will appear on your screen that when pressed will open a card that will allow you to save your memories while using other applications and you can close the card by pressing the bubble again. You can close the bubble by dragging it down with enough speed.</string>
+    <string name="helpbubfloat">A permanent bubble will appear on your screen that when pressed will open a window that will allow you to save your questions while using other applications and you can close the window by pressing the bubble again. You can close the bubble by quickly swiping down.</string>
+    <string name="helpbubmem">A permanent bubble will appear on your screen that when pressed will open a card that will allow you to save your memories while using other applications and you can close the card by pressing the bubble again. You can close the bubble by quickly swiping down.</string>
     <string name="permisionTitle">Screen overlay permission is required</string>
     <string name="permissonContent">Enable Allow display over other apps from the settings</string>
     <string name="btnpermision">Open settings</string>
@@ -51,4 +51,11 @@
     <string name="dialogN">NO</string>
     <string name="btnEstablecer">SET</string>
     <string name="btnCancel">CANCEL</string>
+    <string name="androidVersion">Lo sentimos, tu version de android no te permite usar esta función</string>
+    <string name="ejecutServ">Memory in execution</string>
+    <string name="notifyToast">Reminder set</string>
+    <string name="notifyMemServ">Memories set</string>
+    <string name="notifyMemSave">Floating Bubble set</string>
+    <string name="floatingWindow">Floating Window set</string>
+    <string name="notifyBubble">Bubble memory set</string>
 </resources>

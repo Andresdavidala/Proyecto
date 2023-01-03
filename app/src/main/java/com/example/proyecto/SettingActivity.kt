@@ -4,15 +4,12 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -27,6 +24,7 @@ import com.example.proyecto.Service.*
 import com.example.proyecto.databinding.ActivitySettingBinding
 import com.google.android.gms.ads.AdRequest
 import kotlin.properties.Delegates
+
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
@@ -76,48 +74,50 @@ class SettingActivity : AppCompatActivity() {
         clHS3.isVisible = sharedPreferencesMem.getBoolean("visCardMem", false)
 
 
+        //SharedPBtnEstablecer--
 
-    //SharedPBtnEstablecer--
+        //EstBtnToast
+        val buttonEstablecerToast = getSharedPreferences("buttonEstToast", MODE_PRIVATE)
+        binding.btnEstablecer.isSelected =
+            buttonEstablecerToast!!.getBoolean("btnEToastSP", binding.btnEstablecer.isSelected)
 
-    //EstBtnToast
-    val buttonEstablecerToast = getSharedPreferences("buttonEstToast", MODE_PRIVATE)
-    binding.btnEstablecer.isSelected =
-        buttonEstablecerToast!!.getBoolean("btnEToastSP", binding.btnEstablecer.isSelected)
-
-    //EstBtnWin
-    val buttonEstablecerWin = getSharedPreferences("buttonEstWin", MODE_PRIVATE)
-    binding.btnEstablecerW.isSelected =
-        buttonEstablecerWin!!.getBoolean("btnEWinSP", binding.btnEstablecer.isSelected)
+        //EstBtnWin
+        val buttonEstablecerWin = getSharedPreferences("buttonEstWin", MODE_PRIVATE)
+        binding.btnEstablecerW.isSelected =
+            buttonEstablecerWin!!.getBoolean("btnEWinSP", binding.btnEstablecerW.isSelected)
 
 
-    //EstBtnWin
+        //EstBtnWin
         val buttonEstablecerMem = getSharedPreferences("buttonEstMem", MODE_PRIVATE)
         binding.btnEstablecerWCard.isSelected =
             buttonEstablecerMem.getBoolean("btnEMem", binding.btnEstablecerWCard.isSelected)
 
 
+        //SharedPBtnEstablecerText--
 
-    //SharedPBtnEstablecerText--
-
-    //ToastBtnText
-    val buttonTextToast = getSharedPreferences("buttonEstTextToast", MODE_PRIVATE)
-    binding.btnEstablecer.text = buttonTextToast!!.getString("btnETextToastSP", getText(R.string.btnEstablecer).toString())
-
-
-    //WinBtnText
-
-    val buttonTextWin = getSharedPreferences("buttonEstTextWin", MODE_PRIVATE)
-    binding.btnEstablecerW.text = buttonTextWin!!.getString("btnETextWinSP", getText(R.string.btnEstablecer).toString())
+        //ToastBtnText
+        val buttonTextToast = getSharedPreferences("buttonEstTextToast", MODE_PRIVATE)
+        binding.btnEstablecer.text = buttonTextToast!!.getString(
+            "btnETextToastSP",
+            getText(R.string.btnEstablecer).toString()
+        )
 
 
+        //WinBtnText
 
-    //btnMemoria
+        val buttonTextWin = getSharedPreferences("buttonEstTextWin", MODE_PRIVATE)
+        binding.btnEstablecerW.text =
+            buttonTextWin!!.getString("btnETextWinSP", getText(R.string.btnEstablecer).toString())
 
-    val buttonTextMemo = getSharedPreferences("buttonEstMemoria", MODE_PRIVATE)
-    binding.btnEstablecerWCard.text = buttonTextMemo.getString("btnETextMemo",getText(R.string.btnEstablecer).toString())
+
+        //btnMemoria
+
+        val buttonTextMemo = getSharedPreferences("buttonEstMemoria", MODE_PRIVATE)
+        binding.btnEstablecerWCard.text =
+            buttonTextMemo.getString("btnETextMemo", getText(R.string.btnEstablecer).toString())
 
 
-    //SPBE
+        //SPBE
 
         //↑SP
 
@@ -183,16 +183,21 @@ class SettingActivity : AppCompatActivity() {
 
         //numberPickerisEnabledwhenpressbtnEstablecer
         val numPickIsEnable = getSharedPreferences("numPickEnabled", MODE_PRIVATE)
-        numberPickerHour.isEnabled = numPickIsEnable.getBoolean("nPEnabled", numberPickerHour.isEnabled)
-        numberPickerminutes.isEnabled = numPickIsEnable.getBoolean("nPEnabled", numberPickerHour.isEnabled)
-
+        numberPickerHour.isEnabled =
+            numPickIsEnable.getBoolean("nPEnabled", numberPickerHour.isEnabled)
+        numberPickerminutes.isEnabled =
+            numPickIsEnable.getBoolean("nPEnabled", numberPickerminutes.isEnabled)
         val numPickIsEnableW = getSharedPreferences("numPickEnabledW", MODE_PRIVATE)
-        numberPickerHourW.isEnabled = numPickIsEnableW.getBoolean("nPEnabledW", numberPickerHour.isEnabled)
-        numberPickerMinutesW.isEnabled = numPickIsEnableW.getBoolean("nPEnabledW", numberPickerHour.isEnabled)
+        numberPickerHourW.isEnabled =
+            numPickIsEnableW.getBoolean("nPEnabledW", numberPickerHourW.isEnabled)
+        numberPickerMinutesW.isEnabled =
+            numPickIsEnableW.getBoolean("nPEnabledW", numberPickerMinutesW.isEnabled)
 
         val numPickIsEnableMem = getSharedPreferences("numPickEnabledMem", MODE_PRIVATE)
-        numberPickerHourMem.isEnabled = numPickIsEnableMem.getBoolean("nPEnabledMem", numberPickerHourMem.isEnabled)
-        numberPickerMinutesMem.isEnabled = numPickIsEnableMem.getBoolean("nPEnabledMem", numberPickerMinutesMem.isEnabled)
+        numberPickerHourMem.isEnabled =
+            numPickIsEnableMem.getBoolean("nPEnabledMem", numberPickerHourMem.isEnabled)
+        numberPickerMinutesMem.isEnabled =
+            numPickIsEnableMem.getBoolean("nPEnabledMem", numberPickerMinutesMem.isEnabled)
         //↑SPNP
 
 
@@ -206,19 +211,17 @@ class SettingActivity : AppCompatActivity() {
         //↑
 
 
-
-
-
-
         //para toast
-        if(dataWordProvider.dataWords.size == 0){
+        if (dataWordProvider.dataWords.size == 0) {
             binding.btnEstablecer.isEnabled = false
             binding.btnEstablecerW.isEnabled = false
         }
 
-        if(dataWordProvider.memorisWords.size == 0){
+        if (dataWordProvider.memorisWords.size == 0) {
             binding.btnEstablecerWCard.isEnabled = false
         }
+
+
 
         binding.btnEstablecer.setOnClickListener {
 
@@ -281,7 +284,7 @@ class SettingActivity : AppCompatActivity() {
             }else{
 
                 binding.btnEstablecer.text = getText(R.string.btnEstablecer)
-                btnTextToast.putString("btnETextToastSP", R.string.btnEstablecer.toString()).apply()
+                btnTextToast.putString("btnETextToastSP", getText(R.string.btnEstablecer).toString()).apply()
                 Intent(this@SettingActivity, ToastService::class.java).also {
                     stopService(it)
                 }
@@ -377,9 +380,9 @@ class SettingActivity : AppCompatActivity() {
 
                 //foreground
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-//                    startForegroundService(intent)
+                    startForegroundService(intent)
                 }else{
-//                    stopService(intent)
+                    stopService(intent)
                 }
 
                 //↑
@@ -606,23 +609,22 @@ class SettingActivity : AppCompatActivity() {
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                         try{
                             startForegroundService(intent)
+                            Intent(this@SettingActivity, BubbleService::class.java).also {
+                                startService(it)
+                            }
                         }catch (_: Exception){
 
                         }
 
                     }else{
-                        try{
-                            stopService(intent)
-                        }catch (_: Exception){
-
-                        }
-
+                        Toast.makeText(baseContext, getText(R.string.androidVersion), Toast.LENGTH_LONG).show()
+                        binding.switchBurbj.isChecked = false
+                        switchValBbl.putBoolean("valSwitch", false).apply()
                     }
+
 
                     //↑
-                    Intent(this@SettingActivity, BubbleService::class.java).also {
-                            startService(it)
-                    }
+
 
                 }else{
                     switchBlb.isChecked = false
@@ -641,6 +643,8 @@ class SettingActivity : AppCompatActivity() {
 
             }
         }
+
+
 
         binding.btnHelpbubFloat.setOnClickListener {
             //customDialog
@@ -675,23 +679,21 @@ class SettingActivity : AppCompatActivity() {
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                         try{
                             startForegroundService(intent)
+                            Intent(this@SettingActivity, MemoriaSaveService::class.java).also {
+                                startService(it)
+                            }
+
                         }catch (_: Exception){
 
                         }
 
                     }else{
-                        try{
-                            stopService(intent)
-                        }catch (_: Exception){
-
-                        }
-
+                        Toast.makeText(baseContext, getText(R.string.androidVersion), Toast.LENGTH_LONG).show()
+                        binding.switchBurbjSaveMem.isChecked = false
+                        switchValBbl.putBoolean("valSwitchMem", false).apply()
                     }
 
                     //↑
-                    Intent(this@SettingActivity, MemoriaSaveService::class.java).also {
-                        startService(it)
-                    }
 
                 }else{
                     switchMemoSave.isChecked = false

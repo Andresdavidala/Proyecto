@@ -93,11 +93,11 @@ class memoriasService: Service() {
 
         createNotification()
         val intentForeGroun = Intent(this, SettingActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, 0)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, PendingIntent.FLAG_MUTABLE)
         val notificacion: Notification = NotificationCompat.Builder(this, "channel1")
-            .setContentText("Esta ejecutandose Memorias")
-            .setContentTitle("Memorias en ejecución")
-            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setContentText(getText(R.string.ejecutServ))
+            .setContentTitle(getText(R.string.notifyMemServ))
+            .setSmallIcon(R.drawable.iconsvm)
             .setContentIntent(pendingIntent).build()
 
         btnExit.setOnClickListener {
@@ -137,7 +137,7 @@ class memoriasService: Service() {
         if(milisecundos != 0){
             if(dataWordProvider.memorisWords.size != 0){
                 mainHandler.postDelayed(runn, milisecundos.toLong())
-                startForeground(1, notificacion)
+                startForeground(4, notificacion)
             }else{
                 Toast.makeText(this, R.string.toastServicefloat, Toast.LENGTH_LONG).show()
             }

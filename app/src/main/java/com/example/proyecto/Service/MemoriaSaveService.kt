@@ -64,7 +64,7 @@ class MemoriaSaveService: Service() {
         cardView = inflaterCard.inflate(R.layout.savememori, null) as ViewGroup //create new layout for problems
         cardContain = cardView.findViewById(R.id.crdSaveMem)
         btnSave = cardView.findViewById(R.id.btnSmemo)
-        btnSave.setImageResource(R.drawable.save)
+        btnSave.setImageResource(R.drawable.ic_baseline_save_24)
         etWo = cardView.findViewById(R.id.etSaveMem)
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -229,10 +229,10 @@ class MemoriaSaveService: Service() {
 
         createNotification()
         val intentForeGroun = Intent(this, SettingActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, 0)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intentForeGroun, PendingIntent.FLAG_MUTABLE)
         val notificacion: Notification = NotificationCompat.Builder(this, "channel1")
-            .setContentText("Esta ejecutandose Proyecto")
-            .setContentTitle("Burbuja esta en ejecución")
+            .setContentText(getText(R.string.ejecutServ))
+            .setContentTitle(getText(R.string.notifyMemSave))
             .setSmallIcon(R.drawable.iconsvm)
             .setContentIntent(pendingIntent).build()
 
@@ -265,7 +265,7 @@ class MemoriaSaveService: Service() {
             }
         } else {
         }
-        startForeground(1, notificacion)
+        startForeground(3, notificacion)
         fun saveWord(){
             val campoMem = etWo.text.toString().trim()
 
