@@ -6,13 +6,10 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto.MainActivity
 import com.example.proyecto.R
@@ -27,7 +24,7 @@ import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
 
-class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):RecyclerView.Adapter<CustomerAdapter.vhDataList>() {
+class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):RecyclerView.Adapter<CustomerAdapter.vhDataList>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): vhDataList {
         val dataLayout =LayoutInflater.from(parent.context)
@@ -57,38 +54,28 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
             fileContext: Context
         ) {
 
-            //ads
-
-            initAds()
-            //↑
-//sharedCountAds
-            val sharedPreferences = fileContext.getSharedPreferences("preferencesRC", Context.MODE_PRIVATE)
-            // Guarda la variable en SharedPreferences
-            MainActivity.contardorRecyclers = sharedPreferences!!.getInt("recyclersCont", 0)
-            //↑
-//                initAds()
 
             binding.tvWordOrg.text = dataListW.wordOrg
             binding.tvWordTrad.text = dataListW.wordTrad.replace("☼○", "")
 
-            binding.tvWordOrg.setOnTouchListener(OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+            binding.tvWordOrg.setOnTouchListener { v, _ -> // Disallow the touch request for parent scroll on touch of child view
                 v.parent.requestDisallowInterceptTouchEvent(true)
                 false
-            })
-            binding.tvWordTrad.setOnTouchListener(OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+            }
+            binding.tvWordTrad.setOnTouchListener { v, _ -> // Disallow the touch request for parent scroll on touch of child view
                 v.parent.requestDisallowInterceptTouchEvent(true)
                 false
-            })
+            }
 
-            binding.etWordOrg.setOnTouchListener(OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+            binding.etWordOrg.setOnTouchListener { v, _ -> // Disallow the touch request for parent scroll on touch of child view
                 v.parent.requestDisallowInterceptTouchEvent(true)
                 false
-            })
+            }
 
-            binding.etWordTrad.setOnTouchListener(OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+            binding.etWordTrad.setOnTouchListener { v, _ -> // Disallow the touch request for parent scroll on touch of child view
                 v.parent.requestDisallowInterceptTouchEvent(true)
                 false
-            })
+            }
 
 //dentro del btn esta la validacion del boton borrar con alertDialog
             binding.btnDelete.setOnClickListener {
@@ -113,17 +100,17 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
 
                 okBtn.setOnClickListener {
 
-                    MainActivity.contardorRecyclers+=1
-                    if(MainActivity.contardorRecyclers == 7){
-                        callAd()
-                        MainActivity.contardorRecyclers = 0
-                    }
+//                    MainActivity.contardorRecyclers+=1
+//                    if(MainActivity.contardorRecyclers == 7){
+//                        callAd()
+//                        MainActivity.contardorRecyclers = 0
+//                    }
 
                     onClickDelete(adapterPosition)
                     dialog.dismiss()
-                    sharedPreferences.edit().putInt("recyclersCont",
-                        MainActivity.contardorRecyclers
-                    ).apply()
+//                    sharedPreferences.edit().putInt("recyclersCont",
+//                        MainActivity.contardorRecyclers
+//                    ).apply()
                 }
 
             }
@@ -180,15 +167,15 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
                     notifyItemChanged(adapterPosition)
 
                     //ads↓
-                    MainActivity.contardorRecyclers+=1
-                    if(MainActivity.contardorRecyclers == 7){
-                        callAd()
-                        MainActivity.contardorRecyclers = 0
-
-                    }
-                    sharedPreferences.edit().putInt("recyclersCont",
-                        MainActivity.contardorRecyclers
-                    ).apply()
+//                    MainActivity.contardorRecyclers+=1
+//                    if(MainActivity.contardorRecyclers == 7){
+//                        callAd()
+//                        MainActivity.contardorRecyclers = 0
+//
+//                    }
+//                    sharedPreferences.edit().putInt("recyclersCont",
+//                        MainActivity.contardorRecyclers
+//                    ).apply()
                 } catch (_: java.lang.Exception) {
                 }
 
@@ -218,30 +205,6 @@ class CustomerAdapter(var wordsDataList:List<DataWordsBase>, private val onClick
         }
 
 
-
-        private fun initAds(){
-            val adRequest = AdRequest.Builder().build()
-            InterstitialAd.load(fileContext,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-
-                    miInterstitialAd = null
-                }
-
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-
-                    miInterstitialAd = interstitialAd
-                }
-            })
-        }
-        private fun callAd(){
-            showAds()
-            MainActivity.nombreVariable = 0
-            initAds()
-        }
-
-        private fun showAds(){
-            miInterstitialAd?.show(Activity().parent)
-        }
 
     }
 }

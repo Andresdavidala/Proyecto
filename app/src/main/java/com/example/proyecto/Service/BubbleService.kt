@@ -1,5 +1,6 @@
 package com.example.proyecto.Service
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.app.DownloadManager.ACTION_NOTIFICATION_CLICKED
 import android.content.BroadcastReceiver
@@ -15,7 +16,6 @@ import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
@@ -49,6 +49,7 @@ class BubbleService: Service() {
         return null
     }
 
+    @SuppressLint("InflateParams", "ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
         super.onCreate()
@@ -72,10 +73,10 @@ class BubbleService: Service() {
         etWo = cardView.findViewById(R.id.etWO)
         etWT = cardView.findViewById(R.id.etWT)
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            LAYOUT_TYPE = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        LAYOUT_TYPE = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         }else{
-            LAYOUT_TYPE = WindowManager.LayoutParams.TYPE_TOAST
+            WindowManager.LayoutParams.TYPE_TOAST
         }
 
         //params del bubble
@@ -123,6 +124,7 @@ class BubbleService: Service() {
             var py = 0.0
 
 
+            @SuppressLint("ClickableViewAccessibility")
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 cardView.alpha = 0f
                 cardView.visibility = View.VISIBLE
@@ -175,6 +177,7 @@ class BubbleService: Service() {
             var y = 0.0
             var px = 0.0
             var py = 0.0
+            @SuppressLint("ClickableViewAccessibility")
             override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
                 when(p1!!.action){
                     MotionEvent.ACTION_DOWN -> {
@@ -199,33 +202,28 @@ class BubbleService: Service() {
         })
         //
 
-        etWo.setOnTouchListener(object : View.OnTouchListener{
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                etWo.isCursorVisible = true
-                val updatedFloatParamsFlag  = cardViewParams
-                updatedFloatParamsFlag.flags =
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+        etWo.setOnTouchListener { _, _ ->
+            etWo.isCursorVisible = true
+            val updatedFloatParamsFlag = cardViewParams
+            updatedFloatParamsFlag.flags =
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
 
-                windowManager.updateViewLayout(cardView, updatedFloatParamsFlag)
-                return false
-            }
+            windowManager.updateViewLayout(cardView, updatedFloatParamsFlag)
+            false
+        }
 
-        })
+        etWT.setOnTouchListener { _, _ ->
+            etWT.isCursorVisible = true
+            val updatedFloatParamsFlag = cardViewParams
+            updatedFloatParamsFlag.flags =
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
 
-        etWT.setOnTouchListener(object : View.OnTouchListener{
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                etWT.isCursorVisible = true
-                val updatedFloatParamsFlag  = cardViewParams
-                updatedFloatParamsFlag.flags =
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-
-                windowManager.updateViewLayout(cardView, updatedFloatParamsFlag)
-                return false
-            }
-
-        })
+            windowManager.updateViewLayout(cardView, updatedFloatParamsFlag)
+            false
+        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         windowManager.addView(bubbleView, bubbleViewParams)
@@ -309,7 +307,7 @@ class BubbleService: Service() {
                 //guardar en un textfile integrado dentro de la app↓
 
                 txtFile = openFileOutput("myfile.txt", Context.MODE_PRIVATE)
-                var outputWriter = OutputStreamWriter(txtFile)
+                val outputWriter = OutputStreamWriter(txtFile)
 
                 //escritura de datos ↓
 
@@ -340,13 +338,13 @@ class BubbleService: Service() {
             saveWord()
         }
 
-        etWT.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        etWT.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 saveWord()
 
             }
             false
-        })
+        }
         return super.onStartCommand(intent, flags, startId)
     }
 

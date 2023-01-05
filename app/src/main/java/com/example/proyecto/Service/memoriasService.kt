@@ -1,5 +1,6 @@
 package com.example.proyecto.Service
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -42,6 +43,7 @@ class memoriasService: Service() {
     private lateinit var btnExit: ImageView
 
 
+    @SuppressLint("InflateParams")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
         super.onCreate()
@@ -60,11 +62,10 @@ class memoriasService: Service() {
 
 
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        LAYOUT_TYPE = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
-            LAYOUT_TYPE = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-        }
-        else LAYOUT_TYPE = WindowManager.LayoutParams.TYPE_TOAST
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else WindowManager.LayoutParams.TYPE_TOAST
         cardMemViewParams = WindowManager.LayoutParams(
 
             (width *0.9f).toInt(),
@@ -82,6 +83,7 @@ class memoriasService: Service() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         mainHandler = Handler(Looper.getMainLooper())

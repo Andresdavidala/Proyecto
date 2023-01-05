@@ -1,8 +1,8 @@
 package com.example.proyecto
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -23,15 +23,13 @@ import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.Service.*
 import com.example.proyecto.databinding.ActivitySettingBinding
 import com.google.android.gms.ads.AdRequest
-import kotlin.properties.Delegates
 
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
     private lateinit var dialog: AlertDialog
 
-    private var miliDate by Delegates.notNull<Int>()
-
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -499,7 +497,7 @@ class SettingActivity : AppCompatActivity() {
         }
 
         clTitle2.setOnClickListener {
-            var visibility2 = clHS2.visibility
+            val visibility2 = clHS2.visibility
 
             val sharedPWindows = getSharedPreferences("openCardWindows", MODE_PRIVATE)
             val editor = sharedPWindows?.edit()
@@ -549,7 +547,7 @@ class SettingActivity : AppCompatActivity() {
 
 
         clTitle3.setOnClickListener {
-            var visibility2 = clHS3.visibility
+            val visibility2 = clHS3.visibility
 
             val sharedPWindows = getSharedPreferences("openCardMem", MODE_PRIVATE)
             val editor = sharedPWindows?.edit()
@@ -597,7 +595,7 @@ class SettingActivity : AppCompatActivity() {
             }
         }
         //section bubble
-        binding.switchBurbj.setOnCheckedChangeListener { compoundButton, isChecked ->
+        binding.switchBurbj.setOnCheckedChangeListener { _, isChecked ->
 
             if(isChecked){
 
@@ -667,7 +665,7 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
-        binding.switchBurbjSaveMem.setOnCheckedChangeListener { compoundButton, isChecked ->
+        binding.switchBurbjSaveMem.setOnCheckedChangeListener { _, isChecked ->
 
             if(isChecked){
 
@@ -748,14 +746,14 @@ class SettingActivity : AppCompatActivity() {
         builder.setCancelable(true)
         builder.setTitle(R.string.permisionTitle)
         builder.setMessage(R.string.permissonContent)
-        builder.setPositiveButton(R.string.btnpermision, DialogInterface.OnClickListener{ dialog, which ->
+        builder.setPositiveButton(R.string.btnpermision) { _, _ ->
 
             val intent = Intent(
                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                 Uri.parse("package:${packageName}")
             )
             startActivity(intent)
-        })
+        }
         dialog = builder.create()
         dialog.show()
     }

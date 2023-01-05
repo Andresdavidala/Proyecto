@@ -47,9 +47,6 @@ class cardMemor : Fragment() {
 
         val sharedPreferences = activity?.getSharedPreferences("preferences_name", Context.MODE_PRIVATE)
 
-// Guarda la variable en SharedPreferences
-        MainActivity.nombreVariable = sharedPreferences!!.getInt("nombreVariable_key", 0)
-        //↑
 
         dataWordProvider.memorisWords.clear()
         var txtFile = activity?.openFileOutput("memorias.txt", Context.MODE_APPEND) //important
@@ -62,8 +59,8 @@ class cardMemor : Fragment() {
         var contWord = 0
 
 
-
-        initAds()
+//
+//        initAds()
 
 
         //↑
@@ -119,16 +116,16 @@ class cardMemor : Fragment() {
                     Toast.makeText(context, R.string.toastcard2, Toast.LENGTH_SHORT)
                         .show()
                     binding.etmemoris.setText("")
-
-                    MainActivity.nombreVariable += 1
-
-
-                    if(MainActivity.nombreVariable == 4){
-                        callAd()
-                    }
-                    sharedPreferences.edit().putInt("nombreVariable_key",
-                        MainActivity.nombreVariable
-                    ).apply()
+//
+//                    MainActivity.nombreVariable += 1
+//
+//
+//                    if(MainActivity.nombreVariable == 4){
+//                        callAd()
+//                    }
+//                    sharedPreferences.edit().putInt("nombreVariable_key",
+//                        MainActivity.nombreVariable
+//                    ).apply()
 
                 }
                 //guardar en un textfile integrado dentro de la app↓
@@ -144,6 +141,7 @@ class cardMemor : Fragment() {
 
                 outputWriter.flush()
                 outputWriter.close()
+                txtFile?.close()
 
                 hideKeyboard()
                 binding.etmemoris.clearFocus()
@@ -161,13 +159,13 @@ class cardMemor : Fragment() {
         binding.btnSaveMem.setOnClickListener {
             saveWord()
         }
-        binding.etmemoris.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.etmemoris.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 saveWord()
 
             }
             false
-        })
+        }
     }
     private fun Context.hideKeyboard(view: View) {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -175,29 +173,29 @@ class cardMemor : Fragment() {
         binding.etmemoris.requestFocus()
     }
 
-    fun initAds(){
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(requireContext(),"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-
-                miInterstitialAd = null
-            }
-
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-
-                miInterstitialAd = interstitialAd
-            }
-        })
-    }
-    fun callAd(){
-        showAds()
-        MainActivity.nombreVariable = 0
-        initAds()
-    }
-
-    fun showAds(){
-        activity?.let { miInterstitialAd?.show(it) }
-    }
+//    private fun initAds(){
+//        val adRequest = AdRequest.Builder().build()
+//        InterstitialAd.load(requireContext(),"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+//            override fun onAdFailedToLoad(adError: LoadAdError) {
+//
+//                miInterstitialAd = null
+//            }
+//
+//            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+//
+//                miInterstitialAd = interstitialAd
+//            }
+//        })
+//    }
+//    private fun callAd(){
+//        showAds()
+//        MainActivity.nombreVariable = 0
+//        initAds()
+//    }
+//
+//    private fun showAds(){
+//        activity?.let { miInterstitialAd?.show(it) }
+//    }
 
 
 }

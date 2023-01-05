@@ -1,5 +1,6 @@
 package com.example.proyecto.Service
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Intent
 import android.graphics.PixelFormat
@@ -45,6 +46,7 @@ class FloatingWindow: Service() {
     }
 
 
+    @SuppressLint("InflateParams", "ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
         super.onCreate()
@@ -64,11 +66,10 @@ class FloatingWindow: Service() {
         edtDes2 = floatView.findViewById(R.id.edt_description2)
 
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        LAYOUT_TYPE = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
-            LAYOUT_TYPE = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-        }
-        else LAYOUT_TYPE = WindowManager.LayoutParams.TYPE_TOAST
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else WindowManager.LayoutParams.TYPE_TOAST
 
         floatWindowLayoutParams = WindowManager.LayoutParams(
             (width * 0.6f).toInt(),
@@ -90,6 +91,7 @@ class FloatingWindow: Service() {
             var px = 0.0
             var py = 0.0
 
+            @SuppressLint("ClickableViewAccessibility")
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 when(event!!.action){
                     MotionEvent.ACTION_DOWN -> {
@@ -112,20 +114,18 @@ class FloatingWindow: Service() {
 
         })
 
-        edtDes.setOnTouchListener(object : View.OnTouchListener{
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                edtDes.isCursorVisible = true
-                val updatedFloatParamsFlag  = floatWindowLayoutParams
-                updatedFloatParamsFlag.flags =
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+        edtDes.setOnTouchListener { _, _ ->
+            edtDes.isCursorVisible = true
+            val updatedFloatParamsFlag = floatWindowLayoutParams
+            updatedFloatParamsFlag.flags =
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
 
-                windowManager.updateViewLayout(floatView, updatedFloatParamsFlag)
-                return false
-            }
-
-        })
+            windowManager.updateViewLayout(floatView, updatedFloatParamsFlag)
+            false
+        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         mainHandler = Handler(Looper.getMainLooper())
         edtDes2.movementMethod = ScrollingMovementMethod()
@@ -156,7 +156,7 @@ class FloatingWindow: Service() {
 
 
         val mapWords: MutableMap<String, String> =mutableMapOf()
-        var numword = 0;
+        var numword = 0
         for(i in words.indices){
             try {
                 mapWords[words[numword]] = words[numword + 1]
@@ -191,8 +191,6 @@ class FloatingWindow: Service() {
                 //↓codigo para volver a llamar al postdelayed debido a que se lo cancela una vez aparece la ventana flotante 
                 mainHandler.postDelayed(runn, milisecundos.toLong())
 
-            }else{
-
             }
             edtDes.setText("")
 
@@ -210,9 +208,7 @@ class FloatingWindow: Service() {
 
         val numHora = numPickHour?.times(60)
 
-        val numMinute = numPicMinutes
-
-        val minutosTotal = numHora?.let { numMinute?.plus(it) }
+        val minutosTotal = numHora?.let { numPicMinutes?.plus(it) }
         milisecundos = minutosTotal!! * 60000
 
         if(milisecundos != 0){

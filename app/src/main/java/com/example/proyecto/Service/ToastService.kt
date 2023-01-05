@@ -7,13 +7,14 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.proyecto.R
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.SettingActivity
 import kotlin.properties.Delegates
 
-class ToastService(): Service(){
+class ToastService : Service(){
     private lateinit var mainHandler: Handler
     private lateinit var runn: Runnable
     var milisecundos by Delegates.notNull<Int>()
@@ -23,6 +24,7 @@ class ToastService(): Service(){
         return null
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         mainHandler = Handler(Looper.getMainLooper())
         //para la lectura del .txt
@@ -73,9 +75,7 @@ class ToastService(): Service(){
         }
         val numHora = numPickHour?.times(60)
 
-        val numMinute = numPicMinutes
-
-        val minutosTotal = numHora?.let { numMinute?.plus(it) }
+        val minutosTotal = numHora?.let { numPicMinutes?.plus(it) }
         milisecundos = minutosTotal!! * 60000
         if(milisecundos !=0){
 

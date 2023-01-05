@@ -1,6 +1,5 @@
 package com.example.proyecto
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
@@ -8,30 +7,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.proyecto.databinding.ActivityMainBinding
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     companion object{
-        var nombreVariable = 0
-        var contardorRecyclers = 0
+        var contAds = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //para que no se muevan los elementos al abrir el teclado
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         //↑
 
         super.onCreate(savedInstanceState)
+        MobileAds.initialize(this) {}
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         loadAds()
         replaceFragment(SaveWords())
-
-        val sharedPreferences = getSharedPreferences("preferences_name", Context.MODE_PRIVATE)
-
-// Guarda la variable en SharedPreferences
-        nombreVariable = sharedPreferences.getInt("nombreVariable_key", 0)
-
 
         binding.btnNav.setOnItemSelectedListener{
             when(it.itemId){
@@ -49,6 +45,8 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
+
+
     }
 
     private fun loadAds(){
@@ -56,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         binding.adBanner.loadAd(adRequest)
     }
 
-    fun replaceFragment(fragment: Fragment){
+    private fun replaceFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(binding.fmTextField.id, fragment)
@@ -65,8 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         finishAffinity()
-//        sharedPreferences.edit().putInt("nombreVariable_key", nombreVariable).apply()
-
     }
+
 
 }

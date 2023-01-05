@@ -1,5 +1,6 @@
 package com.example.proyecto.Service
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -14,8 +15,8 @@ import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
 import com.example.proyecto.R
@@ -45,6 +46,8 @@ class MemoriaSaveService: Service() {
     val velocityTracker = VelocityTracker.obtain()
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("InflateParams", "ClickableViewAccessibility")
     override fun onCreate() {
         super.onCreate()
 
@@ -67,10 +70,10 @@ class MemoriaSaveService: Service() {
         btnSave.setImageResource(R.drawable.ic_baseline_save_24)
         etWo = cardView.findViewById(R.id.etSaveMem)
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            LAYOUT_TYPE = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        LAYOUT_TYPE = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         }else{
-            LAYOUT_TYPE = WindowManager.LayoutParams.TYPE_TOAST
+            WindowManager.LayoutParams.TYPE_TOAST
         }
 
         //params del bubble
@@ -114,6 +117,7 @@ class MemoriaSaveService: Service() {
             var py = 0.0
 
 
+            @SuppressLint("ClickableViewAccessibility")
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 cardView.alpha = 0f
                 cardView.visibility = View.VISIBLE
@@ -166,6 +170,7 @@ class MemoriaSaveService: Service() {
             var y = 0.0
             var px = 0.0
             var py = 0.0
+            @SuppressLint("ClickableViewAccessibility")
             override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
                 when(p1!!.action){
                     MotionEvent.ACTION_DOWN -> {
@@ -190,21 +195,19 @@ class MemoriaSaveService: Service() {
         })
         //
 
-        etWo.setOnTouchListener(object : View.OnTouchListener{
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                etWo.isCursorVisible = true
-                val updatedFloatParamsFlag  = cardViewParams
-                updatedFloatParamsFlag.flags =
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+        etWo.setOnTouchListener { _, _ ->
+            etWo.isCursorVisible = true
+            val updatedFloatParamsFlag = cardViewParams
+            updatedFloatParamsFlag.flags =
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
 
-                windowManager.updateViewLayout(cardView, updatedFloatParamsFlag)
-                return false
-            }
-
-        })
+            windowManager.updateViewLayout(cardView, updatedFloatParamsFlag)
+            false
+        }
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         windowManager.addView(bubbleView, bubbleViewParams)
         bubbleView.setOnClickListener {
@@ -263,7 +266,6 @@ class MemoriaSaveService: Service() {
                 contWord += 1
 
             }
-        } else {
         }
         startForeground(3, notificacion)
         fun saveWord(){
@@ -313,13 +315,13 @@ class MemoriaSaveService: Service() {
             saveWord()
         }
 
-        etWo.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        etWo.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 saveWord()
 
             }
             false
-        })
+        }
         return super.onStartCommand(intent, flags, startId)
     }
 

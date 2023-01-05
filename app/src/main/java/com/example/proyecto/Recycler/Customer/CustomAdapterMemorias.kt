@@ -6,7 +6,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
-class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):
+class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):
     RecyclerView.Adapter<CustomAdapterMemorias.vhDataList>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomAdapterMemorias.vhDataList {
         val dataLayout =LayoutInflater.from(parent.context)
@@ -49,30 +48,25 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
 
             //ads
 
-            initAds()
+//            initAds()
 
-            //sharedCountAds
-            val sharedPreferences = fileContext.getSharedPreferences("preferencesRC", Context.MODE_PRIVATE)
-            // Guarda la variable en SharedPreferences
-            MainActivity.contardorRecyclers = sharedPreferences!!.getInt("recyclersCont", 0)
-            //↑
 
 
             binding.tvWordOrg.text = dataListW.memorias.replace("☼○", "")
 
-            binding.tvWordOrg.setOnTouchListener(View.OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+            binding.tvWordOrg.setOnTouchListener { v, _ -> // Disallow the touch request for parent scroll on touch of child view
                 v.parent.requestDisallowInterceptTouchEvent(true)
                 false
-            })
+            }
 //            binding.tvWordTrad.setOnTouchListener(View.OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
 //                v.parent.requestDisallowInterceptTouchEvent(true)
 //                false
 //            })
 
-            binding.etWordOrg.setOnTouchListener(View.OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+            binding.etWordOrg.setOnTouchListener { v, _ -> // Disallow the touch request for parent scroll on touch of child view
                 v.parent.requestDisallowInterceptTouchEvent(true)
                 false
-            })
+            }
 
 //            binding.etWordTrad.setOnTouchListener(View.OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
 //                v.parent.requestDisallowInterceptTouchEvent(true)
@@ -97,19 +91,19 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
                 }
 
                 okBtn.setOnClickListener {
-                    MainActivity.contardorRecyclers+=1
-                    if(MainActivity.contardorRecyclers == 7){
-                        callAd()
-                        MainActivity.contardorRecyclers = 0
-                    }
+//                    MainActivity.contardorRecyclers+=1
+//                    if(MainActivity.contardorRecyclers == 7){
+//                        callAd()
+//                        MainActivity.contardorRecyclers = 0
+//                    }
                     //NO ADS
                     onClickDelete(adapterPosition)
                     dialog.dismiss()
                     //↑
-
-                    sharedPreferences.edit().putInt("recyclersCont",
-                        MainActivity.contardorRecyclers
-                    ).apply()
+//
+//                    sharedPreferences.edit().putInt("recyclersCont",
+//                        MainActivity.contardorRecyclers
+//                    ).apply()
                 }
 
             }
@@ -157,15 +151,15 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
                     notifyItemChanged(adapterPosition)
 
                     //ads↓
-                    MainActivity.contardorRecyclers+=1
-                    if(MainActivity.contardorRecyclers == 7){
-                        callAd()
-                        MainActivity.contardorRecyclers = 0
-
-                    }
-                    sharedPreferences.edit().putInt("recyclersCont",
-                        MainActivity.contardorRecyclers
-                    ).apply()
+//                    MainActivity.contardorRecyclers+=1
+//                    if(MainActivity.contardorRecyclers == 7){
+//                        callAd()
+//                        MainActivity.contardorRecyclers = 0
+//
+//                    }
+//                    sharedPreferences.edit().putInt("recyclersCont",
+//                        MainActivity.contardorRecyclers
+//                    ).apply()
                 }catch (_: java.lang.Exception){
                 }
 
@@ -185,29 +179,29 @@ class CustomAdapterMemorias(var wordsDataList:List<MemoriWords>, private val onC
             }
         }
 
-        private fun initAds(){
-            val adRequest = AdRequest.Builder().build()
-            InterstitialAd.load(fileContext,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-
-                    miInterstitialAd = null
-                }
-
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-
-                    miInterstitialAd = interstitialAd
-                }
-            })
-        }
-        private fun callAd(){
-            showAds()
-            MainActivity.nombreVariable = 0
-            initAds()
-        }
-
-        private fun showAds(){
-            miInterstitialAd?.show(Activity().parent)
-        }
+//        private fun initAds(){
+//            val adRequest = AdRequest.Builder().build()
+//            InterstitialAd.load(fileContext,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+//                override fun onAdFailedToLoad(adError: LoadAdError) {
+//
+//                    miInterstitialAd = null
+//                }
+//
+//                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+//
+//                    miInterstitialAd = interstitialAd
+//                }
+//            })
+//        }
+//        private fun callAd(){
+//            showAds()
+//            MainActivity.nombreVariable = 0
+//            initAds()
+//        }
+//
+//        private fun showAds(){
+//            miInterstitialAd?.show(Activity().parent)
+//        }
     }
 
 

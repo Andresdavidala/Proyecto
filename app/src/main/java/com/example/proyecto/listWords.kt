@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +30,7 @@ class listWords : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         _binding = FragmentListWordsBinding.inflate(inflater, container, false)
@@ -82,7 +81,7 @@ class listWords : Fragment() {
 
 
 
-        binding.switchRV.setOnCheckedChangeListener { compoundButton, b ->
+        binding.switchRV.setOnCheckedChangeListener { _, b ->
 
             if(b){
                 binding.filterET.visibility = View.GONE
@@ -162,7 +161,7 @@ class listWords : Fragment() {
 
             try{
 //                val superheroesFiltered = superHeroMutableList.filter { superhero -> superhero.superhero.contains (userFilter.toString()) }
-                val findWor = dataWordProvider.dataWords.filter { words -> dataWordProvider.dataWords[0].wordOrg.contains(filerWord.toString()) }
+                dataWordProvider.dataWords.filter { dataWordProvider.dataWords[0].wordOrg.contains(filerWord.toString()) }
 
 
                 val findWord = dataWordProvider.dataWords.indexOfFirst {
@@ -198,13 +197,13 @@ class listWords : Fragment() {
 
     }
 
-    fun initRecyclerMemorisView(){
+    private fun initRecyclerMemorisView(){
         adapterMemoris = CustomAdapterMemorias(dataWordProvider.memorisWords,{position -> onDeletMemoris(position)}, requireContext())
         val recyclerView = binding.rvMemorias
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapterMemoris
     }
-    fun iniRecyclerView(){
+    private fun iniRecyclerView(){
 
         adapter = CustomerAdapter(dataWordProvider.dataWords,{position -> onDeleteWord(position)}, requireContext())
         val recyclerView= binding.rvDataList
@@ -218,7 +217,7 @@ class listWords : Fragment() {
 
     }
 
-    fun onDeletMemoris(position: Int){
+    private fun onDeletMemoris(position: Int){
         //proceso para eliminar palabras en el recyclerView
         val txtFile = activity?.openFileOutput("memorias.txt", Context.MODE_PRIVATE)
         val outputWriter = OutputStreamWriter(txtFile)
@@ -233,13 +232,13 @@ class listWords : Fragment() {
         }
         outputWriter.flush()
         outputWriter.close()
-
+        txtFile?.close()
         //se notifica al recycler que se elimino un elemento
         adapterMemoris.notifyItemRemoved(position)
     }
 
 
-    fun onDeleteWord(position: Int){
+    private fun onDeleteWord(position: Int){
 
         //proceso para eliminar palabras en el recyclerView
         val txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_PRIVATE)

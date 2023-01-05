@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -18,10 +17,8 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.proyecto.MainActivity.Companion.nombreVariable
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
@@ -37,18 +34,26 @@ import java.io.OutputStreamWriter
 class SaveWords : Fragment() {
     private var _binding: FragmentSaveWordsBinding? = null
     private val binding get() = _binding!!
-    private var miInterstitialAd: InterstitialAd? = null
 
+
+    private final var TAG = "MainActivity"
+    private lateinit var outputWriter: OutputStreamWriter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // Inflate the layout for this fragment
         _binding = FragmentSaveWordsBinding.inflate(inflater, container, false)
 
 
         return binding.root
+
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
 
     }
@@ -62,19 +67,19 @@ class SaveWords : Fragment() {
         val sharedPreferences = activity?.getSharedPreferences("preferences_name", Context.MODE_PRIVATE)
 
 // Guarda la variable en SharedPreferences
-        MainActivity.nombreVariable = sharedPreferences!!.getInt("nombreVariable_key", 0)
+//        nombreVariable = sharedPreferences!!.getInt("nombreVariable_key", 0)
         //↑
 
         //Loading data to memorias
         dataWordProvider.memorisWords.clear()
-        var txtFileMem = activity?.openFileOutput("memorias.txt", Context.MODE_APPEND) //important
+        activity?.openFileOutput("memorias.txt", Context.MODE_APPEND) //important
 //
         val openFileMem = activity?.openFileInput("memorias.txt")
         val inputReaderMem = InputStreamReader(openFileMem)
         val dataMem = inputReaderMem.readText().trimEnd()
         val datatoListMem = dataMem.split("☼○ ")
         var contWordMem = 0
-        initAds()
+//        initAds()
         if (dataMem.isNotEmpty()) {
             for (i in datatoListMem.indices) {
 
@@ -87,7 +92,6 @@ class SaveWords : Fragment() {
                 contWordMem += 1
 
             }
-        } else {
         }
         //↑
 
@@ -114,9 +118,7 @@ class SaveWords : Fragment() {
                 contWord += 2
 
             }
-        } else {
         }
-
 
         binding.btnSHelp.setOnClickListener {
             val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
@@ -139,7 +141,7 @@ class SaveWords : Fragment() {
         }
 
         fun Fragment.hideKeyboard() {
-            view?.let { activity?.hideKeyboard(it) }
+            view.let { activity?.hideKeyboard(it) }
         }
         fun saveWord(){
             val campoWordOrg = binding.wordOrg.text.toString().trim()
@@ -155,18 +157,11 @@ class SaveWords : Fragment() {
                     binding.wordOrg.setText("")
                     binding.wordTrad.setText("")
 
-                    MainActivity.nombreVariable += 1
-
-                    if(MainActivity.nombreVariable == 4){
-                        callAd()
-                    }
-                    sharedPreferences.edit().putInt("nombreVariable_key", nombreVariable).apply()
-
                 }
                 //guardar en un textfile integrado dentro de la app↓
 
                 txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_PRIVATE)
-                var outputWriter = OutputStreamWriter(txtFile)
+                outputWriter = OutputStreamWriter(txtFile)
 
                 //escritura de datos ↓
 
@@ -177,8 +172,8 @@ class SaveWords : Fragment() {
 
                 }
 
-                outputWriter.flush()
-                outputWriter.close()
+//                outputWriter.flush()
+//                outputWriter.close()
 
                 hideKeyboard()
                 binding.wordOrg.clearFocus()
@@ -190,6 +185,10 @@ class SaveWords : Fragment() {
             } catch (e: java.lang.Exception) {
                 Toast.makeText(context, "Something Wrong", Toast.LENGTH_SHORT).show()
 
+            }finally {
+                outputWriter.flush()
+                outputWriter.close()
+                txtFile?.close()
             }
         }
         binding.btnSaveWord.setOnClickListener {
@@ -198,46 +197,29 @@ class SaveWords : Fragment() {
         }
 
 
-        binding.wordTrad.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+        binding.wordTrad.setOnEditorActionListener { v, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 saveWord()
 
             }
             false
-        })
+        }
 
 
     }
-
-    fun initAds(){
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(requireContext(),"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-
-                miInterstitialAd = null
-            }
-
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-
-                miInterstitialAd = interstitialAd
-            }
-        })
-    }
-    fun callAd(){
-        showAds()
-        MainActivity.nombreVariable = 0
-        initAds()
-    }
-
-    fun showAds(){
-        activity?.let { miInterstitialAd?.show(it) }
-    }
-
+//    override fun onDestroy() {
+//        super.onDestroy()
+//
+//        // Cerrar el archivo y liberar el recurso
+//        outputWriter.flush()
+//        outputWriter.close()
+//    }
 
     private fun Context.hideKeyboard(view: View) {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         binding.wordOrg.requestFocus()
     }
+
 
 }

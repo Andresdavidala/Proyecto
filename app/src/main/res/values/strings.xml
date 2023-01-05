@@ -19,7 +19,7 @@
     <string name="titlelistW">Lista de palabras</string>
     <string name="titlelistM">Lista de Memorias</string>
     <string name="setToastTitle">Recordatorio Temporal</string>
-    <string name="settoastcontent">Muestra un toast con las preguntas y respuestas insertadas. Establece tu intervalo de tiempo.</string>
+    <string name="settoastcontent">Muestra un aviso con las preguntas y respuestas insertadas. Establece tu intervalo de tiempo.</string>
     <string name="setFloatTitle">Ventana Flotante</string>
     <string name="setFloatContent">Muestra una ventana emergente, acierta tu pregunta o presiona el botón de salir para cerrar la ventana. Establece tu intervalo de tiempo.</string>
     <string name="setMemTitle">Memorias Flotantes</string>
@@ -29,7 +29,7 @@
     <string name="setbubmemtitle">Memoria Burbuja.</string>
     <string name="setbubmemcont">Muestra una burbuja que permite emerger una tarjeta para guardar tus mientras usas otras aplicaciones.</string>
     <string name="helptoast">Podras definir el tiempo en el que quieres que se te recuerde las preguntas y respuestas que has ingresado mediante
-    un toast que aparecera en la parte inferior de tu pantalla, mientras usas otras aplicaciones, debes agregar preguntas para habilitar esta función.</string>
+    un aviso que aparecera en la parte inferior de tu pantalla, mientras usas otras aplicaciones, debes agregar preguntas para habilitar esta función.</string>
     <string name="helpfloating">Puedes definir el tiempo en el que quieras practicar tus preguntas aun cuando estes usando otras aplicaciones     mediante una ventana emergente que te mostrara tu pregunta y que se cerrara si respondes correctamente o presionando en el boton de cerrar. Agrega tus      preguntas para habilitar esta funcionalidad.</string>
     <string name="helpmemorias">Puedes definir el tiempo en el que quieres que aparezca una tarjeta en tu pantalla que te mostrara una de las memorias
     que has guardado, mientras usas otras aplicaciones, deberás agregar memorias para habilitar esta función.</string>
