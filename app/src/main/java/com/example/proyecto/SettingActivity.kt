@@ -185,6 +185,7 @@ class SettingActivity : AppCompatActivity() {
             numPickIsEnable.getBoolean("nPEnabled", numberPickerHour.isEnabled)
         numberPickerminutes.isEnabled =
             numPickIsEnable.getBoolean("nPEnabled", numberPickerminutes.isEnabled)
+
         val numPickIsEnableW = getSharedPreferences("numPickEnabledW", MODE_PRIVATE)
         numberPickerHourW.isEnabled =
             numPickIsEnableW.getBoolean("nPEnabledW", numberPickerHourW.isEnabled)

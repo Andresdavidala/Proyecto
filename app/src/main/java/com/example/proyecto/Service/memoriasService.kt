@@ -104,7 +104,7 @@ class memoriasService: Service() {
 
         btnExit.setOnClickListener {
             windowManager.removeView(cardMemorView)
-            windowManager.removeView(cardMemorView)
+
 
             //↓codigo para volver a llamar al postdelayed debido a que se lo cancela una vez aparece la ventana flotante
             mainHandler.postDelayed(runn, milisecundos.toLong())

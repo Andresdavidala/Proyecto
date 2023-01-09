@@ -1,13 +1,23 @@
 package com.example.proyecto.Service
 
+import android.annotation.SuppressLint
 import android.app.*
+import android.content.Context
 import android.content.Intent
+import android.graphics.PixelFormat
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
 import com.example.proyecto.R
 import com.example.proyecto.Recycler.dataWordProvider
@@ -17,13 +27,51 @@ import kotlin.properties.Delegates
 class ToastService : Service(){
     private lateinit var mainHandler: Handler
     private lateinit var runn: Runnable
+
     var milisecundos by Delegates.notNull<Int>()
-
-
+    private lateinit var cardToast: ViewGroup
+    private lateinit var cardToastParams: WindowManager.LayoutParams
+    private var LAYOUT_TYPE: Int? = null
+    private lateinit var windowManager: WindowManager
+    private lateinit var tvToast: TextView
+    private lateinit var cardContain: CardView
+    private lateinit var btnExit: ImageView
     override fun onBind(p0: Intent?): IBinder? {
         return null
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onCreate() {
+        super.onCreate()
+
+        val metrics = applicationContext.resources.displayMetrics
+        val width =  metrics.widthPixels
+        val height = metrics.heightPixels
+
+        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        cardToast = inflater.inflate(R.layout.toascard, null) as ViewGroup
+        cardContain = cardToast.findViewById(R.id.cardToast)
+        tvToast = cardToast.findViewById(R.id.tvToast)
+        btnExit = cardToast.findViewById(R.id.btnExitToast)
+        btnExit.setImageResource(R.drawable.closecardmem)
+
+        LAYOUT_TYPE = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else WindowManager.LayoutParams.TYPE_TOAST
+        cardToastParams = WindowManager.LayoutParams(
+
+            (width *0.9f).toInt(),
+            (height *0.29f).toInt(),
+            LAYOUT_TYPE!!,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT,
+        )
+
+        cardToastParams.gravity = Gravity.BOTTOM
+    }
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         mainHandler = Handler(Looper.getMainLooper())
@@ -34,14 +82,6 @@ class ToastService : Service(){
         val numPickHour = intent?.getIntExtra("numberPickerHour", 0)
         val numPicMinutes = intent?.getIntExtra("numberPickerMinutes", 0)
 
-
-//        //↓para broadcast
-//
-//        val intent = Intent("sendMili")
-//
-//
-//
-//        //↑
         //handler y runnable for Toast
 
 
@@ -59,20 +99,32 @@ class ToastService : Service(){
 
 
         //↑
+        btnExit.setOnClickListener {
+            windowManager.removeView(cardToast)
 
+
+            //↓codigo para volver a llamar al postdelayed debido a que se lo cancela una vez aparece la ventana flotante
+            mainHandler.postDelayed(runn, milisecundos.toLong())
+        }
 
         runn = object : Runnable {
             override fun run() {
 
                 try{
-                    PairWordGenerate()
-
+                    PairWordGenerate(tvToast)
+                    windowManager.addView(cardToast, cardToastParams)
                     mainHandler.postDelayed(this, milisecundos.toLong())
+
                 }catch (_ : Exception){
                     Toast.makeText(baseContext,R.string.toastServicefloat, Toast.LENGTH_SHORT).show()
                 }
+                mainHandler.postDelayed(this,milisecundos.toLong())
+                mainHandler.removeCallbacks(runn)
             }
         }
+
+
+
         val numHora = numPickHour?.times(60)
 
         val minutosTotal = numHora?.let { numPicMinutes?.plus(it) }
@@ -108,11 +160,12 @@ class ToastService : Service(){
         stopSelf()
 
     }
-    private fun PairWordGenerate(){
+    @SuppressLint("SetTextI18n")
+    private fun PairWordGenerate(edtTvToast: TextView){
         val list = dataWordProvider.dataWords
         val data = list.shuffled().take(1)[0]
-        Toast.makeText(baseContext, "${data.wordOrg} - ${data.wordTrad}".uppercase().replace("☼○",""), Toast.LENGTH_LONG).show()
-
+//        Toast.makeText(baseContext, "${data.wordOrg} - ${data.wordTrad}".uppercase().replace("☼○",""), Toast.LENGTH_LONG).show()
+        edtTvToast.text = "${data.wordOrg} - ${data.wordTrad}".uppercase().replace("☼○","")
     }
 
     private fun createNotification(){

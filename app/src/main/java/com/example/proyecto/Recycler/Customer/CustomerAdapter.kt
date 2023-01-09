@@ -125,6 +125,7 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
                 binding.btnEdit.visibility = View.GONE
                 binding.tvWordOrg.visibility = View.GONE
                 binding.tvWordTrad.visibility = View.GONE
+                binding.btnDelete.visibility = View.GONE
 
                 binding.etWordOrg.visibility = View.VISIBLE
                 binding.etWordTrad.visibility = View.VISIBLE
@@ -140,6 +141,7 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
                 binding.btnEdit.visibility = View.VISIBLE
                 binding.tvWordOrg.visibility = View.VISIBLE
                 binding.tvWordTrad.visibility = View.VISIBLE
+                binding.btnDelete.visibility = View.VISIBLE
 
                 binding.etWordOrg.visibility = View.GONE
                 binding.etWordTrad.visibility = View.GONE

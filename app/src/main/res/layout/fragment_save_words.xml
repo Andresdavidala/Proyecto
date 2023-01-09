@@ -105,9 +105,10 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/evaWO"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.411"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.698" />
 
     <Button
         android:id="@+id/btnSaveWord"

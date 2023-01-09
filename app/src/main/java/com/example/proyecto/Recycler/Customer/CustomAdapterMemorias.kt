@@ -119,6 +119,7 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
                 binding.btnEdit2.visibility = View.GONE
                 binding.tvWordOrg.visibility = View.GONE
                 binding.tvWordOrg.visibility = View.GONE
+                binding.btnDelete2.visibility = View.GONE
 
                 binding.etWordOrg.visibility = View.VISIBLE
                 binding.etWordOrg.visibility = View.VISIBLE
@@ -131,6 +132,7 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
                 binding.btnCheck2.visibility = View.GONE
                 binding.btnEdit2.visibility = View.VISIBLE
                 binding.tvWordOrg.visibility = View.VISIBLE
+                binding.btnDelete2.visibility = View.VISIBLE
 
                 binding.etWordOrg.visibility = View.GONE
                 binding.btnCancel2.visibility = View.GONE

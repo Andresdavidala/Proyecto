@@ -26,7 +26,6 @@ import java.io.OutputStreamWriter
 class EvaWord : Fragment() {
     private var _binding: FragmentEvaWordBinding?=null
     private val binding get() = _binding!!
-    private var miInterstitialAd: InterstitialAd? = null
     private lateinit var openFile: FileInputStream
     private lateinit var inputReader:  InputStreamReader
 
