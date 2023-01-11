@@ -148,7 +148,7 @@ class memoriasService: Service() {
         }
 
 
-        return super.onStartCommand(intent, flags, startId)
+        return START_STICKY
     }
 
     override fun onDestroy() {
@@ -166,7 +166,7 @@ class memoriasService: Service() {
 
     private fun valorMemoriRam(valList:MutableList<MemoriWords>, editEvaluar: TextView): String {
         val list = valList.shuffled().take(1)[0]
-        val wordReturn = list.memorias.replace("☼○", "")
+        val wordReturn = list.memorias.replace("☼", "")
         editEvaluar.text = wordReturn
         editEvaluar.scrollTo(0,0)
         return wordReturn

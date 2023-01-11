@@ -138,7 +138,7 @@ class FloatingWindow: Service() {
         val fileInputStream = openFileInput("myfile.txt")
         val inputReader = InputStreamReader(fileInputStream)
         val output = inputReader.readText().trimEnd()
-        val words = output.split("☼○ ")
+        val words = output.split("☼ ")
 
 
         //↓ForegroundService
@@ -183,7 +183,7 @@ class FloatingWindow: Service() {
 
         btnMax.setOnClickListener {
 
-            if(wordTrad.replace("☼○", "") == edtDes.text.toString().trim()){
+            if(wordTrad.replace("☼", "") == edtDes.text.toString().trim()){
 //                stopSelf()
 
                 windowManager.removeView(floatView)
@@ -225,7 +225,7 @@ class FloatingWindow: Service() {
 
 
 
-        return super.onStartCommand(intent, flags, startId)
+        return START_STICKY
     }
 
     override fun onDestroy() {

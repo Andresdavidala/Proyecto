@@ -77,7 +77,7 @@ class SaveWords : Fragment() {
         val openFileMem = activity?.openFileInput("memorias.txt")
         val inputReaderMem = InputStreamReader(openFileMem)
         val dataMem = inputReaderMem.readText().trimEnd()
-        val datatoListMem = dataMem.split("☼○ ")
+        val datatoListMem = dataMem.split("☼ ")
         var contWordMem = 0
 //        initAds()
         if (dataMem.isNotEmpty()) {
@@ -101,7 +101,7 @@ class SaveWords : Fragment() {
         val openFile = activity?.openFileInput("myfile.txt")
         val inputReader = InputStreamReader(openFile)
         val data = inputReader.readText().trimEnd()
-        val datatoList = data.split("☼○ ")
+        val datatoList = data.split("☼ ")
 
         var contWord = 0
 
@@ -166,8 +166,8 @@ class SaveWords : Fragment() {
                 //escritura de datos ↓
 
                 for (i in dataWordProvider.dataWords.indices) {
-                    outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼○ ")
-                    outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼○ ")
+                    outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼ ")
+                    outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼ ")
 
 
                 }

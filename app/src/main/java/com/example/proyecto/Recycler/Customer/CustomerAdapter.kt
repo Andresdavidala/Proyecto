@@ -56,7 +56,7 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
 
 
             binding.tvWordOrg.text = dataListW.wordOrg
-            binding.tvWordTrad.text = dataListW.wordTrad.replace("☼○", "")
+            binding.tvWordTrad.text = dataListW.wordTrad.replace("☼", "")
 
             binding.tvWordOrg.setOnTouchListener { v, _ -> // Disallow the touch request for parent scroll on touch of child view
                 v.parent.requestDisallowInterceptTouchEvent(true)
@@ -130,7 +130,7 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
                 binding.etWordOrg.visibility = View.VISIBLE
                 binding.etWordTrad.visibility = View.VISIBLE
                 binding.etWordOrg.setText(dataListW.wordOrg)
-                binding.etWordTrad.setText(dataListW.wordTrad.replace("☼○", ""))
+                binding.etWordTrad.setText(dataListW.wordTrad.replace("☼", ""))
                 binding.btnCancel.visibility = View.VISIBLE
 
             }
@@ -159,8 +159,8 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
                 try {
 
                     for (i in dataWordProvider.dataWords.indices) {
-                        outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼○ ")
-                        outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼○ ")
+                        outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼ ")
+                        outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼ ")
                     }
 
                     outputWriter.flush()
@@ -196,7 +196,7 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
                 binding.tvWordTrad.visibility = View.VISIBLE
 
                 binding.etWordOrg.setText(dataListW.wordOrg)
-                binding.etWordTrad.setText(dataListW.wordTrad.replace("☼○", ""))
+                binding.etWordTrad.setText(dataListW.wordTrad.replace("☼", ""))
 
 
             }

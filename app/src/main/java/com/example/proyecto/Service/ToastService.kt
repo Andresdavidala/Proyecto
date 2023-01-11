@@ -164,8 +164,8 @@ class ToastService : Service(){
     private fun PairWordGenerate(edtTvToast: TextView){
         val list = dataWordProvider.dataWords
         val data = list.shuffled().take(1)[0]
-//        Toast.makeText(baseContext, "${data.wordOrg} - ${data.wordTrad}".uppercase().replace("☼○",""), Toast.LENGTH_LONG).show()
-        edtTvToast.text = "${data.wordOrg} - ${data.wordTrad}".uppercase().replace("☼○","")
+//        Toast.makeText(baseContext, "${data.wordOrg} - ${data.wordTrad}".uppercase().replace("☼",""), Toast.LENGTH_LONG).show()
+        edtTvToast.text = "${data.wordOrg} - ${data.wordTrad}".uppercase().replace("☼","")
     }
 
     private fun createNotification(){

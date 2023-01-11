@@ -52,7 +52,7 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
 
 
 
-            binding.tvWordOrg.text = dataListW.memorias.replace("☼○", "")
+            binding.tvWordOrg.text = dataListW.memorias.replace("☼", "")
 
             binding.tvWordOrg.setOnTouchListener { v, _ -> // Disallow the touch request for parent scroll on touch of child view
                 v.parent.requestDisallowInterceptTouchEvent(true)
@@ -123,7 +123,7 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
 
                 binding.etWordOrg.visibility = View.VISIBLE
                 binding.etWordOrg.visibility = View.VISIBLE
-                binding.etWordOrg.setText(dataListW.memorias.replace("☼○", ""))
+                binding.etWordOrg.setText(dataListW.memorias.replace("☼", ""))
                 binding.btnCancel2.visibility = View.VISIBLE
 
             }
@@ -143,7 +143,7 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
                 try {
 
                     for( i in dataWordProvider.memorisWords.indices){
-                        outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼○ ")
+                        outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼ ")
 
                     }
 
@@ -175,7 +175,7 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
                 binding.etWordOrg.visibility = View.GONE
                 binding.tvWordOrg.visibility = View.VISIBLE
 
-                binding.etWordOrg.setText(dataListW.memorias.replace("☼○", ""))
+                binding.etWordOrg.setText(dataListW.memorias.replace("☼", ""))
 
 
             }

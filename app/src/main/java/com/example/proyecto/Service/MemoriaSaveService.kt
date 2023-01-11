@@ -251,7 +251,7 @@ class MemoriaSaveService: Service() {
         val openFile = openFileInput("memorias.txt")
         val inputReader = InputStreamReader(openFile)
         val data = inputReader.readText().trimEnd()
-        val datatoList = data.split("☼○ ")
+        val datatoList = data.split("☼ ")
         var contWord = 0
 
         if (data.isNotEmpty()) {
@@ -290,7 +290,7 @@ class MemoriaSaveService: Service() {
                 //escritura de datos ↓
 
                 for (i in dataWordProvider.memorisWords.indices) {
-                    outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼○ ")
+                    outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼ ")
 
 
                 }
@@ -322,7 +322,7 @@ class MemoriaSaveService: Service() {
             }
             false
         }
-        return super.onStartCommand(intent, flags, startId)
+        return START_STICKY
     }
 
     override fun onDestroy() {

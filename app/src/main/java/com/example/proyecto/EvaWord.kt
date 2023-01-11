@@ -76,7 +76,7 @@ class EvaWord : Fragment() {
             openFile = activity?.openFileInput("myfile.txt")!!
             inputReader = InputStreamReader(openFile)
             val data =inputReader.readText().trimEnd()
-            val datatoList = data.split("☼○ ")
+            val datatoList = data.split("☼ ")
 
             val mapWords: MutableMap<String, String> = mutableMapOf()
             var numWord = 0
@@ -94,7 +94,7 @@ class EvaWord : Fragment() {
             var wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
 
             fun evaWord(){
-                if(wordTrad.replace("☼○", "").equals(binding.evaWT.editText?.text.toString().trim(), true)){
+                if(wordTrad.replace("☼", "").equals(binding.evaWT.editText?.text.toString().trim(), true)){
                     wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
                     binding.wordTrad.requestFocus()
 

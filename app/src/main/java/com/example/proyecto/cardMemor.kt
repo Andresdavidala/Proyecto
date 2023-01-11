@@ -54,7 +54,7 @@ class cardMemor : Fragment() {
         val openFile = activity?.openFileInput("memorias.txt")
         val inputReader = InputStreamReader(openFile)
         val data = inputReader.readText().trimEnd()
-        val datatoList = data.split("☼○ ")
+        val datatoList = data.split("☼ ")
 
         var contWord = 0
 
@@ -136,7 +136,7 @@ class cardMemor : Fragment() {
                 //escritura de datos ↓
 
                 for (i in dataWordProvider.memorisWords.indices) {
-                    outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼○ ")
+                    outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼ ")
                 }
 
                 outputWriter.flush()

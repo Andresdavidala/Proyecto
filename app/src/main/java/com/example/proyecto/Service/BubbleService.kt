@@ -270,7 +270,7 @@ class BubbleService: Service() {
         val openFile = openFileInput("myfile.txt")
         val inputReader = InputStreamReader(openFile)
         val data = inputReader.readText().trimEnd()
-        val datatoList = data.split("☼○ ")
+        val datatoList = data.split("☼ ")
         var contWord = 0
 
         if (data.isNotEmpty()) {
@@ -312,8 +312,8 @@ class BubbleService: Service() {
                 //escritura de datos ↓
 
                 for (i in dataWordProvider.dataWords.indices) {
-                    outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼○ ")
-                    outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼○ ")
+                    outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼ ")
+                    outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼ ")
 
 
                 }
@@ -345,7 +345,7 @@ class BubbleService: Service() {
             }
             false
         }
-        return super.onStartCommand(intent, flags, startId)
+        return START_STICKY
     }
 
 

@@ -169,7 +169,7 @@ class listWords : Fragment() {
                 }
 
 //                val findWord = dataWordProvider.dataWords.indexOfFirst {
-//                    it.wordOrg.replace("☼○", "").lowercase() == listData.lowercase() || it.wordTrad.replace("☼○", "").lowercase() == listData.lowercase()
+//                    it.wordOrg.replace("☼", "").lowercase() == listData.lowercase() || it.wordTrad.replace("☼", "").lowercase() == listData.lowercase()
 //                }
 
 
@@ -177,7 +177,7 @@ class listWords : Fragment() {
 
 
 //                val findWordMem = dataWordProvider.memorisWords.indexOfFirst {
-//                    it.memorias.replace("☼○", "").lowercase() == listData.lowercase() || it.memorias.replace("☼○", "").lowercase() == listData.lowercase()
+//                    it.memorias.replace("☼", "").lowercase() == listData.lowercase() || it.memorias.replace("☼", "").lowercase() == listData.lowercase()
 //                }
 
 //                if(findWord == -1 || findWordMem == -1){
@@ -225,7 +225,7 @@ class listWords : Fragment() {
 
         try{
             for( i in dataWordProvider.memorisWords.indices){
-                outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼○ ")
+                outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼ ")
             }
         }catch (_: java.lang.Exception){
 
@@ -247,8 +247,8 @@ class listWords : Fragment() {
 
         try{
             for( i in dataWordProvider.dataWords.indices){
-                outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼○ ")
-                outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼○ ")
+                outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼ ")
+                outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼ ")
             }
         }catch (_: java.lang.Exception){
 

@@ -58,4 +58,6 @@
     <string name="notifyMemSave">Floating Bubble set</string>
     <string name="floatingWindow">Floating Window set</string>
     <string name="notifyBubble">Bubble memory set</string>
+    <string name="quitAdTitle">Remove Ads</string>
+    <string name="removeBtn">REMOVE</string>
 </resources>
