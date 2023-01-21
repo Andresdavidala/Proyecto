@@ -1,32 +1,27 @@
 package com.example.proyecto.Recycler.Customer
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
-import com.example.proyecto.MainActivity
 import com.example.proyecto.R
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordslistrecyclerviewBinding
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
 
 class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):RecyclerView.Adapter<CustomerAdapter.vhDataList>() {
-
+    var isSuppressed = false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): vhDataList {
         val dataLayout =LayoutInflater.from(parent.context)
         return vhDataList(dataLayout.inflate(R.layout.wordslistrecyclerview, parent, false))
@@ -101,17 +96,8 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
 
                 okBtn.setOnClickListener {
 
-//                    MainActivity.contardorRecyclers+=1
-//                    if(MainActivity.contardorRecyclers == 7){
-//                        callAd()
-//                        MainActivity.contardorRecyclers = 0
-//                    }
-
                     onClickDelete(adapterPosition)
                     dialog.dismiss()
-//                    sharedPreferences.edit().putInt("recyclersCont",
-//                        MainActivity.contardorRecyclers
-//                    ).apply()
                 }
 
             }
@@ -121,32 +107,31 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
             }
 
             binding.btnEdit.setOnClickListener {
+                if(!isSuppressed){
+                    binding.btnCheck.visibility = View.VISIBLE
+                    binding.btnEdit.visibility = View.GONE
+                    binding.tvWordOrg.visibility = View.GONE
+                    binding.tvWordTrad.visibility = View.GONE
+                    binding.btnDelete.visibility = View.GONE
 
-                binding.btnCheck.visibility = View.VISIBLE
-                binding.btnEdit.visibility = View.GONE
-                binding.tvWordOrg.visibility = View.GONE
-                binding.tvWordTrad.visibility = View.GONE
-                binding.btnDelete.visibility = View.GONE
+                    binding.etWordOrg.visibility = View.VISIBLE
+                    binding.etWordTrad.visibility = View.VISIBLE
+                    binding.etWordOrg.setText(dataListW.wordOrg)
+                    binding.etWordTrad.setText(dataListW.wordTrad.replace("☼", ""))
+                    binding.btnCancel.visibility = View.VISIBLE
 
-                binding.etWordOrg.visibility = View.VISIBLE
-                binding.etWordTrad.visibility = View.VISIBLE
-                binding.etWordOrg.setText(dataListW.wordOrg)
-                binding.etWordTrad.setText(dataListW.wordTrad.replace("☼", ""))
-                binding.btnCancel.visibility = View.VISIBLE
+                    var v: View = it
 
-                var v: View = it
-                while (v.parent != null) {
-                    v = v.parent as View
-                    if (v is RecyclerView) {
-                        v.isLayoutFrozen = true
-//                        v.setOnTouchListener(object : View.OnTouchListener {
-//                            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//                                return event?.action == MotionEvent.ACTION_MOVE
-//                            }
-//                        })
-                        break
+                    while (v.parent != null) {
+                        v = v.parent as View
+                        if (v is RecyclerView) {
+                            v.suppressLayout(true)
+                            break
+                        }
                     }
                 }
+
+                isSuppressed = true
 
             }
 
@@ -155,15 +140,11 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
                 while (v.parent != null) {
                     v = v.parent as View
                     if (v is RecyclerView) {
-                        (v as RecyclerView).isLayoutFrozen = false
-//                        v.setOnTouchListener(object : View.OnTouchListener {
-//                            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//                                return event?.action == MotionEvent.ACTION_MOVE
-//                            }
-//                        })
+                        (v as RecyclerView).suppressLayout(false)
                         break
                     }
                 }
+                isSuppressed = false
 
                 binding.btnCheck.visibility = View.GONE
                 binding.btnEdit.visibility = View.VISIBLE
@@ -196,20 +177,8 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
 
                     notifyItemChanged(adapterPosition)
 
-                    //ads↓
-//                    MainActivity.contardorRecyclers+=1
-//                    if(MainActivity.contardorRecyclers == 7){
-//                        callAd()
-//                        MainActivity.contardorRecyclers = 0
-//
-//                    }
-//                    sharedPreferences.edit().putInt("recyclersCont",
-//                        MainActivity.contardorRecyclers
-//                    ).apply()
                 } catch (_: java.lang.Exception) {
                 }
-
-
 
             }
 
@@ -218,15 +187,12 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
                 while (v.parent != null) {
                     v = v.parent as View
                     if (v is RecyclerView) {
-                        (v as RecyclerView).isLayoutFrozen = false
-//                        v.setOnTouchListener(object : View.OnTouchListener {
-//                            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//                                return event?.action == MotionEvent.ACTION_MOVE
-//                            }
-//                        })
+                        (v as RecyclerView).suppressLayout(false)
                         break
                     }
                 }
+                isSuppressed = false
+
                 binding.btnEdit.visibility = View.VISIBLE
                 binding.btnCheck.visibility = View.GONE
                 binding.btnDelete.visibility = View.VISIBLE
