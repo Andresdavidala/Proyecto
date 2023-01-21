@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -133,9 +134,36 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
                 binding.etWordTrad.setText(dataListW.wordTrad.replace("☼", ""))
                 binding.btnCancel.visibility = View.VISIBLE
 
+                var v: View = it
+                while (v.parent != null) {
+                    v = v.parent as View
+                    if (v is RecyclerView) {
+                        v.isLayoutFrozen = true
+//                        v.setOnTouchListener(object : View.OnTouchListener {
+//                            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                                return event?.action == MotionEvent.ACTION_MOVE
+//                            }
+//                        })
+                        break
+                    }
+                }
+
             }
 
             binding.btnCheck.setOnClickListener {
+                var v: View = it
+                while (v.parent != null) {
+                    v = v.parent as View
+                    if (v is RecyclerView) {
+                        (v as RecyclerView).isLayoutFrozen = false
+//                        v.setOnTouchListener(object : View.OnTouchListener {
+//                            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                                return event?.action == MotionEvent.ACTION_MOVE
+//                            }
+//                        })
+                        break
+                    }
+                }
 
                 binding.btnCheck.visibility = View.GONE
                 binding.btnEdit.visibility = View.VISIBLE
@@ -186,6 +214,19 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
             }
 
             binding.btnCancel.setOnClickListener {
+                var v: View = it
+                while (v.parent != null) {
+                    v = v.parent as View
+                    if (v is RecyclerView) {
+                        (v as RecyclerView).isLayoutFrozen = false
+//                        v.setOnTouchListener(object : View.OnTouchListener {
+//                            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                                return event?.action == MotionEvent.ACTION_MOVE
+//                            }
+//                        })
+                        break
+                    }
+                }
                 binding.btnEdit.visibility = View.VISIBLE
                 binding.btnCheck.visibility = View.GONE
                 binding.btnDelete.visibility = View.VISIBLE

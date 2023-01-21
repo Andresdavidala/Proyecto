@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,6 +78,15 @@ class listWords : Fragment() {
 
         val tvMem = activity?.getSharedPreferences("tvWordsMem", AppCompatActivity.MODE_PRIVATE)
         binding.tvMem.isVisible = tvMem!!.getBoolean("tvWordsVal", binding.tvMem.isVisible)
+
+
+        //filterstsharedP↓
+        val etwisVisible = activity?.getSharedPreferences("sharedPETW", AppCompatActivity.MODE_PRIVATE)
+        binding.filterET.isVisible = etwisVisible!!.getBoolean("isVisibleW", true);
+
+        val etMemVisible = activity?.getSharedPreferences("sharedPETM", AppCompatActivity.MODE_PRIVATE)
+        binding.filterETMem.isVisible = etMemVisible!!.getBoolean("isVisibleM", false)
+
         //↑
 
 
@@ -84,8 +94,9 @@ class listWords : Fragment() {
         binding.switchRV.setOnCheckedChangeListener { _, b ->
 
             if(b){
-                binding.filterET.visibility = View.GONE
-                binding.filterETMem.visibility = View.VISIBLE
+                binding.filterET.isVisible = false
+                binding.filterETMem.isVisible = true
+
 
                 //sharedP
                 val switchValBbl  = activity?.getSharedPreferences("switchRv", AppCompatActivity.MODE_PRIVATE)!!.edit()
@@ -102,7 +113,8 @@ class listWords : Fragment() {
 
                 val tvMemVal = activity?.getSharedPreferences("tvWordsMem", AppCompatActivity.MODE_PRIVATE)!!.edit()
                 tvMemVal.putBoolean("tvWordsVal", true).apply()
-                //↑
+
+
 
                 binding.filterET.setText("")
 
@@ -111,10 +123,17 @@ class listWords : Fragment() {
                 binding.tvMem.isVisible = true
                 binding.tvPreg.isVisible = false
 
+                //etfilerW
+                val editorW = etwisVisible.edit()
+                editorW.putBoolean("isVisibleW", false).apply()
+
+                val editorM = etMemVisible.edit()
+                editorM.putBoolean("isVisibleM", true).apply()
+
             }else{
 
-                binding.filterET.visibility = View.VISIBLE
-                binding.filterETMem.visibility = View.GONE
+                binding.filterET.isVisible = true
+                binding.filterETMem.isVisible = false
 
                 //sharedP
                 val switchValBbl  = activity?.getSharedPreferences("switchRv", AppCompatActivity.MODE_PRIVATE)!!.edit()
@@ -131,7 +150,18 @@ class listWords : Fragment() {
 
                 val tvMemVal = activity?.getSharedPreferences("tvWordsMem", AppCompatActivity.MODE_PRIVATE)!!.edit()
                 tvMemVal.putBoolean("tvWordsVal", false).apply()
+
+
+                //etfilters
+
+                //etfilerW
+                val editorW = etwisVisible.edit()
+                editorW.putBoolean("isVisibleW", true).apply()
+
+                val editorM = etMemVisible.edit()
+                editorM.putBoolean("isVisibleM", false).apply()
                 //↑
+
 
                 binding.rvDataList.isVisible = true
                 binding.rvMemorias.isVisible = false
@@ -147,8 +177,11 @@ class listWords : Fragment() {
 
         //creo los et filter para filtrar las palabras, ahora bien tuve que crear dos debido a que con uno generaba un error
 
+
         binding.filterETMem.addTextChangedListener { filMem ->
             try{
+                Log.d("datos", "escribiendo")
+                dataWordProvider.memorisWords.filter { dataWordProvider.memorisWords[0].memorias.contains(filMem.toString()) }
                 val findWordMem = dataWordProvider.memorisWords.indexOfFirst {it.memorias.lowercase().contains(filMem.toString().lowercase())}//si la lista memorias contiene los valores que le ingresamos en el etFilter
                 binding.rvMemorias.smoothScrollToPosition(findWordMem)
             }catch (_: Exception){
@@ -160,30 +193,15 @@ class listWords : Fragment() {
 
 
             try{
+                Log.d("datos", "escribiendoww")
+
 //                val superheroesFiltered = superHeroMutableList.filter { superhero -> superhero.superhero.contains (userFilter.toString()) }
                 dataWordProvider.dataWords.filter { dataWordProvider.dataWords[0].wordOrg.contains(filerWord.toString()) }
-
 
                 val findWord = dataWordProvider.dataWords.indexOfFirst {
                     it.wordOrg.lowercase().contains(filerWord.toString().lowercase()) || it.wordTrad.lowercase().contains(filerWord.toString().lowercase())
                 }
 
-//                val findWord = dataWordProvider.dataWords.indexOfFirst {
-//                    it.wordOrg.replace("☼", "").lowercase() == listData.lowercase() || it.wordTrad.replace("☼", "").lowercase() == listData.lowercase()
-//                }
-
-
-
-
-
-//                val findWordMem = dataWordProvider.memorisWords.indexOfFirst {
-//                    it.memorias.replace("☼", "").lowercase() == listData.lowercase() || it.memorias.replace("☼", "").lowercase() == listData.lowercase()
-//                }
-
-//                if(findWord == -1 || findWordMem == -1){
-//                    binding.rvDataList.scrollToPosition(0)
-//                    binding.rvMemorias.scrollToPosition(0)
-//                }
                 binding.rvDataList.smoothScrollToPosition(findWord)
 
             }catch (_: Exception){
@@ -208,12 +226,8 @@ class listWords : Fragment() {
         adapter = CustomerAdapter(dataWordProvider.dataWords,{position -> onDeleteWord(position)}, requireContext())
         val recyclerView= binding.rvDataList
 
-
-
         recyclerView.layoutManager = LinearLayoutManager(context)
-
         recyclerView.adapter = adapter
-
 
     }
 
