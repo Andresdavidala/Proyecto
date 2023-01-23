@@ -20,10 +20,7 @@ import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentCardMemorBinding
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 

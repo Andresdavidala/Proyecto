@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -23,10 +22,6 @@ import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentSaveWordsBinding
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 

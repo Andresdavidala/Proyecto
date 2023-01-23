@@ -17,10 +17,8 @@ import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentEvaWordBinding
-import com.google.android.gms.ads.interstitial.InterstitialAd
 import java.io.FileInputStream
 import java.io.InputStreamReader
-import java.io.OutputStreamWriter
 
 
 class EvaWord : Fragment() {
