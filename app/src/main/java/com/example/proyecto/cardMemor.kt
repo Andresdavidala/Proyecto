@@ -132,7 +132,7 @@ class cardMemor : Fragment() {
                     editorCount.putInt("valueCountMemo", count).apply()
                     //Interstitial
                     initInterstitial()
-                    if(count == 3){
+                    if(count == 5){
                         checkCount()
                         count = 0
                         editorCount.putInt("valueCountMemo", count).apply()
