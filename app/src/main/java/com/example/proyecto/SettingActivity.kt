@@ -1,6 +1,7 @@
 package com.example.proyecto
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -10,25 +11,22 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
+
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.BillingClientStateListener
-import com.android.billingclient.api.BillingFlowParams
-import com.android.billingclient.api.BillingResult
-import com.android.billingclient.api.PurchasesUpdatedListener
-import com.android.billingclient.api.SkuDetailsParams
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.Service.*
 import com.example.proyecto.databinding.ActivitySettingBinding
 import com.google.android.gms.ads.AdRequest
+
 
 
 class SettingActivity : AppCompatActivity() {
@@ -39,6 +37,9 @@ class SettingActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val productoId = ArrayList<String>()
+        productoId.add("product_id_example")
 
 
         binding = ActivitySettingBinding.inflate(layoutInflater)
@@ -103,7 +104,7 @@ class SettingActivity : AppCompatActivity() {
         val buttonTextToast = getSharedPreferences("buttonEstTextToast", MODE_PRIVATE)
         binding.btnEstablecer.text = buttonTextToast!!.getString(
             "btnETextToastSP",
-            getText(R.string.btnEstablecer).toString()
+            getText(    R.string.btnEstablecer).toString()
         )
 
 
@@ -742,40 +743,12 @@ class SettingActivity : AppCompatActivity() {
 
         //Ads↓
 
-        val skulist = ArrayList<String>()
-        skulist.add("android.test.purchased")
-        val purchaseUpd = PurchasesUpdatedListener{
-                billingResult, purchases ->
-        }
-        var billingClient = BillingClient.newBuilder(this).setListener(purchaseUpd).enablePendingPurchases().build()
         binding.btnAd.setOnClickListener {
-
-            billingClient.startConnection(object: BillingClientStateListener{
-                override fun onBillingServiceDisconnected() {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onBillingSetupFinished(billingResult: BillingResult) {
-                    if(billingResult.responseCode == BillingClient.BillingResponseCode.OK){
-
-                        val params = SkuDetailsParams.newBuilder()
-                        params.setSkusList(skulist).setType(BillingClient.SkuType.INAPP)
-
-                        billingClient.querySkuDetailsAsync(params.build()){
-                            billingResult, skuDetailsList ->
-                            for(skuDetails in skuDetailsList!!){
-                                val flowPurchase = BillingFlowParams.newBuilder().setSkuDetails(skuDetails).build()
-                                val responseCode = billingClient.launchBillingFlow(this@SettingActivity, flowPurchase).responseCode
-                            }
-                        }
-                    }
-                }
-
-            })
+//            getPayment()
         }
+        //paypalProcess
+
     }
-
-
 
 
     @RequiresApi(Build.VERSION_CODES.M)

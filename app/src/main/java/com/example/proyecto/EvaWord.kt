@@ -4,7 +4,9 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build.VERSION_CODES.R
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,10 @@ import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentEvaWordBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.FileInputStream
 import java.io.InputStreamReader
 
@@ -26,7 +32,10 @@ class EvaWord : Fragment() {
     private val binding get() = _binding!!
     private lateinit var openFile: FileInputStream
     private lateinit var inputReader:  InputStreamReader
-
+    //interstitial
+    private var interstitial: InterstitialAd? = null
+    private var count = 0
+    //↑
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +55,9 @@ class EvaWord : Fragment() {
 
         val sharedPreferences = activity?.getSharedPreferences("preferences_name", Context.MODE_PRIVATE)
 
-
+        //sharedP count Ads
+        val countShared = activity?.getSharedPreferences("sharedCountEva", Context.MODE_PRIVATE)
+        count = countShared!!.getInt("valueCountEva", count)
 
       binding.btnEHelp.setOnClickListener {
           val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
@@ -96,6 +107,19 @@ class EvaWord : Fragment() {
                     wordTrad =mapWords[valorRam(dataWordProvider.dataWords, binding.evaWO.editText)]!!
                     binding.wordTrad.requestFocus()
 
+
+                    //Interstitial
+                    count += 1
+                    val editorCount = countShared.edit()
+                    editorCount.putInt("valueCountEva", count).apply()
+                    initInterstitial()
+                    if(count == 5){
+                        checkCount()
+                        count = 0
+                        editorCount.putInt("valueCountEva", count).apply()
+
+                    }
+                    Log.d("datos", count.toString())
                 }else{
                     binding.evaWT.editText?.setText("")
                 }
@@ -130,6 +154,30 @@ class EvaWord : Fragment() {
         val wordReturn = list.wordOrg
         editEvaluar?.setText(wordReturn)
         return wordReturn
+    }
+
+    //interstitial function
+    private fun initInterstitial(){
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(requireActivity(), "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
+            override fun onAdLoaded(interst: InterstitialAd) {
+                interstitial = interst
+            }
+
+            override fun onAdFailedToLoad(intert: LoadAdError) {
+                interstitial = null
+            }
+
+        })
+    }
+
+    private fun showAds(){
+        interstitial?.show(requireActivity())
+    }
+
+    private fun checkCount(){
+        showAds()
+        initInterstitial()
     }
 
 }

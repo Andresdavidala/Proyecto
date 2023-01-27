@@ -69,10 +69,8 @@
     <string name="notifyMemSave">Burbuja Flotante establecido</string>
     <string name="floatingWindow">Ventana Flotante establecido</string>
     <string name="notifyBubble">Memoria Burbuja establecido</string>
-    <string name="quitAdTitle">Eliminar Anuncios</string>
-    <string name="removeBtn">QUITAR</string>
-
-
+    <string name="quitAdTitle">Si deseas apoyarme</string>
+    <string name="removeBtn">APOYAR</string>
 
 
 </resources>
