@@ -1,10 +1,12 @@
 package com.example.proyecto.Recycler.Customer
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +16,22 @@ import com.example.proyecto.R
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordslistrecyclerviewBinding
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
 
 class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):RecyclerView.Adapter<CustomerAdapter.vhDataList>() {
     var isSuppressed = false
+    //interstitial
+    private var interstitial: InterstitialAd? = null
+    private var count = 0
+    //↑
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): vhDataList {
         val dataLayout =LayoutInflater.from(parent.context)
         return vhDataList(dataLayout.inflate(R.layout.wordslistrecyclerview, parent, false))
@@ -48,7 +59,9 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
             onClickDelete: (Int) -> Unit,
             fileContext: Context
         ) {
-
+            //sharedP count Ads
+            val countShared = fileContext.getSharedPreferences("sharedCountAdapMem", Context.MODE_PRIVATE)
+            count = countShared!!.getInt("valueCountSaveAdapMem", count)
 
             binding.tvWordOrg.text = dataListW.wordOrg
             binding.tvWordTrad.text = dataListW.wordTrad.replace("☼", "")
@@ -97,7 +110,21 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
 
                     onClickDelete(adapterPosition)
                     dialog.dismiss()
+
+                    count += 1
+                    val editorCount = countShared.edit()
+                    editorCount.putInt("valueCountSaveAdapMem", count).apply()
+                    initInterstitial()
+                    if(count == 5){
+                        checkCount()
+                        count = 0
+                    editorCount.putInt("valueCountSaveAdapMem", count).apply()
+
+                    }
+                    Log.d("datos", count.toString())
                 }
+
+
 
             }
 
@@ -176,9 +203,25 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
 
                     notifyItemChanged(adapterPosition)
 
+
+
                 } catch (_: java.lang.Exception) {
                 }
 
+                //Interstitial
+                count += 1
+                val editorCount = countShared.edit()
+                editorCount.putInt("valueCountSaveAdapMem", count).apply()
+                initInterstitial()
+
+                if(count == 5){
+                    checkCount()
+                    count = 0
+                    editorCount.putInt("valueCountSaveAdapMem", count).apply()
+
+
+                }
+                Log.d("datos", count.toString())
             }
 
             binding.btnCancel.setOnClickListener {
@@ -209,10 +252,52 @@ class CustomerAdapter(private var wordsDataList:List<DataWordsBase>, private val
 
 
 
-
         }
 
 
 
     }
+    //interstitial function
+    private fun initInterstitial(){
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(fileContext, "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
+            override fun onAdLoaded(interst: InterstitialAd) {
+                interstitial = interst
+            }
+
+            override fun onAdFailedToLoad(intert: LoadAdError) {
+                interstitial = null
+            }
+
+        })
+    }
+
+    private fun showAds(){
+        interstitial?.show(Activity().parent)
+    }
+
+    private fun checkCount(){
+        showAds()
+        initInterstitial()
+        initListener()
+    }
+
+    private fun initListener(){
+        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
+            override fun onAdDismissedFullScreenContent() {
+                interstitial = null
+
+            }
+
+            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                interstitial = null
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                interstitial = null
+            }
+        }
+    }
+
+
 }

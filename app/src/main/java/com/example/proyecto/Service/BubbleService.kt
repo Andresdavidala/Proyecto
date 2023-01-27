@@ -11,6 +11,7 @@ import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
@@ -24,6 +25,12 @@ import com.example.proyecto.R
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.SettingActivity
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
@@ -43,6 +50,11 @@ class BubbleService: Service() {
     private lateinit var btnSave: ImageView
     private lateinit var etWo: EditText
     private lateinit var etWT: EditText
+
+    //interstitial
+    private var interstitial: InterstitialAd? = null
+    private var count = 0
+    //↑
 
     val velocityTracker = VelocityTracker.obtain()
     override fun onBind(p0: Intent?): IBinder? {
@@ -239,6 +251,10 @@ class BubbleService: Service() {
             }
         }
 
+        //sharedP count Ads
+        val countShared = getSharedPreferences("sharedCountSaveServ", Context.MODE_PRIVATE)
+        count = countShared!!.getInt("valueCountSaveServ", count)
+
         //Broadcast
         class NotificationReceiver : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -303,6 +319,20 @@ class BubbleService: Service() {
 
                     etWo.setText("")
                     etWT.setText("")
+
+                    //Interstitial
+                    count += 1
+                    val editorCount = countShared.edit()
+                    editorCount.putInt("valueCountSaveServ", count).apply()
+                    initInterstitial()
+
+                    if(count == 5){
+                        checkCount()
+                        count = 0
+                        editorCount.putInt("valueCountSaveServ", count).apply()
+
+                    }
+                    Log.d("datos", count.toString())
                 }
                 //guardar en un textfile integrado dentro de la app↓
 
@@ -353,7 +383,7 @@ class BubbleService: Service() {
         super.onDestroy()
         stopSelf()
         stopForeground(true)
-
+        interstitial = null
         try {
             velocityTracker.recycle()
             windowManager.removeView(bubbleView)
@@ -370,6 +400,48 @@ class BubbleService: Service() {
             val manager: NotificationManager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(notificationChanel)
 
+        }
+    }
+
+    //interstitial function
+    private fun initInterstitial(){
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
+            override fun onAdLoaded(interst: InterstitialAd) {
+                interstitial = interst
+            }
+
+            override fun onAdFailedToLoad(intert: LoadAdError) {
+                interstitial = null
+            }
+
+        })
+    }
+
+    private fun showAds(){
+        interstitial?.show(Activity().parent)
+    }
+
+    private fun checkCount(){
+        showAds()
+        initInterstitial()
+        initListener()
+    }
+
+    private fun initListener(){
+        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
+            override fun onAdDismissedFullScreenContent() {
+                interstitial = null
+
+            }
+
+            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                interstitial = null
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                interstitial = null
+            }
         }
     }
 }

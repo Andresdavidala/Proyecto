@@ -1,10 +1,12 @@
 package com.example.proyecto.Recycler.Customer
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +16,20 @@ import com.example.proyecto.R
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordmemorirecyclerBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
 class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private val onClickDelete: (Int) -> Unit, private val fileContext: Context):
     RecyclerView.Adapter<CustomAdapterMemorias.vhDataList>() {
+    var isSuppressed = false
+    //interstitial
+    private var interstitial: InterstitialAd? = null
+    private var count = 0
+    //↑
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomAdapterMemorias.vhDataList {
         val dataLayout =LayoutInflater.from(parent.context)
         return vhDataList(dataLayout.inflate(R.layout.wordmemorirecycler, parent, false))
@@ -41,9 +51,10 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
         @SuppressLint("ClickableViewAccessibility")
         fun renderData(dataListW: MemoriWords, onClickDelete: (Int) -> Unit, fileContext: Context) {
 
-            //ads
+//sharedP count Ads
+            val countShared = fileContext.getSharedPreferences("sharedCountAdapCardMem", Context.MODE_PRIVATE)
+            count = countShared!!.getInt("valueCountSaveAdapCardMem", count)
 
-//            initAds()
 
 
 
@@ -86,19 +97,23 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
                 }
 
                 okBtn.setOnClickListener {
-//                    MainActivity.contardorRecyclers+=1
-//                    if(MainActivity.contardorRecyclers == 7){
-//                        callAd()
-//                        MainActivity.contardorRecyclers = 0
-//                    }
-                    //NO ADS
                     onClickDelete(adapterPosition)
                     dialog.dismiss()
                     //↑
-//
-//                    sharedPreferences.edit().putInt("recyclersCont",
-//                        MainActivity.contardorRecyclers
-//                    ).apply()
+                    //Interstitial
+                    count += 1
+                    val editorCount = countShared.edit()
+                    editorCount.putInt("valueCountSaveAdapCardMem", count).apply()
+                    initInterstitial()
+
+                    if(count == 5){
+                        checkCount()
+                        count = 0
+                        editorCount.putInt("valueCountSaveAdapCardMem", count).apply()
+
+
+                    }
+                    Log.d("datos", count.toString())
                 }
 
             }
@@ -110,20 +125,42 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
 
             binding.btnEdit2.setOnClickListener {
 
-                binding.btnCheck2.visibility = View.VISIBLE
-                binding.btnEdit2.visibility = View.GONE
-                binding.tvWordOrg.visibility = View.GONE
-                binding.tvWordOrg.visibility = View.GONE
-                binding.btnDelete2.visibility = View.GONE
+               if(!isSuppressed){
+                   binding.btnCheck2.visibility = View.VISIBLE
+                   binding.btnEdit2.visibility = View.GONE
+                   binding.tvWordOrg.visibility = View.GONE
+                   binding.tvWordOrg.visibility = View.GONE
+                   binding.btnDelete2.visibility = View.GONE
 
-                binding.etWordOrg.visibility = View.VISIBLE
-                binding.etWordOrg.visibility = View.VISIBLE
-                binding.etWordOrg.setText(dataListW.memorias.replace("☼", ""))
-                binding.btnCancel2.visibility = View.VISIBLE
+                   binding.etWordOrg.visibility = View.VISIBLE
+                   binding.etWordOrg.visibility = View.VISIBLE
+                   binding.etWordOrg.setText(dataListW.memorias.replace("☼", ""))
+                   binding.btnCancel2.visibility = View.VISIBLE
+
+                   var v: View = it
+
+                   while (v.parent != null) {
+                       v = v.parent as View
+                       if (v is RecyclerView) {
+                           v.suppressLayout(true)
+                           break
+                       }
+                   }
+               }
+                isSuppressed = true
 
             }
 
             binding.btnCheck2.setOnClickListener {
+                var v: View = it
+                while (v.parent != null) {
+                    v = v.parent as View
+                    if (v is RecyclerView) {
+                        (v as RecyclerView).suppressLayout(false)
+                        break
+                    }
+                }
+                isSuppressed = false
                 binding.btnCheck2.visibility = View.GONE
                 binding.btnEdit2.visibility = View.VISIBLE
                 binding.tvWordOrg.visibility = View.VISIBLE
@@ -147,22 +184,36 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
 
                     notifyItemChanged(adapterPosition)
 
-                    //ads↓
-//                    MainActivity.contardorRecyclers+=1
-//                    if(MainActivity.contardorRecyclers == 7){
-//                        callAd()
-//                        MainActivity.contardorRecyclers = 0
-//
-//                    }
-//                    sharedPreferences.edit().putInt("recyclersCont",
-//                        MainActivity.contardorRecyclers
-//                    ).apply()
+
                 }catch (_: java.lang.Exception){
                 }
 
+                //Interstitial
+                count += 1
+                val editorCount = countShared.edit()
+                editorCount.putInt("valueCountSaveAdapCardMem", count).apply()
+                initInterstitial()
+
+                if(count == 5){
+                    checkCount()
+                    count = 0
+                    editorCount.putInt("valueCountSaveAdapCardMem", count).apply()
+
+
+                }
+                Log.d("datos", count.toString())
             }
 
             binding.btnCancel2.setOnClickListener {
+                var v: View = it
+                while (v.parent != null) {
+                    v = v.parent as View
+                    if (v is RecyclerView) {
+                        (v as RecyclerView).suppressLayout(false)
+                        break
+                    }
+                }
+                isSuppressed = false
                 binding.btnEdit2.visibility = View.VISIBLE
                 binding.btnCheck2.visibility = View.GONE
                 binding.btnDelete2.visibility = View.VISIBLE
@@ -176,30 +227,30 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
             }
         }
 
-//        private fun initAds(){
-//            val adRequest = AdRequest.Builder().build()
-//            InterstitialAd.load(fileContext,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
-//                override fun onAdFailedToLoad(adError: LoadAdError) {
-//
-//                    miInterstitialAd = null
-//                }
-//
-//                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-//
-//                    miInterstitialAd = interstitialAd
-//                }
-//            })
-//        }
-//        private fun callAd(){
-//            showAds()
-//            MainActivity.nombreVariable = 0
-//            initAds()
-//        }
-//
-//        private fun showAds(){
-//            miInterstitialAd?.show(Activity().parent)
-//        }
+
+    }
+    //interstitial function
+    private fun initInterstitial(){
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(fileContext, "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
+            override fun onAdLoaded(interst: InterstitialAd) {
+                interstitial = interst
+            }
+
+            override fun onAdFailedToLoad(intert: LoadAdError) {
+                interstitial = null
+            }
+
+        })
     }
 
+    private fun showAds(){
+        interstitial?.show(Activity().parent)
+    }
+
+    private fun checkCount(){
+        showAds()
+        initInterstitial()
+    }
 
 }

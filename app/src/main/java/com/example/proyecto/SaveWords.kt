@@ -24,7 +24,9 @@ import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentSaveWordsBinding
+import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -59,7 +61,6 @@ class SaveWords : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
     }
 
@@ -179,6 +180,7 @@ class SaveWords : Fragment() {
                         editorCount.putInt("valueCountSave", count).apply()
 
                     }
+                    Log.d("datos", count.toString())
 
                 }
                 //guardar en un textfile integrado dentro de la app↓
@@ -216,6 +218,7 @@ class SaveWords : Fragment() {
         }
         binding.btnSaveWord.setOnClickListener {
             saveWord()
+
 
         }
 
@@ -266,6 +269,29 @@ class SaveWords : Fragment() {
     private fun checkCount(){
         showAds()
         initInterstitial()
+        initListener()
+    }
+
+    private fun initListener(){
+        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
+            override fun onAdDismissedFullScreenContent() {
+                interstitial = null
+
+            }
+
+            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                interstitial = null
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                interstitial = null
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        interstitial = null
     }
 
 }

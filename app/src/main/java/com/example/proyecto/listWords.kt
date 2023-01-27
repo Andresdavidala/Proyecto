@@ -180,7 +180,6 @@ class listWords : Fragment() {
 
         binding.filterETMem.addTextChangedListener { filMem ->
             try{
-                Log.d("datos", "escribiendo")
                 dataWordProvider.memorisWords.filter { dataWordProvider.memorisWords[0].memorias.contains(filMem.toString()) }
                 val findWordMem = dataWordProvider.memorisWords.indexOfFirst {it.memorias.lowercase().contains(filMem.toString().lowercase())}//si la lista memorias contiene los valores que le ingresamos en el etFilter
                 binding.rvMemorias.smoothScrollToPosition(findWordMem)
@@ -193,7 +192,6 @@ class listWords : Fragment() {
 
 
             try{
-                Log.d("datos", "escribiendoww")
 
 //                val superheroesFiltered = superHeroMutableList.filter { superhero -> superhero.superhero.contains (userFilter.toString()) }
                 dataWordProvider.dataWords.filter { dataWordProvider.dataWords[0].wordOrg.contains(filerWord.toString()) }

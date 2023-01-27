@@ -67,7 +67,7 @@
             android:layout_height="88dp"
             android:fontFamily="@font/viga_regular"
             android:imeOptions="actionSend"
-            android:inputType="text"
+            android:inputType="text|textNoSuggestions"
             android:textSize="21sp"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>

@@ -18,7 +18,9 @@ import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentEvaWordBinding
+import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -53,6 +55,7 @@ class EvaWord : Fragment() {
         //sharedCountAds
 
         val sharedPreferences = activity?.getSharedPreferences("preferences_name", Context.MODE_PRIVATE)
+
 
         //sharedP count Ads
         val countShared = activity?.getSharedPreferences("sharedCountEva", Context.MODE_PRIVATE)
@@ -112,7 +115,7 @@ class EvaWord : Fragment() {
                     val editorCount = countShared.edit()
                     editorCount.putInt("valueCountEva", count).apply()
                     initInterstitial()
-                    if(count == 5){
+                    if(count == 6){
                         checkCount()
                         count = 0
                         editorCount.putInt("valueCountEva", count).apply()
@@ -177,6 +180,28 @@ class EvaWord : Fragment() {
     private fun checkCount(){
         showAds()
         initInterstitial()
+        initListener()
+    }
+
+    private fun initListener(){
+        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
+            override fun onAdDismissedFullScreenContent() {
+                interstitial = null
+
+            }
+
+            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                interstitial = null
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                interstitial = null
+            }
+        }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        interstitial = null
     }
 
 }
