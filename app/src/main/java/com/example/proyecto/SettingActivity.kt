@@ -41,7 +41,7 @@ class SettingActivity : AppCompatActivity() {
         val productoId = ArrayList<String>()
         productoId.add("product_id_example")
 
-
+        MainActivity.loadInterst(this)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -21,24 +21,12 @@ import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentCardMemorBinding
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 class cardMemor : Fragment() {
     private var _binding: FragmentCardMemorBinding?=null
     private val binding get() = _binding!!
-    private var miInterstitialAd: InterstitialAd? = null
-
-    //interstitial
-    private var interstitial: InterstitialAd? = null
-    private var count = 0
-    //↑
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,8 +45,8 @@ class cardMemor : Fragment() {
         val sharedPreferences = activity?.getSharedPreferences("preferences_name", Context.MODE_PRIVATE)
 
         //sharedP count Ads
-        val countShared = activity?.getSharedPreferences("sharedCountMemo", Context.MODE_PRIVATE)
-        count = countShared!!.getInt("valueCountMemo", count)
+        val countShared = activity?.getSharedPreferences("sharedCountEva", Context.MODE_PRIVATE)
+        MainActivity.contAds = countShared!!.getInt("valueCountEva", MainActivity.contAds)
 
         dataWordProvider.memorisWords.clear()
         var txtFile = activity?.openFileOutput("memorias.txt", Context.MODE_APPEND) //important
@@ -129,17 +117,13 @@ class cardMemor : Fragment() {
                         .show()
                     binding.etmemoris.setText("")
 
-                    count += 1
+                    MainActivity.contAds += 1
                     val editorCount = countShared.edit()
-                    editorCount.putInt("valueCountMemo", count).apply()
-                    //Interstitial
-                    initInterstitial()
-                    if(count == 5){
-                        checkCount()
-                        count = 0
-                        editorCount.putInt("valueCountMemo", count).apply()
-                    }
-                    Log.d("datos", count.toString())
+
+                    MainActivity.showInterst(requireContext(), requireActivity())
+                    editorCount.putInt("valueCountEva", MainActivity.contAds).apply()
+
+                    Log.d("datos", MainActivity.contAds.toString())
                 }
                 //guardar en un textfile integrado dentro de la app↓
 
@@ -190,49 +174,49 @@ class cardMemor : Fragment() {
     }
 
     //interstitial function
-    private fun initInterstitial(){
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(requireActivity(), "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
-            override fun onAdLoaded(interst: InterstitialAd) {
-                interstitial = interst
-            }
-
-            override fun onAdFailedToLoad(intert: LoadAdError) {
-                interstitial = null
-            }
-
-        })
-    }
-
-    private fun showAds(){
-        interstitial?.show(requireActivity())
-    }
-
-    private fun checkCount(){
-        showAds()
-        initInterstitial()
-        initListener()
-    }
-    private fun initListener(){
-        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
-            override fun onAdDismissedFullScreenContent() {
-                interstitial = null
-
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                interstitial = null
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                interstitial = null
-            }
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        interstitial = null
-    }
+//    private fun initInterstitial(){
+//        val adRequest = AdRequest.Builder().build()
+//        InterstitialAd.load(requireActivity(), "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
+//            override fun onAdLoaded(interst: InterstitialAd) {
+//                interstitial = interst
+//            }
+//
+//            override fun onAdFailedToLoad(intert: LoadAdError) {
+//                interstitial = null
+//            }
+//
+//        })
+//    }
+//
+//    private fun showAds(){
+//        interstitial?.show(requireActivity())
+//    }
+//
+//    private fun checkCount(){
+//        showAds()
+//        initInterstitial()
+//        initListener()
+//    }
+//    private fun initListener(){
+//        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
+//            override fun onAdDismissedFullScreenContent() {
+//                interstitial = null
+//
+//            }
+//
+//            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+//                interstitial = null
+//            }
+//
+//            override fun onAdShowedFullScreenContent() {
+//                interstitial = null
+//            }
+//        }
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        interstitial = null
+//    }
 
 }

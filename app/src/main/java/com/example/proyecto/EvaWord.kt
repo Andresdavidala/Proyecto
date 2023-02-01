@@ -18,12 +18,6 @@ import androidx.fragment.app.Fragment
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentEvaWordBinding
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.FileInputStream
 import java.io.InputStreamReader
 
@@ -33,9 +27,11 @@ class EvaWord : Fragment() {
     private val binding get() = _binding!!
     private lateinit var openFile: FileInputStream
     private lateinit var inputReader:  InputStreamReader
+    private val mainActivity = MainActivity()
     //interstitial
-    private var interstitial: InterstitialAd? = null
-    private var count = 0
+//    private var interstitial: InterstitialAd? = null
+//    private var count = 0
+//    private var adRequest: AdRequest? = null
     //↑
 
     override fun onCreateView(
@@ -51,7 +47,8 @@ class EvaWord : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+//
+//        loadInterst(view.context)
         //sharedCountAds
 
         val sharedPreferences = activity?.getSharedPreferences("preferences_name", Context.MODE_PRIVATE)
@@ -59,7 +56,7 @@ class EvaWord : Fragment() {
 
         //sharedP count Ads
         val countShared = activity?.getSharedPreferences("sharedCountEva", Context.MODE_PRIVATE)
-        count = countShared!!.getInt("valueCountEva", count)
+        MainActivity.contAds = countShared!!.getInt("valueCountEva", MainActivity.contAds)
 
       binding.btnEHelp.setOnClickListener {
           val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
@@ -81,6 +78,15 @@ class EvaWord : Fragment() {
           }
       }
 
+//        binding.wordTrad.setOnFocusChangeListener { v, hasFocus ->
+//            if(hasFocus){
+//                initInterstitial()
+//            }else{
+//                Log.d("Datos", "sal")
+//                adRequest= null
+//                interstitial = null
+//            }
+//        }
 //se crea un List de todas las palabras
         try{
             binding.wordTrad.hint = "Ingresa tu respuesta"
@@ -111,17 +117,23 @@ class EvaWord : Fragment() {
 
 
                     //Interstitial
-                    count += 1
+                    MainActivity.contAds += 1
+//                    count += 1
                     val editorCount = countShared.edit()
-                    editorCount.putInt("valueCountEva", count).apply()
-                    initInterstitial()
-                    if(count == 6){
-                        checkCount()
-                        count = 0
-                        editorCount.putInt("valueCountEva", count).apply()
+//                    editorCount.putInt("valueCountEva", MainActivity.contAds).apply()
+                    MainActivity.showInterst(requireContext(), requireActivity())
+//                    MainActivity.contAds = 0
+                    editorCount.putInt("valueCountEva", MainActivity.contAds).apply()
 
-                    }
-                    Log.d("datos", count.toString())
+//                    if(MainActivity.contAds == 3){
+////                        initListener()
+//
+////                        mInterstitialAd?.show(requireActivity())
+////                        MainActivity.loadListener(requireContext())
+//
+//
+//                    }
+                    Log.d("datos", MainActivity.contAds.toString())
                 }else{
                     binding.evaWT.editText?.setText("")
                 }
@@ -158,50 +170,52 @@ class EvaWord : Fragment() {
         return wordReturn
     }
 
-    //interstitial function
-    private fun initInterstitial(){
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(requireActivity(), "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
-            override fun onAdLoaded(interst: InterstitialAd) {
-                interstitial = interst
-            }
-
-            override fun onAdFailedToLoad(intert: LoadAdError) {
-                interstitial = null
-            }
-
-        })
-    }
-
-    private fun showAds(){
-        interstitial?.show(requireActivity())
-    }
-
-    private fun checkCount(){
-        showAds()
-        initInterstitial()
-        initListener()
-    }
-
-    private fun initListener(){
-        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
-            override fun onAdDismissedFullScreenContent() {
-                interstitial = null
-
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                interstitial = null
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                interstitial = null
-            }
-        }
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        interstitial = null
-    }
+//    //interstitial function
+//    private fun initInterstitial(){
+//        adRequest = AdRequest.Builder().build()
+//        InterstitialAd.load(requireActivity(), "ca-app-pub-3940256099942544/1033173712", adRequest!!, object: InterstitialAdLoadCallback(){
+//            override fun onAdLoaded(interst: InterstitialAd) {
+//                interstitial = interst
+//            }
+//
+//            override fun onAdFailedToLoad(intert: LoadAdError) {
+//                interstitial = null
+//                adRequest = null
+//                Log.d("datos", "no se cargo")
+//            }
+//
+//        })
+//    }
+//
+//    private fun showAds(){
+//        interstitial?.show(requireActivity())
+//    }
+//
+//    private fun checkCount(){
+//        showAds()
+//        initInterstitial()
+//        initListener()
+//    }
+//
+//    private fun initListener(){
+//        if(interstitial != null){
+//            interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
+//                override fun onAdDismissedFullScreenContent() {
+//                    interstitial = null
+//                    initInterstitial()
+//
+//                }
+//
+//                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+//                    interstitial = null
+//                }
+//
+//                override fun onAdShowedFullScreenContent() {
+//                }
+//            }
+//        }
+//
+//        this@EvaWord.activity?.let { interstitial?.show(it) }
+//    }
 
 }

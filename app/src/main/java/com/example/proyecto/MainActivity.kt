@@ -1,20 +1,72 @@
 package com.example.proyecto
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.proyecto.databinding.ActivityMainBinding
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    var adRequest: AdRequest? = null
 
     companion object{
+        var mInterstitialAd: InterstitialAd? = null
         var contAds = 0
+        fun loadInterst(context: Context){
+            val adRequest = AdRequest.Builder().build()
+            InterstitialAd.load(context, "ca-app-pub-3940256099942544/1033173712", adRequest,object : InterstitialAdLoadCallback(){
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+
+                    mInterstitialAd = null
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+
+                    mInterstitialAd = interstitialAd
+                }
+            })
+        }
+        fun loadListener(context: Context){
+            mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+                override fun onAdClicked() {
+                    // Called when a click is recorded for an ad.
+                }
+
+                override fun onAdDismissedFullScreenContent() {
+                    // Called when ad is dismissed.
+                    mInterstitialAd = null
+                    loadInterst(context)
+                }
+
+                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                    // Called when ad fails to show.
+                    mInterstitialAd = null
+                }
+
+
+            }
+        }
+
+        fun showInterst(context: Context, activity: Activity){
+//            Interstitial↓
+        if(contAds == 3 ){
+//            loadInterst(this)
+            mInterstitialAd?.show(activity)
+            loadListener(context)
+            Log.d("datos", "mainact")
+            contAds = 0
+        }
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +98,15 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        loadInterst(this)
+
 
     }
+
+
+
+
+
 
     private fun loadAds(){
         val adRequest = AdRequest.Builder().build()

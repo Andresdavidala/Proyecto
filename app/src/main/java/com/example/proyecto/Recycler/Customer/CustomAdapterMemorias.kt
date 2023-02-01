@@ -1,25 +1,23 @@
 package com.example.proyecto.Recycler.Customer
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.os.HandlerCompat.postDelayed
 import androidx.recyclerview.widget.RecyclerView
+import com.example.proyecto.MainActivity
 import com.example.proyecto.R
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordmemorirecyclerBinding
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
@@ -27,8 +25,8 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
     RecyclerView.Adapter<CustomAdapterMemorias.vhDataList>() {
     var isSuppressed = false
     //interstitial
-    private var interstitial: InterstitialAd? = null
-    private var count = 0
+
+
     //↑
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomAdapterMemorias.vhDataList {
         val dataLayout =LayoutInflater.from(parent.context)
@@ -47,15 +45,8 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
     inner class vhDataList(view: View): RecyclerView.ViewHolder(view){
 
         val binding = WordmemorirecyclerBinding.bind(view)
-        var miInterstitialAd: InterstitialAd? = null
         @SuppressLint("ClickableViewAccessibility")
         fun renderData(dataListW: MemoriWords, onClickDelete: (Int) -> Unit, fileContext: Context) {
-
-//sharedP count Ads
-            val countShared = fileContext.getSharedPreferences("sharedCountAdapCardMem", Context.MODE_PRIVATE)
-            count = countShared!!.getInt("valueCountSaveAdapCardMem", count)
-
-
 
 
             binding.tvWordOrg.text = dataListW.memorias.replace("☼", "")
@@ -64,20 +55,12 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
                 v.parent.requestDisallowInterceptTouchEvent(true)
                 false
             }
-//            binding.tvWordTrad.setOnTouchListener(View.OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
-//                v.parent.requestDisallowInterceptTouchEvent(true)
-//                false
-//            })
+
 
             binding.etWordOrg.setOnTouchListener { v, _ -> // Disallow the touch request for parent scroll on touch of child view
                 v.parent.requestDisallowInterceptTouchEvent(true)
                 false
             }
-
-//            binding.etWordTrad.setOnTouchListener(View.OnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
-//                v.parent.requestDisallowInterceptTouchEvent(true)
-//                false
-//            })
 
 //dentro del btn esta la validacion del boton borrar con alertDialog
             binding.btnDelete2.setOnClickListener {
@@ -100,21 +83,12 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
                     onClickDelete(adapterPosition)
                     dialog.dismiss()
                     //↑
-                    //Interstitial
-                    count += 1
-                    val editorCount = countShared.edit()
-                    editorCount.putInt("valueCountSaveAdapCardMem", count).apply()
-                    initInterstitial()
 
-                    if(count == 5){
-                        checkCount()
-                        count = 0
-                        editorCount.putInt("valueCountSaveAdapCardMem", count).apply()
-
-
-                    }
-                    Log.d("datos", count.toString())
                 }
+                it.isEnabled = false
+                it.postDelayed({
+                    it.isEnabled = true
+                }, 500)
 
             }
 
@@ -125,6 +99,7 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
 
             binding.btnEdit2.setOnClickListener {
 
+                Log.d("datos", "edit")
                if(!isSuppressed){
                    binding.btnCheck2.visibility = View.VISIBLE
                    binding.btnEdit2.visibility = View.GONE
@@ -146,12 +121,20 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
                            break
                        }
                    }
+                   Log.d("datos", "inside")
                }
                 isSuppressed = true
+
+                it.isEnabled = false
+                it.postDelayed({
+                    it.isEnabled = true
+                }, 1500)
 
             }
 
             binding.btnCheck2.setOnClickListener {
+
+                Log.d("datoscheck", "check")
                 var v: View = it
                 while (v.parent != null) {
                     v = v.parent as View
@@ -188,20 +171,7 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
                 }catch (_: java.lang.Exception){
                 }
 
-                //Interstitial
-                count += 1
-                val editorCount = countShared.edit()
-                editorCount.putInt("valueCountSaveAdapCardMem", count).apply()
-                initInterstitial()
 
-                if(count == 5){
-                    checkCount()
-                    count = 0
-                    editorCount.putInt("valueCountSaveAdapCardMem", count).apply()
-
-
-                }
-                Log.d("datos", count.toString())
             }
 
             binding.btnCancel2.setOnClickListener {
@@ -228,29 +198,6 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
         }
 
 
-    }
-    //interstitial function
-    private fun initInterstitial(){
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(fileContext, "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
-            override fun onAdLoaded(interst: InterstitialAd) {
-                interstitial = interst
-            }
-
-            override fun onAdFailedToLoad(intert: LoadAdError) {
-                interstitial = null
-            }
-
-        })
-    }
-
-    private fun showAds(){
-        interstitial?.show(Activity().parent)
-    }
-
-    private fun checkCount(){
-        showAds()
-        initInterstitial()
     }
 
 }

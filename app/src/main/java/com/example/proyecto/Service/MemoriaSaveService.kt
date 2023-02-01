@@ -398,7 +398,6 @@ class MemoriaSaveService: Service() {
 
     private fun checkCount(){
         showAds()
-        initInterstitial()
         initListener()
     }
 

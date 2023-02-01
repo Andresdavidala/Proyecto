@@ -326,7 +326,7 @@ class BubbleService: Service() {
                     editorCount.putInt("valueCountSaveServ", count).apply()
                     initInterstitial()
 
-                    if(count == 5){
+                    if(count == 2){
                         checkCount()
                         count = 0
                         editorCount.putInt("valueCountSaveServ", count).apply()
@@ -424,7 +424,6 @@ class BubbleService: Service() {
 
     private fun checkCount(){
         showAds()
-        initInterstitial()
         initListener()
     }
 

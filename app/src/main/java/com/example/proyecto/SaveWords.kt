@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -24,12 +23,6 @@ import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.MemoriWords
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentSaveWordsBinding
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
@@ -38,12 +31,6 @@ class SaveWords : Fragment() {
     private var _binding: FragmentSaveWordsBinding? = null
     private val binding get() = _binding!!
 
-
-    //interstitial
-    private var interstitial: InterstitialAd? = null
-    private var count = 0
-    //↑
-    private final var TAG = "MainActivity"
     private lateinit var outputWriter: OutputStreamWriter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,10 +46,7 @@ class SaveWords : Fragment() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+ 
 
     @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,8 +58,8 @@ class SaveWords : Fragment() {
 
 
         //sharedP count Ads
-        val countShared = activity?.getSharedPreferences("sharedCountSave", Context.MODE_PRIVATE)
-        count = countShared!!.getInt("valueCountSave", count)
+        val countShared = activity?.getSharedPreferences("sharedCountEva", Context.MODE_PRIVATE)
+        MainActivity.contAds = countShared!!.getInt("valueCountEva", MainActivity.contAds)
 
         //Loading data to memorias
         dataWordProvider.memorisWords.clear()
@@ -129,8 +113,6 @@ class SaveWords : Fragment() {
 
 
 
-
-
         binding.btnSHelp.setOnClickListener {
             val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
             val customDialog = AlertDialog.Builder(context)
@@ -169,18 +151,19 @@ class SaveWords : Fragment() {
                     binding.wordTrad.setText("")
 
                     //Interstitial
-                    count += 1
+                    MainActivity.contAds += 1
                     val editorCount = countShared.edit()
-                    editorCount.putInt("valueCountSave", count).apply()
-                    initInterstitial()
 
-                    if(count == 5){
-                        checkCount()
-                        count = 0
-                        editorCount.putInt("valueCountSave", count).apply()
+                    MainActivity.showInterst(requireContext(), requireActivity())
+                    editorCount.putInt("valueCountEva", MainActivity.contAds).apply()
 
-                    }
-                    Log.d("datos", count.toString())
+//                    if(count == 5){
+//                        initListener()
+//                        count = 0
+//                        editorCount.putInt("valueCountEva", count).apply()
+//
+//                    }
+                    Log.d("datos", MainActivity.contAds.toString())
 
                 }
                 //guardar en un textfile integrado dentro de la app↓
@@ -248,50 +231,54 @@ class SaveWords : Fragment() {
     }
 
     //interstitial function
-    private fun initInterstitial(){
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(requireActivity(), "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
-            override fun onAdLoaded(interst: InterstitialAd) {
-                interstitial = interst
-            }
-
-            override fun onAdFailedToLoad(intert: LoadAdError) {
-                interstitial = null
-            }
-
-        })
-    }
-
-    private fun showAds(){
-        interstitial?.show(requireActivity())
-    }
-
-    private fun checkCount(){
-        showAds()
-        initInterstitial()
-        initListener()
-    }
-
-    private fun initListener(){
-        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
-            override fun onAdDismissedFullScreenContent() {
-                interstitial = null
-
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                interstitial = null
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                interstitial = null
-            }
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        interstitial = null
-    }
+//    private fun initInterstitial(){
+//        val adRequest = AdRequest.Builder().build()
+//        InterstitialAd.load(requireActivity(), "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
+//            override fun onAdLoaded(interst: InterstitialAd) {
+//                interstitial = interst
+//            }
+//
+//            override fun onAdFailedToLoad(intert: LoadAdError) {
+//                interstitial = null
+//            }
+//
+//        })
+//    }
+//
+//    private fun showAds(){
+//        interstitial?.show(requireActivity())
+//    }
+//
+//    private fun checkCount(){
+//        showAds()
+//        initInterstitial()
+//        initListener()
+//    }
+//
+//    private fun initListener(){
+//        if(interstitial != null){
+//            interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
+//                override fun onAdDismissedFullScreenContent() {
+//                    interstitial = null
+//                    initInterstitial()
+//
+//                }
+//
+//                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+//                    interstitial = null
+//                }
+//
+//                override fun onAdShowedFullScreenContent() {
+//                }
+//            }
+//        }
+//
+//        this@SaveWords.activity?.let { interstitial?.show(it) }
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        interstitial = null
+//    }
 
 }
