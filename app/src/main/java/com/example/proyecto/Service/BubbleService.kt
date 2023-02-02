@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -36,7 +37,7 @@ import java.io.OutputStreamWriter
 
 
 class BubbleService: Service() {
-
+    val contextService: Context = this
     private lateinit var bubbleView: ViewGroup
     private lateinit var bubbleViewParams: WindowManager.LayoutParams
     private lateinit var cardView: ViewGroup
@@ -51,10 +52,6 @@ class BubbleService: Service() {
     private lateinit var etWo: EditText
     private lateinit var etWT: EditText
 
-    //interstitial
-    private var interstitial: InterstitialAd? = null
-    private var count = 0
-    //↑
 
     val velocityTracker = VelocityTracker.obtain()
     override fun onBind(p0: Intent?): IBinder? {
@@ -70,6 +67,7 @@ class BubbleService: Service() {
         val height = metrics.heightPixels
         val widthC = metrics.widthPixels
         val heightC = metrics.heightPixels
+
 
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -252,8 +250,8 @@ class BubbleService: Service() {
         }
 
         //sharedP count Ads
-        val countShared = getSharedPreferences("sharedCountSaveServ", Context.MODE_PRIVATE)
-        count = countShared!!.getInt("valueCountSaveServ", count)
+        val countShared = getSharedPreferences("sharedCountMemServ", Context.MODE_PRIVATE)
+        SettingActivity.contAds = countShared!!.getInt("valueCountMemServ", SettingActivity.contAds)
 
         //Broadcast
         class NotificationReceiver : BroadcastReceiver() {
@@ -321,18 +319,11 @@ class BubbleService: Service() {
                     etWT.setText("")
 
                     //Interstitial
-                    count += 1
+                    SettingActivity.contAds += 1
                     val editorCount = countShared.edit()
-                    editorCount.putInt("valueCountSaveServ", count).apply()
-                    initInterstitial()
-
-                    if(count == 2){
-                        checkCount()
-                        count = 0
-                        editorCount.putInt("valueCountSaveServ", count).apply()
-
-                    }
-                    Log.d("datos", count.toString())
+                    SettingActivity.showInterst(contextService)
+                    editorCount.putInt("valueCountMemServ", SettingActivity.contAds).apply()
+                    Log.d("datos", SettingActivity.contAds.toString())
                 }
                 //guardar en un textfile integrado dentro de la app↓
 
@@ -365,13 +356,16 @@ class BubbleService: Service() {
         }
 
         btnSave.setOnClickListener {
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(btnSave.windowToken, 0)
             saveWord()
         }
 
         etWT.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(btnSave.windowToken, 0)
                 saveWord()
-
             }
             false
         }
@@ -383,7 +377,7 @@ class BubbleService: Service() {
         super.onDestroy()
         stopSelf()
         stopForeground(true)
-        interstitial = null
+
         try {
             velocityTracker.recycle()
             windowManager.removeView(bubbleView)
@@ -403,44 +397,4 @@ class BubbleService: Service() {
         }
     }
 
-    //interstitial function
-    private fun initInterstitial(){
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
-            override fun onAdLoaded(interst: InterstitialAd) {
-                interstitial = interst
-            }
-
-            override fun onAdFailedToLoad(intert: LoadAdError) {
-                interstitial = null
-            }
-
-        })
-    }
-
-    private fun showAds(){
-        interstitial?.show(Activity().parent)
-    }
-
-    private fun checkCount(){
-        showAds()
-        initListener()
-    }
-
-    private fun initListener(){
-        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
-            override fun onAdDismissedFullScreenContent() {
-                interstitial = null
-
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                interstitial = null
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                interstitial = null
-            }
-        }
-    }
 }

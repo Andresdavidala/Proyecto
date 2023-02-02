@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -34,6 +35,8 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 class MemoriaSaveService: Service() {
+
+    val contextService: Context = this
     override fun onBind(p0: Intent?): IBinder? {
         return null
     }
@@ -43,8 +46,8 @@ class MemoriaSaveService: Service() {
     private lateinit var cardViewParams: WindowManager.LayoutParams
 
     //interstitial
-    private var interstitial: InterstitialAd? = null
-    private var count = 0
+//    private var interstitial: InterstitialAd? = null
+//    private var count = 0
     //↑
 
     private var LAYOUT_TYPE: Int? = null
@@ -56,7 +59,6 @@ class MemoriaSaveService: Service() {
 
     val velocityTracker = VelocityTracker.obtain()
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("InflateParams", "ClickableViewAccessibility")
     override fun onCreate() {
@@ -67,6 +69,7 @@ class MemoriaSaveService: Service() {
         val height = metrics.heightPixels
         val widthC = metrics.widthPixels
         val heightC = metrics.heightPixels
+
 
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -235,7 +238,7 @@ class MemoriaSaveService: Service() {
 
         //sharedP count Ads
         val countShared = getSharedPreferences("sharedCountMemServ", Context.MODE_PRIVATE)
-        count = countShared!!.getInt("valueCountMemServ", count)
+        SettingActivity.contAds = countShared!!.getInt("valueCountMemServ", SettingActivity.contAds)
         //Broadcast
         class NotificationReceiver : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -296,18 +299,12 @@ class MemoriaSaveService: Service() {
                     etWo.setText("")
 
                     //Interstitial
-                    count += 1
+                    SettingActivity.contAds += 1
                     val editorCount = countShared.edit()
-                    editorCount.putInt("valueCountMemServ", count).apply()
-                    initInterstitial()
+                    SettingActivity.showInterst(contextService)
+                    editorCount.putInt("valueCountMemServ", SettingActivity.contAds).apply()
+                    Log.d("datos", SettingActivity.contAds.toString())
 
-                    if(count == 5){
-                        checkCount()
-                        count = 0
-                        editorCount.putInt("valueCountMemServ", count).apply()
-
-                    }
-                    Log.d("datos", count.toString())
 
                 }
                 //guardar en un textfile integrado dentro de la app↓
@@ -334,19 +331,22 @@ class MemoriaSaveService: Service() {
 
             } catch (e: java.lang.Exception) {
                 Toast.makeText(baseContext, "Something Wrong", Toast.LENGTH_SHORT).show()
-
+                Log.d("datos", e.toString())
             }
 
         }
 
         btnSave.setOnClickListener {
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(btnSave.windowToken, 0)
             saveWord()
         }
 
         etWo.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(btnSave.windowToken, 0)
                 saveWord()
-
             }
             false
         }
@@ -357,7 +357,6 @@ class MemoriaSaveService: Service() {
         super.onDestroy()
         stopSelf()
         stopForeground(true)
-        interstitial = null
         try {
             velocityTracker.recycle()
             windowManager.removeView(bubbleView)
@@ -378,44 +377,44 @@ class MemoriaSaveService: Service() {
     }
 
     //interstitial function
-    private fun initInterstitial(){
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
-            override fun onAdLoaded(interst: InterstitialAd) {
-                interstitial = interst
-            }
-
-            override fun onAdFailedToLoad(intert: LoadAdError) {
-                interstitial = null
-            }
-
-        })
-    }
-
-    private fun showAds(){
-        interstitial?.show(Activity().parent)
-    }
-
-    private fun checkCount(){
-        showAds()
-        initListener()
-    }
-
-    private fun initListener(){
-        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
-            override fun onAdDismissedFullScreenContent() {
-                interstitial = null
-
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                interstitial = null
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                interstitial = null
-            }
-        }
-    }
+//    private fun initInterstitial(){
+//        val adRequest = AdRequest.Builder().build()
+//        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest, object: InterstitialAdLoadCallback(){
+//            override fun onAdLoaded(interst: InterstitialAd) {
+//                interstitial = interst
+//            }
+//
+//            override fun onAdFailedToLoad(intert: LoadAdError) {
+//                interstitial = null
+//            }
+//
+//        })
+//    }
+//
+//    private fun showAds(){
+//        interstitial?.show(Activity().parent)
+//    }
+//
+//    private fun checkCount(){
+//        showAds()
+//        initListener()
+//    }
+//
+//    private fun initListener(){
+//        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
+//            override fun onAdDismissedFullScreenContent() {
+//                interstitial = null
+//
+//            }
+//
+//            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+//                interstitial = null
+//            }
+//
+//            override fun onAdShowedFullScreenContent() {
+//                interstitial = null
+//            }
+//        }
+//    }
 
 }

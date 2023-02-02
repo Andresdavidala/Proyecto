@@ -3,6 +3,7 @@ package com.example.proyecto
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -11,6 +12,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -25,23 +27,75 @@ import androidx.core.view.isVisible
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.Service.*
 import com.example.proyecto.databinding.ActivitySettingBinding
+import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
-
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
     private lateinit var dialog: AlertDialog
 
+    companion object{
+        var mInterstitialAd: InterstitialAd? = null
+        var contAds = 0
+
+        fun loadInterst(context: Context){
+            val adRequest = AdRequest.Builder().build()
+            InterstitialAd.load(context, "ca-app-pub-3940256099942544/1033173712", adRequest,object : InterstitialAdLoadCallback(){
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+
+                    mInterstitialAd = null
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+
+                    mInterstitialAd = interstitialAd
+                }
+            })
+        }
+
+        fun loadListener(context: Context){
+            mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+                override fun onAdClicked() {
+                    // Called when a click is recorded for an ad.
+                }
+
+                override fun onAdDismissedFullScreenContent() {
+                    // Called when ad is dismissed.
+                    mInterstitialAd = null
+                    loadInterst(context)
+                    Log.d("datos", "charge")
+                }
+
+                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                    // Called when ad fails to show.
+                    mInterstitialAd = null
+                }
+
+
+            }
+        }
+        fun showInterst(context: Context){
+//            Interstitial↓
+            if(contAds ==3){
+//            loadInterst(this)
+                mInterstitialAd?.show(Activity().parent)
+                loadListener(context)
+                Log.d("datos", "mainact")
+                contAds = 0
+            }
+        }
+    }
+
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val productoId = ArrayList<String>()
-        productoId.add("product_id_example")
-
-        MainActivity.loadInterst(this)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -64,6 +118,10 @@ class SettingActivity : AppCompatActivity() {
         }
 
 
+        //↑
+
+        //interstload ↓
+        loadInterst(this)
         //↑
 
         //banner↓
