@@ -33,7 +33,7 @@
                 android:background="@drawable/edt_description"
                 android:fontFamily="@font/viga_regular"
                 android:gravity="top|left"
-                android:hint="Guarda aqui tus memorias"
+                android:hint="@string/TitleSabeMemoris"
                 android:padding="8dp"
                 android:textColorHighlight="@color/textfieldMost"
                 android:textSize="18sp"

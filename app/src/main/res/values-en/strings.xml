@@ -60,4 +60,8 @@
     <string name="notifyBubble">Bubble memory set</string>
     <string name="quitAdTitle">If you want to support me</string>
     <string name="removeBtn">SUPPORT</string>
+    <string name="TitleSabeAnswers">"Save your answers "</string>
+    <string name="TitleSabeQuestion">Save your questions</string>
+    <string name="TitleSabeMemoris">Save your memories here</string>
+    <string name="bgaviso">On some mobile devices, reminders may automatically stop to free up resources and improve device performance. If this happens, the reminder notification may disappear. If you experience this problem, please disable and enable the reminder again</string>
 </resources>

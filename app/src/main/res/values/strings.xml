@@ -2,6 +2,9 @@
     <string name="app_name">Memori</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="TitleSabeWords">Guarda tus palabras </string>
+    <string name="TitleSabeQuestion">Guarda tus preguntas</string>
+    <string name="TitleSabeAnswers">Guarda tus respuestas</string>
+    <string name="TitleSabeMemoris">Guarda aqui tus memorias</string>
     <string name="ContentSaveWords">Ingresa la palabra que deseas y luego su traducción. ¡Te la recordaremos cuando quieras!</string>
     <string name="textCampOrgSave">Ingresa tu pregunta</string>
     <string name="textCampTradSave">Ingresa tu respuesta</string>
@@ -72,5 +75,7 @@
     <string name="quitAdTitle">Si deseas apoyarme</string>
     <string name="removeBtn">APOYAR</string>
 
+    <string name="bgaviso">En algunos dispositivos móviles, los recordatorios pueden detenerse automáticamente para liberar recursos y mejorar el rendimiento del dispositivo. Si esto ocurre, puede que la notificación de recordatorio desaparezca.
+        Si experimenta este problema, por favor desactive y active el recordatorio nuevamente.</string>
 
 </resources>

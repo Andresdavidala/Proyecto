@@ -81,7 +81,7 @@ class SettingActivity : AppCompatActivity() {
         }
         fun showInterst(context: Context){
 //            Interstitial↓
-            if(contAds ==3){
+            if(contAds ==5){
 //            loadInterst(this)
                 mInterstitialAd?.show(Activity().parent)
                 loadListener(context)
@@ -660,6 +660,29 @@ class SettingActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
         }
+
+        //btnBG
+        binding.btnBG.setOnClickListener{
+            val customDialogView: View = LayoutInflater.from(this).inflate(R.layout.dialog_information, null)
+            val customDialog = AlertDialog.Builder(this)
+            customDialog.setView(customDialogView)
+            val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
+            val message = messagefind.setText(R.string.bgaviso)
+
+            customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
+            val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
+
+            val dialog = customDialog.create()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+
+        //↑
         //section bubble
         binding.switchBurbj.setOnCheckedChangeListener { _, isChecked ->
 

@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         fun showInterst(context: Context, activity: Activity){
 //            Interstitial↓
-        if(contAds == 3 ){
+        if(contAds == 6){
 //            loadInterst(this)
             mInterstitialAd?.show(activity)
             loadListener(context)
