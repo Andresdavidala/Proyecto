@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -78,16 +77,7 @@ class EvaWord : Fragment() {
           }
       }
 
-//        binding.wordTrad.setOnFocusChangeListener { v, hasFocus ->
-//            if(hasFocus){
-//                initInterstitial()
-//            }else{
-//                Log.d("Datos", "sal")
-//                adRequest= null
-//                interstitial = null
-//            }
-//        }
-//se crea un List de todas las palabras
+
         try{
             binding.wordTrad.hint = "Ingresa tu respuesta"
             openFile = activity?.openFileInput("myfile.txt")!!
@@ -118,22 +108,9 @@ class EvaWord : Fragment() {
 
                     //Interstitial
                     MainActivity.contAds += 1
-//                    count += 1
                     val editorCount = countShared.edit()
-//                    editorCount.putInt("valueCountEva", MainActivity.contAds).apply()
                     MainActivity.showInterst(requireContext(), requireActivity())
-//                    MainActivity.contAds = 0
                     editorCount.putInt("valueCountEva", MainActivity.contAds).apply()
-
-//                    if(MainActivity.contAds == 3){
-////                        initListener()
-//
-////                        mInterstitialAd?.show(requireActivity())
-////                        MainActivity.loadListener(requireContext())
-//
-//
-//                    }
-                    Log.d("datos", MainActivity.contAds.toString())
                 }else{
                     binding.evaWT.editText?.setText("")
                 }
@@ -170,52 +147,5 @@ class EvaWord : Fragment() {
         return wordReturn
     }
 
-//    //interstitial function
-//    private fun initInterstitial(){
-//        adRequest = AdRequest.Builder().build()
-//        InterstitialAd.load(requireActivity(), "ca-app-pub-3940256099942544/1033173712", adRequest!!, object: InterstitialAdLoadCallback(){
-//            override fun onAdLoaded(interst: InterstitialAd) {
-//                interstitial = interst
-//            }
-//
-//            override fun onAdFailedToLoad(intert: LoadAdError) {
-//                interstitial = null
-//                adRequest = null
-//                Log.d("datos", "no se cargo")
-//            }
-//
-//        })
-//    }
-//
-//    private fun showAds(){
-//        interstitial?.show(requireActivity())
-//    }
-//
-//    private fun checkCount(){
-//        showAds()
-//        initInterstitial()
-//        initListener()
-//    }
-//
-//    private fun initListener(){
-//        if(interstitial != null){
-//            interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
-//                override fun onAdDismissedFullScreenContent() {
-//                    interstitial = null
-//                    initInterstitial()
-//
-//                }
-//
-//                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-//                    interstitial = null
-//                }
-//
-//                override fun onAdShowedFullScreenContent() {
-//                }
-//            }
-//        }
-//
-//        this@EvaWord.activity?.let { interstitial?.show(it) }
-//    }
 
 }

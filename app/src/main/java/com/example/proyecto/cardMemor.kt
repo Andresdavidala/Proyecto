@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -122,8 +121,6 @@ class cardMemor : Fragment() {
 
                     MainActivity.showInterst(requireContext(), requireActivity())
                     editorCount.putInt("valueCountEva", MainActivity.contAds).apply()
-
-                    Log.d("datos", MainActivity.contAds.toString())
                 }
                 //guardar en un textfile integrado dentro de la app↓
 

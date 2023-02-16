@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
 //            loadInterst(this)
             mInterstitialAd?.show(activity)
             loadListener(context)
-            Log.d("datos", "mainact")
             contAds = 0
         }
         }

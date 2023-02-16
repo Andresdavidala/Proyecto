@@ -3,7 +3,6 @@ package com.example.proyecto
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -12,15 +11,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
-
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
-
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -68,7 +64,6 @@ class SettingActivity : AppCompatActivity() {
                     // Called when ad is dismissed.
                     mInterstitialAd = null
                     loadInterst(context)
-                    Log.d("datos", "charge")
                 }
 
                 override fun onAdFailedToShowFullScreenContent(p0: AdError) {
@@ -85,7 +80,6 @@ class SettingActivity : AppCompatActivity() {
 //            loadInterst(this)
                 mInterstitialAd?.show(Activity().parent)
                 loadListener(context)
-                Log.d("datos", "mainact")
                 contAds = 0
             }
         }

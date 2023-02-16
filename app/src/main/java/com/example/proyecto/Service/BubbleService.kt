@@ -26,12 +26,6 @@ import com.example.proyecto.R
 import com.example.proyecto.Recycler.DataWordsBase
 import com.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.SettingActivity
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
@@ -323,7 +317,6 @@ class BubbleService: Service() {
                     val editorCount = countShared.edit()
                     SettingActivity.showInterst(contextService)
                     editorCount.putInt("valueCountMemServ", SettingActivity.contAds).apply()
-                    Log.d("datos", SettingActivity.contAds.toString())
                 }
                 //guardar en un textfile integrado dentro de la app↓
 
