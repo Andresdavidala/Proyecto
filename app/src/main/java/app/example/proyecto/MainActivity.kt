@@ -1,4 +1,4 @@
-package com.example.proyecto
+package app.example.proyecto
 
 import android.app.Activity
 import android.content.Context
@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.proyecto.R
 import com.example.proyecto.databinding.ActivityMainBinding
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd

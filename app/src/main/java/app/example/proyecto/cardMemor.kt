@@ -1,6 +1,5 @@
-package com.example.proyecto
+package app.example.proyecto
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -18,36 +17,26 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.proyecto.Recycler.DataWordsBase
-import com.example.proyecto.Recycler.MemoriWords
-import com.example.proyecto.Recycler.dataWordProvider
-import com.example.proyecto.databinding.FragmentSaveWordsBinding
+import app.example.proyecto.Recycler.MemoriWords
+import app.example.proyecto.Recycler.dataWordProvider
+import com.example.proyecto.R
+import com.example.proyecto.databinding.FragmentCardMemorBinding
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
-
-class SaveWords : Fragment() {
-    private var _binding: FragmentSaveWordsBinding? = null
+class cardMemor : Fragment() {
+    private var _binding: FragmentCardMemorBinding?=null
     private val binding get() = _binding!!
 
-    private lateinit var outputWriter: OutputStreamWriter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         // Inflate the layout for this fragment
-        _binding = FragmentSaveWordsBinding.inflate(inflater, container, false)
-
-
+        _binding = FragmentCardMemorBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
- 
-
-    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,69 +44,34 @@ class SaveWords : Fragment() {
 
         val sharedPreferences = activity?.getSharedPreferences("preferences_name", Context.MODE_PRIVATE)
 
-
         //sharedP count Ads
         val countShared = activity?.getSharedPreferences("sharedCountEva", Context.MODE_PRIVATE)
         MainActivity.contAds = countShared!!.getInt("valueCountEva", MainActivity.contAds)
 
-        //Loading data to memorias
         dataWordProvider.memorisWords.clear()
-        activity?.openFileOutput("memorias.txt", Context.MODE_APPEND) //important
+        var txtFile = activity?.openFileOutput("memorias.txt", Context.MODE_APPEND) //important
 //
-        val openFileMem = activity?.openFileInput("memorias.txt")
-        val inputReaderMem = InputStreamReader(openFileMem)
-        val dataMem = inputReaderMem.readText().trimEnd()
-        val datatoListMem = dataMem.split("☼ ")
-        var contWordMem = 0
-//        initAds()
-        if (dataMem.isNotEmpty()) {
-            for (i in datatoListMem.indices) {
-
-                dataWordProvider.memorisWords.add(
-                    MemoriWords(
-                        datatoListMem[contWordMem]
-                    )
-                )
-
-                contWordMem += 1
-
-            }
-        }
-        //↑
-
-        dataWordProvider.dataWords.clear()
-        var txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_APPEND) //important
-//
-        val openFile = activity?.openFileInput("myfile.txt")
+        val openFile = activity?.openFileInput("memorias.txt")
         val inputReader = InputStreamReader(openFile)
         val data = inputReader.readText().trimEnd()
         val datatoList = data.split("☼ ")
 
         var contWord = 0
 
-        if (data.isNotEmpty()) {
-            for (i in datatoList.indices step 2) {
 
-                dataWordProvider.dataWords.add(
-                    DataWordsBase(
-                        datatoList[contWord],
-                        datatoList[contWord + 1]
-                    )
-                )
-
-                contWord += 2
-
-            }
-        }
+//
+//        initAds()
 
 
+        //↑
 
-        binding.btnSHelp.setOnClickListener {
+        binding.btnMHelp.setOnClickListener {
+            //customDialog
             val customDialogView: View = LayoutInflater.from(context).inflate(R.layout.dialog_information, null)
             val customDialog = AlertDialog.Builder(context)
             customDialog.setView(customDialogView)
             val messagefind = customDialogView.findViewById<TextView>(R.id.tvInformation)
-            val message = messagefind.setText(R.string.helpSave)
+            val message = messagefind.setText(R.string.helpCard)
 
             customDialog.setMessage(message.toString().replace("kotlin.Unit", ""))
             val cancelBtn = customDialogView.findViewById<ImageView>(R.id.btnClose)
@@ -132,51 +86,63 @@ class SaveWords : Fragment() {
             }
         }
 
+        if (data.isNotEmpty()) {
+            for (i in datatoList.indices) {
+
+                dataWordProvider.memorisWords.add(
+                    MemoriWords(
+                        datatoList[contWord]
+                    )
+                )
+
+                contWord += 1
+
+            }
+        }
+
         fun Fragment.hideKeyboard() {
             view.let { activity?.hideKeyboard(it) }
         }
+
         fun saveWord(){
-            val campoWordOrg = binding.wordOrg.text.toString().trim()
-            val campoWordTrad = binding.wordTrad.text.toString().trim()
+            val campoMem = binding.etmemoris.text.toString().trim()
+
             try {
 
-                if(binding.wordOrg.text?.isEmpty()==true || binding.wordTrad.text?.isEmpty()==true || TextUtils.isEmpty(campoWordOrg) || TextUtils.isEmpty(campoWordTrad)){
-                    Toast.makeText(context, R.string.toastSave, Toast.LENGTH_SHORT).show()
+                if(binding.etmemoris.text?.isEmpty()==true || TextUtils.isEmpty(campoMem) ){
+                    Toast.makeText(context, R.string.toastCard, Toast.LENGTH_SHORT).show()
                 }else {
-                    dataWordProvider.dataWords.add(DataWordsBase(campoWordOrg, campoWordTrad))
-                    Toast.makeText(context, R.string.toastsave2, Toast.LENGTH_SHORT)
+                    dataWordProvider.memorisWords.add(MemoriWords(campoMem))
+                    Toast.makeText(context, R.string.toastcard2, Toast.LENGTH_SHORT)
                         .show()
-                    binding.wordOrg.setText("")
-                    binding.wordTrad.setText("")
+                    binding.etmemoris.setText("")
 
-                    //Interstitial
                     MainActivity.contAds += 1
                     val editorCount = countShared.edit()
 
                     MainActivity.showInterst(requireContext(), requireActivity())
                     editorCount.putInt("valueCountEva", MainActivity.contAds).apply()
-
-
                 }
                 //guardar en un textfile integrado dentro de la app↓
 
-                txtFile = activity?.openFileOutput("myfile.txt", Context.MODE_PRIVATE)
-                outputWriter = OutputStreamWriter(txtFile)
+                txtFile = activity?.openFileOutput("memorias.txt", Context.MODE_PRIVATE)
+                val outputWriter = OutputStreamWriter(txtFile)
 
                 //escritura de datos ↓
 
-                for (i in dataWordProvider.dataWords.indices) {
-                    outputWriter.write("${dataWordProvider.dataWords[i].wordOrg.trim()}☼ ")
-                    outputWriter.write("${dataWordProvider.dataWords[i].wordTrad.trim()}☼ ")
-
-
+                for (i in dataWordProvider.memorisWords.indices) {
+                    outputWriter.write("${dataWordProvider.memorisWords[i].memorias.trim()}☼ ")
                 }
 
-//                outputWriter.flush()
-//                outputWriter.close()
+                outputWriter.flush()
+                outputWriter.close()
+                txtFile?.close()
 
                 hideKeyboard()
-                binding.wordOrg.clearFocus()
+                binding.etmemoris.clearFocus()
+
+
+
 
 
 
@@ -185,41 +151,24 @@ class SaveWords : Fragment() {
             } catch (e: java.lang.Exception) {
                 Toast.makeText(context, "Something Wrong", Toast.LENGTH_SHORT).show()
 
-            }finally {
-                outputWriter.flush()
-                outputWriter.close()
-                txtFile?.close()
             }
+
         }
-        binding.btnSaveWord.setOnClickListener {
+        binding.btnSaveMem.setOnClickListener {
             saveWord()
-
-
         }
-
-
-        binding.wordTrad.setOnEditorActionListener { v, actionId, event ->
+        binding.etmemoris.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 saveWord()
 
             }
             false
         }
-
-
     }
-//    override fun onDestroy() {
-//        super.onDestroy()
-//
-//        // Cerrar el archivo y liberar el recurso
-//        outputWriter.flush()
-//        outputWriter.close()
-//    }
-
     private fun Context.hideKeyboard(view: View) {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-        binding.wordOrg.requestFocus()
+        binding.etmemoris.requestFocus()
     }
 
     //interstitial function
@@ -246,26 +195,21 @@ class SaveWords : Fragment() {
 //        initInterstitial()
 //        initListener()
 //    }
-//
 //    private fun initListener(){
-//        if(interstitial != null){
-//            interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
-//                override fun onAdDismissedFullScreenContent() {
-//                    interstitial = null
-//                    initInterstitial()
+//        interstitial?.fullScreenContentCallback = object: FullScreenContentCallback(){
+//            override fun onAdDismissedFullScreenContent() {
+//                interstitial = null
 //
-//                }
+//            }
 //
-//                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-//                    interstitial = null
-//                }
+//            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+//                interstitial = null
+//            }
 //
-//                override fun onAdShowedFullScreenContent() {
-//                }
+//            override fun onAdShowedFullScreenContent() {
+//                interstitial = null
 //            }
 //        }
-//
-//        this@SaveWords.activity?.let { interstitial?.show(it) }
 //    }
 //
 //    override fun onDestroy() {

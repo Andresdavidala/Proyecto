@@ -1,4 +1,4 @@
-package com.example.proyecto
+package app.example.proyecto
 
 import android.app.AlertDialog
 import android.content.Context
@@ -15,9 +15,10 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.proyecto.Recycler.Customer.CustomAdapterMemorias
-import com.example.proyecto.Recycler.Customer.CustomerAdapter
-import com.example.proyecto.Recycler.dataWordProvider
+import app.example.proyecto.Recycler.Customer.CustomAdapterMemorias
+import app.example.proyecto.Recycler.Customer.CustomerAdapter
+import app.example.proyecto.Recycler.dataWordProvider
+import com.example.proyecto.R
 import com.example.proyecto.databinding.FragmentListWordsBinding
 import java.io.OutputStreamWriter
 
@@ -213,14 +214,14 @@ class listWords : Fragment() {
     }
 
     private fun initRecyclerMemorisView(){
-        adapterMemoris = CustomAdapterMemorias(dataWordProvider.memorisWords,{position -> onDeletMemoris(position)}, requireContext())
+        adapterMemoris = CustomAdapterMemorias(dataWordProvider.memorisWords,{ position -> onDeletMemoris(position)}, requireContext())
         val recyclerView = binding.rvMemorias
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapterMemoris
     }
     private fun iniRecyclerView(){
 
-        adapter = CustomerAdapter(dataWordProvider.dataWords,{position -> onDeleteWord(position)}, requireContext())
+        adapter = CustomerAdapter(dataWordProvider.dataWords,{ position -> onDeleteWord(position)}, requireContext())
         val recyclerView= binding.rvDataList
 
         recyclerView.layoutManager = LinearLayoutManager(context)

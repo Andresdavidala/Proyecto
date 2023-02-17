@@ -1,4 +1,4 @@
-package com.example.proyecto.Recycler
+package app.example.proyecto.Recycler
 
 class dataWordProvider {
     companion object{

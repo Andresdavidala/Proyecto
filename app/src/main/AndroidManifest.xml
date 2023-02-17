@@ -19,7 +19,7 @@
         android:theme="@style/Theme.Proyecto"
         tools:targetApi="31">
         <activity
-            android:name=".SettingActivity"
+            android:name="app.example.proyecto.SettingActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data
@@ -27,7 +27,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="app.example.proyecto.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -42,19 +42,19 @@
         </activity>
 
         <service
-            android:name=".Service.FloatingWindow"
+            android:name="app.example.proyecto.Service.FloatingWindow"
             tools:ignore="Instantiatable" />
         <service
-            android:name=".Service.ToastService"
+            android:name="app.example.proyecto.Service.ToastService"
             android:foregroundServiceType="dataSync" />
         <service
-            android:name=".Service.BubbleService"
+            android:name="app.example.proyecto.Service.BubbleService"
             android:foregroundServiceType="dataSync" />
         <service
-            android:name=".Service.memoriasService"
+            android:name="app.example.proyecto.Service.memoriasService"
             android:foregroundServiceType="dataSync" />
         <service
-            android:name=".Service.MemoriaSaveService"
+            android:name="app.example.proyecto.Service.MemoriaSaveService"
             android:foregroundServiceType="dataSync" />
 
         <meta-data

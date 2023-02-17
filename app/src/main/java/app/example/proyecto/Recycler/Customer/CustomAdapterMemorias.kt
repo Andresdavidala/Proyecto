@@ -1,4 +1,4 @@
-package com.example.proyecto.Recycler.Customer
+package app.example.proyecto.Recycler.Customer
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -13,10 +13,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.os.HandlerCompat.postDelayed
 import androidx.recyclerview.widget.RecyclerView
-import com.example.proyecto.MainActivity
+import app.example.proyecto.MainActivity
 import com.example.proyecto.R
-import com.example.proyecto.Recycler.MemoriWords
-import com.example.proyecto.Recycler.dataWordProvider
+import app.example.proyecto.Recycler.MemoriWords
+import app.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordmemorirecyclerBinding
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
@@ -28,12 +28,12 @@ class CustomAdapterMemorias(private var wordsDataList:List<MemoriWords>, private
 
 
     //↑
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomAdapterMemorias.vhDataList {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): vhDataList {
         val dataLayout =LayoutInflater.from(parent.context)
         return vhDataList(dataLayout.inflate(R.layout.wordmemorirecycler, parent, false))
     }
 
-    override fun onBindViewHolder(holder: CustomAdapterMemorias.vhDataList, position: Int) {
+    override fun onBindViewHolder(holder: vhDataList, position: Int) {
         val dataListPosition = wordsDataList[position]
         holder.renderData(dataListPosition, onClickDelete, fileContext)
     }

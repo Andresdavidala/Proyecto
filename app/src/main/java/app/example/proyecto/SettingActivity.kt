@@ -1,4 +1,4 @@
-package com.example.proyecto
+package app.example.proyecto
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -20,8 +20,9 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.example.proyecto.Recycler.dataWordProvider
-import com.example.proyecto.Service.*
+import app.example.proyecto.Recycler.dataWordProvider
+import app.example.proyecto.Service.*
+import com.example.proyecto.R
 import com.example.proyecto.databinding.ActivitySettingBinding
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -156,7 +157,7 @@ class SettingActivity : AppCompatActivity() {
         val buttonTextToast = getSharedPreferences("buttonEstTextToast", MODE_PRIVATE)
         binding.btnEstablecer.text = buttonTextToast!!.getString(
             "btnETextToastSP",
-            getText(    R.string.btnEstablecer).toString()
+            getText(R.string.btnEstablecer).toString()
         )
 
 

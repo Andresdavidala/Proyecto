@@ -1,4 +1,4 @@
-package com.example.proyecto.Recycler.Customer
+package app.example.proyecto.Recycler.Customer
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -12,10 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
-import com.example.proyecto.MainActivity
+import app.example.proyecto.MainActivity
 import com.example.proyecto.R
-import com.example.proyecto.Recycler.DataWordsBase
-import com.example.proyecto.Recycler.dataWordProvider
+import app.example.proyecto.Recycler.DataWordsBase
+import app.example.proyecto.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordslistrecyclerviewBinding
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter

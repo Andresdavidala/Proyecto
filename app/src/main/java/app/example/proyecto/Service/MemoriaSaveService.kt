@@ -1,4 +1,4 @@
-package com.example.proyecto.Service
+package app.example.proyecto.Service
 
 import android.annotation.SuppressLint
 import android.app.*
@@ -22,9 +22,9 @@ import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
 import com.example.proyecto.R
-import com.example.proyecto.Recycler.MemoriWords
-import com.example.proyecto.Recycler.dataWordProvider
-import com.example.proyecto.SettingActivity
+import app.example.proyecto.Recycler.MemoriWords
+import app.example.proyecto.Recycler.dataWordProvider
+import app.example.proyecto.SettingActivity
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
