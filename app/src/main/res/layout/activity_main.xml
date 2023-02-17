@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1d2021"
-    tools:context="app.example.proyecto.MainActivity">
+    tools:context="app.introduce.memori.MainActivity">
 
     <View
         android:id="@+id/view"

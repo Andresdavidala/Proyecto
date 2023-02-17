@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primarioNeg"
-    tools:context="app.example.proyecto.SettingActivity">
+    tools:context="app.introduce.memori.SettingActivity">
 
     <ImageView
         android:id="@+id/btnBack"

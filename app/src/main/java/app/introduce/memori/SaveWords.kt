@@ -1,4 +1,4 @@
-package app.example.proyecto
+package app.introduce.memori
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -18,9 +18,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import app.example.proyecto.Recycler.DataWordsBase
-import app.example.proyecto.Recycler.MemoriWords
-import app.example.proyecto.Recycler.dataWordProvider
+import app.introduce.memori.Recycler.DataWordsBase
+import app.introduce.memori.Recycler.MemoriWords
+import app.introduce.memori.Recycler.dataWordProvider
 import com.example.proyecto.R
 import com.example.proyecto.databinding.FragmentSaveWordsBinding
 import java.io.InputStreamReader

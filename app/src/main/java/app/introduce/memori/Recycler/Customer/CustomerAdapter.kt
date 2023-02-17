@@ -1,7 +1,6 @@
-package app.example.proyecto.Recycler.Customer
+package app.introduce.memori.Recycler.Customer
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
@@ -12,10 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
-import app.example.proyecto.MainActivity
+import app.introduce.memori.MainActivity
 import com.example.proyecto.R
-import app.example.proyecto.Recycler.DataWordsBase
-import app.example.proyecto.Recycler.dataWordProvider
+import app.introduce.memori.Recycler.DataWordsBase
+import app.introduce.memori.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordslistrecyclerviewBinding
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter

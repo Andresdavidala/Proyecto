@@ -1,4 +1,4 @@
-package app.example.proyecto
+package app.introduce.memori
 
 import org.junit.Test
 

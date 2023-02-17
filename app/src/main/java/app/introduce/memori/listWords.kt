@@ -1,4 +1,4 @@
-package app.example.proyecto
+package app.introduce.memori
 
 import android.app.AlertDialog
 import android.content.Context
@@ -15,9 +15,9 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import app.example.proyecto.Recycler.Customer.CustomAdapterMemorias
-import app.example.proyecto.Recycler.Customer.CustomerAdapter
-import app.example.proyecto.Recycler.dataWordProvider
+import app.introduce.memori.Recycler.Customer.CustomAdapterMemorias
+import app.introduce.memori.Recycler.Customer.CustomerAdapter
+import app.introduce.memori.Recycler.dataWordProvider
 import com.example.proyecto.R
 import com.example.proyecto.databinding.FragmentListWordsBinding
 import java.io.OutputStreamWriter

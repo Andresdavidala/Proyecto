@@ -1,22 +1,19 @@
-package app.example.proyecto.Recycler.Customer
+package app.introduce.memori.Recycler.Customer
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.core.os.HandlerCompat.postDelayed
 import androidx.recyclerview.widget.RecyclerView
-import app.example.proyecto.MainActivity
 import com.example.proyecto.R
-import app.example.proyecto.Recycler.MemoriWords
-import app.example.proyecto.Recycler.dataWordProvider
+import app.introduce.memori.Recycler.MemoriWords
+import app.introduce.memori.Recycler.dataWordProvider
 import com.example.proyecto.databinding.WordmemorirecyclerBinding
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter

@@ -1,4 +1,4 @@
-package app.example.proyecto
+package app.introduce.memori
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -20,8 +20,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import app.example.proyecto.Recycler.dataWordProvider
-import app.example.proyecto.Service.*
+import app.introduce.memori.Recycler.dataWordProvider
+import app.introduce.memori.Service.*
 import com.example.proyecto.R
 import com.example.proyecto.databinding.ActivitySettingBinding
 import com.google.android.gms.ads.AdError

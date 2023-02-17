@@ -1,4 +1,4 @@
-package app.example.proyecto.Service
+package app.introduce.memori.Service
 
 import android.annotation.SuppressLint
 import android.app.*
@@ -21,9 +21,9 @@ import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
 import com.example.proyecto.R
-import app.example.proyecto.Recycler.MemoriWords
-import app.example.proyecto.Recycler.dataWordProvider
-import app.example.proyecto.SettingActivity
+import app.introduce.memori.Recycler.MemoriWords
+import app.introduce.memori.Recycler.dataWordProvider
+import app.introduce.memori.SettingActivity
 import kotlin.properties.Delegates
 
 class memoriasService: Service() {

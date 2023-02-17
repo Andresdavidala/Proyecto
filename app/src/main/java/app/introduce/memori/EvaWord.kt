@@ -1,4 +1,4 @@
-package app.example.proyecto
+package app.introduce.memori
 
 import android.app.AlertDialog
 import android.content.Context
@@ -15,8 +15,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.proyecto.R
-import app.example.proyecto.Recycler.DataWordsBase
-import app.example.proyecto.Recycler.dataWordProvider
+import app.introduce.memori.Recycler.DataWordsBase
+import app.introduce.memori.Recycler.dataWordProvider
 import com.example.proyecto.databinding.FragmentEvaWordBinding
 import java.io.FileInputStream
 import java.io.InputStreamReader
